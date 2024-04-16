@@ -1,4 +1,3 @@
-import { Button, Input } from '@/components/ui'
 import { ROUTES_ADMIN } from '@/config/routes'
 import { useSidebarActive } from '@/contexts/sidebarActive'
 import { useEffect } from 'react'
@@ -12,9 +11,7 @@ function Dashboard() {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <Button>Click</Button>
-      <Input />
+      <h1 className="text-3xl">Dashboard</h1>
     </>
   )
 }

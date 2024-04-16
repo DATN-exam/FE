@@ -58,7 +58,7 @@ function Login() {
       <form onSubmit={handleSubmit(login)} className="w-full max-w-sm">
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl">Đăng nhập</CardTitle>
+            <CardTitle className="text-2xl">Đăng nhập Admin</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-6">
             <Input

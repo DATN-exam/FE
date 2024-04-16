@@ -19,3 +19,14 @@ export const DEFAULT_PAGINATION_OBJECT = {
   from: 0,
   to: 0,
 }
+
+export const DATE_FORMAT = {
+  DATE_DASH: 'yyyy-MM-dd',
+  DATE_SLASH: 'yyyy/MM/dd',
+}
+
+export const ROLE = {
+  ADMIN: 'ADMIN',
+  STUDENT: 'STUDENT',
+  TEACHER: 'TEACHER',
+}

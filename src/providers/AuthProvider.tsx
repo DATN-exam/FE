@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
-import { AuthAdminContext } from '@/contexts/authAdmin'
-import authService from '@/services/admin/authService'
+import { AuthContext } from '@/contexts/auth'
+import authService from '@/services/site/authService'
 import state from '@/utils/localStorage'
 import apiClient from '@/services/admin'
 import { AuthProviderProps, LoginPayloads, TAuthAdminProfile } from '@/types'
 
-const AuthAdminProvider = (props: AuthProviderProps) => {
+const AuthProvider = (props: AuthProviderProps) => {
   const { children } = props
-  const [authToken, setAuthToken] = useState<string | null>(state.getState('access_token_admin'))
+  const [authToken, setAuthToken] = useState<string | null>(state.getState('access_token'))
   const [authProfile, setAuthProfile] = useState<TAuthAdminProfile | null>(
-    state.getState('user_profile_admin'),
+    state.getState('user_profile'),
   )
 
   // Login
@@ -68,18 +68,18 @@ const AuthAdminProvider = (props: AuthProviderProps) => {
 
   useEffect(() => {
     if (authToken) {
-      state.setState('access_token_admin', authToken)
+      state.setState('access_token', authToken)
       getProfile()
     } else {
-      state.removeState('access_token_admin')
+      state.removeState('access_token')
     }
   }, [authToken])
 
   useEffect(() => {
     if (authProfile) {
-      state.setState('user_profile_admin', authProfile)
+      state.setState('user_profile', authProfile)
     } else {
-      state.removeState('user_profile_admin')
+      state.removeState('user_profile')
     }
   }, [authProfile])
 
@@ -94,7 +94,7 @@ const AuthAdminProvider = (props: AuthProviderProps) => {
     [authToken],
   )
 
-  return <AuthAdminContext.Provider value={contextValue}>{children}</AuthAdminContext.Provider>
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }
 
-export default AuthAdminProvider
+export default AuthProvider
