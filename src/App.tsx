@@ -4,6 +4,7 @@ import { LoadingOverlay } from './components/ui'
 import LoadingProvider from './providers/LoadingProvider'
 import SidebarActiveProvider from './providers/SidebarActiveProvider'
 import AuthAdminProvider from './providers/AuthAdminProvider'
+import AuthProvider from './providers/AuthProvider'
 
 function App() {
   return (
@@ -11,9 +12,11 @@ function App() {
       <LoadingProvider>
         <SidebarActiveProvider>
           <AuthAdminProvider>
-            <Suspense fallback={<LoadingOverlay open />}>
-              <Routes />
-            </Suspense>
+            <AuthProvider>
+              <Suspense fallback={<LoadingOverlay open />}>
+                <Routes />
+              </Suspense>
+            </AuthProvider>
           </AuthAdminProvider>
         </SidebarActiveProvider>
       </LoadingProvider>

@@ -1,6 +1,6 @@
 export const ROUTES_ADMIN = {
   AUTH: {
-    LOGIN: 'admin/auth/login',
+    LOGIN: '/admin/auth/login',
   },
   HOME: '/admin',
   DASHBOARD: '/admin/dashboard',
@@ -10,5 +10,9 @@ export const ROUTES_ADMIN = {
 }
 
 export const ROUTES_SITE = {
+  AUTH: {
+    LOGIN: '/auth/login',
+    REGISTER: '/auth/register',
+  },
   HOME: '/',
 }
