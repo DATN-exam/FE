@@ -2,6 +2,7 @@ import {
   ComponentPropsWithoutRef,
   InputHTMLAttributes,
   MutableRefObject,
+  ReactNode,
   SelectHTMLAttributes,
 } from 'react'
 import { SelectSingleEventHandler } from 'react-day-picker'
@@ -71,3 +72,11 @@ export type SelectProps = {
   zeroValueText?: string
   options?: TListOption[] | []
 } & SelectHTMLAttributes<HTMLSelectElement>
+
+export type ModalProps = {
+  show: boolean
+  children: ReactNode
+  className?: string
+  close: () => void
+  afterLeave?: () => void
+}

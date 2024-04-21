@@ -22,7 +22,7 @@ const LoadingProvider = (props: LoadingProviderProps) => {
 
   useEffect(() => {
     if (bodyRef.current) {
-      bodyRef.current.style.pointerEvents = loading ? 'none' : 'auto'
+      bodyRef.current.style.pointerEvents = loading ? 'none !important' : 'auto'
     }
   }, [loading])
 

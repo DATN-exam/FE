@@ -22,3 +22,7 @@ export type TeacherSearchFormProps = {
   onReset?: () => void
   onSearch?: () => void
 }
+
+export type UpdateTeacherStatusPayloads = {
+  reason: string
+}
