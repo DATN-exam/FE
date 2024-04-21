@@ -12,7 +12,7 @@ import authService from '@/services/site/authService'
 import { useLoading } from '@/contexts/loading'
 import { setErrorForInput } from '@/utils/handleErrors'
 
-const defaultValues = {
+const defaultValues: RegisterPayloads = {
   first_name: '',
   last_name: '',
   dob: '',

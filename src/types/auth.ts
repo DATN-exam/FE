@@ -22,4 +22,9 @@ export type RegisterPayloads = {
   dob: string | null
   email: string | null
   password: string | null
+  password_confirm: string | null
+}
+
+export type VerifyPayload = {
+  token: string | null
 }

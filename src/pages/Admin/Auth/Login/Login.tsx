@@ -7,16 +7,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Checkbox,
 } from '@/components/ui'
 import { useAuthAdmin } from '@/contexts/authAdmin'
 import { useLoading } from '@/contexts/loading'
 import useHandleError from '@/hooks/useHandleError'
 import { LoginPayloads } from '@/types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES_ADMIN } from '@/config/routes'
+import { setErrorForInput } from '@/utils/handleErrors'
 
-const defaultValues = {
+const defaultValues: LoginPayloads = {
   email: '',
   password: '',
 }
@@ -25,27 +27,33 @@ function Login() {
   const { showLoading, hideLoading } = useLoading()
   const { authToken, authLogin } = useAuthAdmin()
   const { handleResponseError } = useHandleError()
+  const [isShowPassword, setIsShowPassword] = useState(false)
   const navigate = useNavigate()
-
-  const login: SubmitHandler<LoginPayloads> = data => {
-    showLoading()
-    authLogin(data)
-      .catch((err: any) => {
-        handleResponseError(err)
-      })
-      .finally(() => {
-        hideLoading()
-      })
-  }
 
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: defaultValues,
   })
   const { email: emailError, password: passwordError } = errors
+
+  const login: SubmitHandler<LoginPayloads> = data => {
+    showLoading()
+    authLogin(data)
+      .catch((err: any) => {
+        if (err.response.status == 422) {
+          setErrorForInput(err, setError)
+        } else {
+          handleResponseError(err)
+        }
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
 
   useEffect(() => {
     if (authToken) {
@@ -60,7 +68,7 @@ function Login() {
           <CardHeader>
             <CardTitle className="text-2xl">Đăng nhập Admin</CardTitle>
           </CardHeader>
-          <CardContent className="grid gap-6">
+          <CardContent className="grid space-y-6">
             <Input
               type="email"
               placeholder="m@example.com"
@@ -70,12 +78,20 @@ function Login() {
               error={emailError}
             />
             <Input
-              type="password"
+              type={`${isShowPassword ? 'text' : 'password'}`}
               label="Mật khẩu"
               name="password"
               control={control}
               error={passwordError}
             />
+            <div className="flex justify-between !mt-2">
+              <Checkbox
+                label="Hiển thị mật khẩu"
+                name="show-password"
+                checked={isShowPassword}
+                onCheckedChange={checked => setIsShowPassword(!!checked)}
+              />
+            </div>
           </CardContent>
           <CardFooter>
             <Button className="w-full">Đăng nhập</Button>

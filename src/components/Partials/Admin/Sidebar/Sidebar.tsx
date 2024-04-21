@@ -4,6 +4,7 @@ import { useSidebarActive } from '@/contexts/sidebarActive'
 import { useLoading } from '@/contexts/loading'
 import { SidebarProps } from '@/types/admin'
 import { useAuthAdmin } from '@/contexts/authAdmin'
+import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
   {
@@ -11,6 +12,18 @@ const NAV_ITEMS = [
     icon: 'fa-light fa-gauge-max',
     iconActive: 'fa-solid fa-gauge-max',
     text: 'Dashboard',
+  },
+  {
+    to: ROUTES_ADMIN.TEACHER,
+    icon: 'fa-light fa-chalkboard-user',
+    iconActive: 'fa-solid fa-chalkboard-user',
+    text: 'Giáo viên',
+  },
+  {
+    to: '#',
+    icon: 'fa-light fa-graduation-cap',
+    iconActive: 'fa-solid fa-graduation-cap',
+    text: 'Học sinh',
   },
 ]
 
@@ -44,12 +57,12 @@ const Sidebar = (props: SidebarProps) => {
           const isActive = sidebarActive == item.to
           const linkClassName = isActive
             ? 'bg-secondary text-secondary-foreground'
-            : 'text-primary-foreground hover:bg-secondary hover:text-secondary-foreground'
+            : 'text-primary-foreground hover:bg-secondary/50 hover:text-secondary-foreground'
           return (
             <li key={index}>
               <Link
                 to={item.to}
-                className={`flex items-center gap-3 text-md px-4 py-2.5 rounded ${linkClassName}`}
+                className={cn('flex items-center gap-3 text-md px-4 py-2.5 rounded', linkClassName)}
                 onClick={() => hideSidebar()}
               >
                 <div className="flex justify-center items-center text-xl w-7">
@@ -63,7 +76,7 @@ const Sidebar = (props: SidebarProps) => {
         <li>
           <button
             type="button"
-            className="flex w-full items-center gap-3 text-md px-4 py-2.5 rounded text-primary-foreground hover:bg-secondary hover:text-secondary-foreground"
+            className="flex w-full items-center gap-3 text-md px-4 py-2.5 rounded text-primary-foreground hover:bg-secondary/50 hover:text-secondary-foreground"
             onClick={logout}
           >
             <div className="flex justify-center items-center text-xl w-7">

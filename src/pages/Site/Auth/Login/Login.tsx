@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Input, Button, Checkbox } from '@/components/ui'
+import { Input, Button, Checkbox, Toast } from '@/components/ui'
 import { useAuth } from '@/contexts/auth'
 import { useLoading } from '@/contexts/loading'
 import { LoginPayloads } from '@/types'
@@ -8,17 +8,29 @@ import { Link } from 'react-router-dom'
 import { ROUTES_SITE } from '@/config/routes'
 import { useState } from 'react'
 import useHandleError from '@/hooks/useHandleError'
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
-const defaultValues = {
+const defaultValues: LoginPayloads = {
   email: '',
   password: '',
 }
 
 function Login() {
   const { showLoading, hideLoading } = useLoading()
-  const { authLogin } = useAuth()
+  const { authLogin, authLoginWithGoogle } = useAuth()
   const { handleResponseError } = useHandleError()
   const [isShowPassword, setIsShowPassword] = useState(false)
+
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: defaultValues,
+  })
+  const { email: emailError, password: passwordError } = errors
 
   const login: SubmitHandler<LoginPayloads> = data => {
     showLoading()
@@ -35,15 +47,21 @@ function Login() {
       })
   }
 
-  const {
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm({
-    defaultValues: defaultValues,
-  })
-  const { email: emailError, password: passwordError } = errors
+  const loginWithGoogle = (token: string) => {
+    if (!token) {
+      Toast.error('Đăng nhập thất bại')
+      return
+    }
+    showLoading()
+    const dataDecoded = jwtDecode<any>(token)
+    authLoginWithGoogle(dataDecoded)
+      .catch((err: any) => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
 
   return (
     <form onSubmit={handleSubmit(login)}>
@@ -78,9 +96,18 @@ function Login() {
         <Button type="submit" className="w-full">
           Đăng nhập
         </Button>
-        <Button type="submit" className="w-full !mt-3" variant="outline">
-          Đăng nhập với Google
-        </Button>
+        <div className="!mt-3">
+          <GoogleLogin
+            size="large"
+            width="350px"
+            onSuccess={credentialResponse => {
+              loginWithGoogle(credentialResponse?.credential ?? '')
+            }}
+            onError={() => {
+              console.log('Login Failed')
+            }}
+          />
+        </div>
         <div className="text-center text-sm">
           Chưa có tài khoản?{' '}
           <Link to={ROUTES_SITE.AUTH.REGISTER} className="underline">
