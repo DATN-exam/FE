@@ -1,4 +1,4 @@
-import { LoginPayloads, RegisterPayloads } from '@/types'
+import { LoginPayloads, RegisterPayloads, VerifyPayload } from '@/types'
 import apiClient from './index'
 
 const authService = {
@@ -17,6 +17,14 @@ const authService = {
   },
   async register(payloads: RegisterPayloads) {
     const { data } = await apiClient.post(`${this.path}/register`, payloads)
+    return data
+  },
+  async verify(payloads: VerifyPayload) {
+    const { data } = await apiClient.post(`${this.path}/verify`, payloads)
+    return data
+  },
+  async loginWithGoogle(payloads: any) {
+    const { data } = await apiClient.post(`${this.path}/google/callback`, payloads)
     return data
   },
 }

@@ -1,4 +1,9 @@
-import { DetailedHTMLProps, InputHTMLAttributes, MutableRefObject } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  InputHTMLAttributes,
+  MutableRefObject,
+  SelectHTMLAttributes,
+} from 'react'
 import { SelectSingleEventHandler } from 'react-day-picker'
 import { Control, FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
@@ -9,7 +14,7 @@ export type LoadingOverlayProps = {
 
 export type BaseInputProps = {
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
-} & React.InputHTMLAttributes<HTMLInputElement>
+} & InputHTMLAttributes<HTMLInputElement>
 
 export type InputProps = {
   label?: string
@@ -19,7 +24,7 @@ export type InputProps = {
   className?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
   ref?: MutableRefObject<HTMLInputElement | null>
-} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+} & InputHTMLAttributes<HTMLInputElement>
 
 export type DatePickerProps = {
   label?: string
@@ -41,4 +46,28 @@ export type CheckboxProps = {
   name?: string
   disabled?: boolean
   ref?: MutableRefObject<HTMLButtonElement | null>
-} & React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
+} & ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
+
+export type TListOption = {
+  id?: string | number
+  name?: string
+  value?: string | number
+}
+
+export type BaseSelectProps = {
+  zeroValueText?: string
+  options?: TListOption[] | []
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+} & SelectHTMLAttributes<HTMLSelectElement>
+
+export type SelectProps = {
+  label?: string
+  control?: Control<any, any>
+  classNameLayout?: string
+  classNameLabel?: string
+  className?: string
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+  ref?: MutableRefObject<HTMLSelectElement | null>
+  zeroValueText?: string
+  options?: TListOption[] | []
+} & SelectHTMLAttributes<HTMLSelectElement>

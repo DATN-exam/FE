@@ -22,6 +22,16 @@ const AuthProvider = (props: AuthProviderProps) => {
     }
   }
 
+  // Login with google
+  const authLoginWithGoogle = async (data: any) => {
+    try {
+      const response = await authService.loginWithGoogle(data)
+      setAuthToken(response.access_token)
+    } catch (err) {
+      return Promise.reject(err)
+    }
+  }
+
   // Logout
   const authLogout = async () => {
     try {
@@ -88,6 +98,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       authToken,
       authProfile,
       authLogin,
+      authLoginWithGoogle,
       authLogout,
       authRemove,
     }),
