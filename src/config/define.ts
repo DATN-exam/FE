@@ -37,25 +37,32 @@ export const AUTH_VERIFY_STATUS = {
   VERIFIED: 'verified',
 }
 
-export const TEACHER_STATUS_LIST = [
+export enum TeacherStatus {
+  WaitVerify = 'WAIT_VERIFY',
+  Active = 'ACTIVE',
+  Block = 'BLOCK',
+  AdminBlock = 'ADMIN_BLOCK',
+}
+
+export const TEACHER_STATUS_LIST_OPTIONS = [
   {
     id: 1,
     name: 'Chờ xác nhận',
-    value: 'WAIT_VERIFY',
+    value: TeacherStatus.WaitVerify,
   },
   {
     id: 2,
     name: 'Đang hoạt động',
-    value: 'ACTIVE',
+    value: TeacherStatus.Active,
   },
   {
     id: 3,
     name: 'Riêng tư',
-    value: 'BLOCK',
+    value: TeacherStatus.Block,
   },
   {
     id: 4,
     name: 'Bị khóa',
-    value: 'ADMIN_BLOCK',
+    value: TeacherStatus.AdminBlock,
   },
 ]

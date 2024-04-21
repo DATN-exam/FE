@@ -1,5 +1,5 @@
 import { Button, Input, Select } from '@/components/ui'
-import { TEACHER_STATUS_LIST } from '@/config/define'
+import { TEACHER_STATUS_LIST_OPTIONS } from '@/config/define'
 import { TeacherSearchFormProps } from '@/types/admin'
 import { ChangeEvent } from 'react'
 
@@ -22,6 +22,7 @@ const SearchForm = (props: TeacherSearchFormProps) => {
           name="id"
           value={dataSearch?.id ?? ''}
           onChange={changeDataSearch}
+          autoComplete="off"
         />
         <Input
           label="Tên"
@@ -29,6 +30,7 @@ const SearchForm = (props: TeacherSearchFormProps) => {
           name="name"
           value={dataSearch?.name ?? ''}
           onChange={changeDataSearch}
+          autoComplete="off"
         />
         <Input
           label="Email"
@@ -36,12 +38,13 @@ const SearchForm = (props: TeacherSearchFormProps) => {
           name="email"
           value={dataSearch?.email ?? ''}
           onChange={changeDataSearch}
+          autoComplete="off"
         />
         <Select
           label="Trạng thái"
           name="status"
           zeroValueText="Tất cả trạng thái"
-          options={TEACHER_STATUS_LIST}
+          options={TEACHER_STATUS_LIST_OPTIONS}
           value={dataSearch?.status ?? ''}
           onChange={changeDataSearch}
         />
