@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Table } from '@/components/ui'
 import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE, TEACHER_STATUS_LIST_OPTIONS } from '@/config/define'
-import { ROUTES_ADMIN } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
 import { useSidebarActive } from '@/contexts/sidebarActive'
-import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import useHandleError from '@/hooks/useHandleError'
-import teacherService from '@/services/admin/teacherService'
 import { TSetPagination, TSortOrder, TTableColumn } from '@/types'
-import { TTeacher, TeacherSearchParams } from '@/types/admin'
-import { setPaginationData } from '@/utils/pagination'
-import SearchForm from './SearchForm'
+import { StudentSearchParams, TStudent } from '@/types/admin'
 import { getValueFromObjectByKey } from '@/utils/helper'
+import studentService from '@/services/admin/studentService'
+import { setPaginationData } from '@/utils/pagination'
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
+import { ROUTES_ADMIN } from '@/config/routes'
+import { Table } from '@/components/ui'
+import SearchForm from './SearchForm'
 import UpdateStatus from './UpdateStatus'
 
-const defaultValueDataSearch: TeacherSearchParams = {
+const defaultValueDataSearch: StudentSearchParams = {
   id: null,
   name: '',
   email: '',
@@ -23,11 +23,11 @@ const defaultValueDataSearch: TeacherSearchParams = {
   sort_type: SORT_TYPE.DESC,
 }
 
-function Teacher() {
+function Student() {
   const { setSidebarActive } = useSidebarActive()
   const { showLoading, hideLoading } = useLoading()
   const { handleResponseError } = useHandleError()
-  const [teachers, setTeachers] = useState<TTeacher[]>([])
+  const [students, setStudents] = useState<TStudent[]>([])
   const [pagination, setPagination] = useState<TSetPagination>(DEFAULT_PAGINATION_OBJECT)
   const [dataSearch, setDataSearch] = useState(defaultValueDataSearch)
 
@@ -68,8 +68,8 @@ function Teacher() {
       valueGetter: row => {
         return (
           <UpdateStatus
-            teacher={row}
-            fetchTeachers={debouncedFetchTeachers}
+            student={row}
+            fetchStudents={debouncedFetchStudents}
             currentPage={pagination.currentPage ?? 1}
           />
         )
@@ -77,12 +77,12 @@ function Teacher() {
     },
   ]
 
-  const fetchTeachers = (params?: any) => {
+  const fetchStudents = (params?: any) => {
     showLoading()
-    teacherService
+    studentService
       .getList(params)
       .then(({ data, meta }) => {
-        setTeachers(data)
+        setStudents(data)
         setPagination(setPaginationData(meta ?? DEFAULT_PAGINATION_OBJECT))
       })
       .catch(err => {
@@ -92,36 +92,36 @@ function Teacher() {
         hideLoading()
       })
   }
-  const debouncedFetchTeachers = useDebouncedCallback(fetchTeachers)
+  const debouncedFetchStudents = useDebouncedCallback(fetchStudents)
 
   const handleChangePage = (selected: number) => {
     setPagination({ ...pagination, currentPage: selected })
-    fetchTeachers({ page: selected })
+    fetchStudents({ page: selected })
   }
 
   const search = () => {
-    debouncedFetchTeachers({ ...dataSearch, page: 1 })
+    debouncedFetchStudents({ ...dataSearch, page: 1 })
   }
 
   const resetDataSearch = () => {
     setDataSearch(defaultValueDataSearch)
-    debouncedFetchTeachers()
+    debouncedFetchStudents()
   }
 
   const sort = (dataSort: TSortOrder) => {
     const dataTemp = { ...dataSearch, ...dataSort }
     setDataSearch(dataTemp)
-    debouncedFetchTeachers(dataTemp)
+    debouncedFetchStudents(dataTemp)
   }
 
   useEffect(() => {
-    setSidebarActive(ROUTES_ADMIN.TEACHER)
-    debouncedFetchTeachers()
+    setSidebarActive(ROUTES_ADMIN.STUDENT)
+    debouncedFetchStudents()
   }, [])
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl text-foreground">Danh sách giáo viên</h1>
+      <h1 className="text-3xl text-foreground">Danh sách học sinh</h1>
       <div className="bg-card rounded p-5 shadow space-y-6">
         <SearchForm
           dataSearch={dataSearch}
@@ -131,7 +131,7 @@ function Teacher() {
         />
         <Table
           columns={columns}
-          rows={teachers}
+          rows={students}
           pagination={pagination}
           defaultSortColumn={defaultValueDataSearch.sort_column}
           defaultSortType={defaultValueDataSearch.sort_type}
@@ -143,4 +143,4 @@ function Teacher() {
   )
 }
 
-export default Teacher
+export default Student

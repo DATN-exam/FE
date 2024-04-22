@@ -1,18 +1,18 @@
 import { Button, Input, Modal, Toast } from '@/components/ui'
 import { UserStatus } from '@/config/define'
 import { useLoading } from '@/contexts/loading'
-import teacherService from '@/services/admin/teacherService'
 import useHandleError from '@/hooks/useHandleError'
 import { useState } from 'react'
-import { TeacherUpdateStatusProps, TeacherUpdateStatusPayloads } from '@/types/admin'
+import { StudentUpdateStatusPayloads, StudentUpdateStatusProps } from '@/types/admin'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { setErrorForInput } from '@/utils/handleErrors'
+import studentService from '@/services/admin/studentService'
 
-const defaultValues: TeacherUpdateStatusPayloads = {
+const defaultValues: StudentUpdateStatusPayloads = {
   reason: '',
 }
 
-const TeacherAction = (props: any) => {
+const StudentAction = (props: any) => {
   const {
     buttonClassName,
     buttonText,
@@ -65,8 +65,8 @@ const TeacherAction = (props: any) => {
   )
 }
 
-function UpdateStatus(props: TeacherUpdateStatusProps) {
-  const { teacher, currentPage, fetchTeachers } = props
+function UpdateStatus(props: StudentUpdateStatusProps) {
+  const { student, currentPage, fetchStudents } = props
   const { showLoading, hideLoading } = useLoading()
   const { handleResponseError } = useHandleError()
   const [isShowConfirmBanTeacherModal, setIsShowConfirmBanTeacherModal] = useState(false)
@@ -83,14 +83,14 @@ function UpdateStatus(props: TeacherUpdateStatusProps) {
   })
   const { reason: reasonError } = errors
 
-  const banTeacher: SubmitHandler<TeacherUpdateStatusPayloads> = fields => {
+  const banStudent: SubmitHandler<StudentUpdateStatusPayloads> = fields => {
     showLoading()
-    if (!teacher.id) return
-    teacherService
-      .ban(teacher.id, fields)
+    if (!student.id) return
+    studentService
+      .ban(student.id, fields)
       .then(() => {
-        Toast.success('Cấm giáo viên thành công')
-        fetchTeachers({ page: currentPage })
+        Toast.success('Cấm học sinh thành công')
+        fetchStudents({ page: currentPage })
         setIsShowConfirmBanTeacherModal(false)
         reset(defaultValues)
       })
@@ -106,14 +106,14 @@ function UpdateStatus(props: TeacherUpdateStatusProps) {
       })
   }
 
-  const unBanTeacher: SubmitHandler<TeacherUpdateStatusPayloads> = fields => {
+  const unBanStudent: SubmitHandler<StudentUpdateStatusPayloads> = fields => {
     showLoading()
-    if (!teacher.id) return
-    teacherService
-      .unBan(teacher.id, fields)
+    if (!student.id) return
+    studentService
+      .unBan(student.id, fields)
       .then(() => {
-        Toast.success('Ân xá giáo viên thành công')
-        fetchTeachers({ page: currentPage })
+        Toast.success('Ân xá học sinh thành công')
+        fetchStudents({ page: currentPage })
         setIsShowConfirmUnBanTeacherModal(false)
         reset(defaultValues)
       })
@@ -129,17 +129,17 @@ function UpdateStatus(props: TeacherUpdateStatusProps) {
       })
   }
 
-  switch (teacher.status) {
-    case UserStatus.Active:
+  switch (student.status) {
+    case UserStatus.Active || UserStatus.Block:
       return (
-        <TeacherAction
+        <StudentAction
           buttonClassName="bg-red-600 hover:bg-red-600/90 focus-visible:ring-red-600"
           buttonText={<i className="fa-solid fa-ban"></i>}
-          modalTitle="Bạn có chắc muốn cấm giáo viên này?"
-          modalDescription="Nếu bạn muốn cấm giáo viên này. Vui lòng ghi lý do ở dưới"
+          modalTitle="Bạn có chắc muốn cấm hỌc sinh này?"
+          modalDescription="Nếu bạn muốn cấm hỌc sinh này. Vui lòng ghi lý do ở dưới"
           showModal={isShowConfirmBanTeacherModal}
           setShowModal={setIsShowConfirmBanTeacherModal}
-          onSubmit={handleSubmit(banTeacher)}
+          onSubmit={handleSubmit(banStudent)}
           reset={reset}
           defaultValues={defaultValues}
           control={control}
@@ -148,13 +148,13 @@ function UpdateStatus(props: TeacherUpdateStatusProps) {
       )
     case UserStatus.AdminBlock:
       return (
-        <TeacherAction
+        <StudentAction
           buttonText={<i className="fa-solid fa-unlock"></i>}
-          modalTitle="Bạn có chắc muốn ân xá giáo viên này?"
-          modalDescription="Nếu bạn muốn ân xá giáo viên này. Vui lòng ghi lý do ở dưới"
+          modalTitle="Bạn có chắc muốn ân xá hỌc sinh này?"
+          modalDescription="Nếu bạn muốn ân xá hỌc sinh này. Vui lòng ghi lý do ở dưới"
           showModal={isShowConfirmUnBanTeacherModal}
           setShowModal={setIsShowConfirmUnBanTeacherModal}
-          onSubmit={handleSubmit(unBanTeacher)}
+          onSubmit={handleSubmit(unBanStudent)}
           reset={reset}
           defaultValues={defaultValues}
           control={control}

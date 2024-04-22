@@ -2,6 +2,7 @@ import { SORT_TYPE } from '@/config/define'
 import { useEffect, useState } from 'react'
 import { Pagination } from '@/components/ui'
 import { TSortOrder, TableProps } from '@/types'
+import { cn } from '@/lib/utils'
 
 const Table = (props: TableProps) => {
   const {
@@ -15,8 +16,8 @@ const Table = (props: TableProps) => {
     showHeader = true,
     customNullDataText,
     onSort = () => {},
-    sortColumn,
-    sortType,
+    defaultSortColumn,
+    defaultSortType,
   } = props
   const { lastPage, total, currentPage } = pagination || {}
   const [sortOrder, setSortOrder] = useState<TSortOrder>({})
@@ -35,19 +36,22 @@ const Table = (props: TableProps) => {
 
   useEffect(() => {
     setSortOrder({
-      sort_column: sortColumn,
-      sort_type: sortType,
+      sort_column: defaultSortColumn,
+      sort_type: defaultSortType,
     })
-  }, [sortColumn, sortType])
+  }, [defaultSortColumn, defaultSortType])
 
   return (
     <div className={`space-y-5 ${classNameLayout}`}>
       <div className="w-full overflow-x-auto">
         <table
-          className={`w-full shadow-md sm:rounded-lg text-sm text-left rtl:text-right text-gray-500 ${className}`}
+          className={cn(
+            'w-full shadow-md sm:rounded-lg text-sm text-left rtl:text-right text-foreground',
+            className,
+          )}
         >
           {showHeader && (
-            <thead className="text-xs text-gray-700 uppercase bg-gray-300">
+            <thead className="text-xs text-foreground uppercase bg-secondary">
               <tr>
                 {columns?.map((column, index) => {
                   const { sortable, headerName, field } = column
@@ -81,11 +85,11 @@ const Table = (props: TableProps) => {
               </tr>
             </thead>
           )}
-          <tbody>
+          <tbody className="bg-card text-foreground">
             {rows?.length ? (
               rows?.map((row, indexRow) => {
                 return (
-                  <tr key={indexRow} className="bg-white border-b">
+                  <tr key={indexRow} className="border-b">
                     {columns?.map((column, index) => {
                       const { getAction, valueGetter, field } = column
                       return (
@@ -94,7 +98,7 @@ const Table = (props: TableProps) => {
                           onClick={() => {
                             onRowClick && onRowClick(row)
                           }}
-                          className="px-6 py-4 text-gray-900"
+                          className="px-6 py-4"
                         >
                           {valueGetter ? valueGetter(row) : getAction ? getAction(row) : row[field]}
                         </td>
@@ -104,8 +108,8 @@ const Table = (props: TableProps) => {
                 )
               })
             ) : (
-              <tr className="bg-white">
-                <td colSpan={columns?.length ?? 0} className="px-6 py-4 text-center text-gray-900">
+              <tr>
+                <td colSpan={columns?.length ?? 0} className="px-6 py-4 text-center">
                   {customNullDataText ? customNullDataText : 'Không có dữ liệu'}
                 </td>
               </tr>
@@ -115,18 +119,18 @@ const Table = (props: TableProps) => {
       </div>
 
       {handleChangePage && lastPage && currentPage ? (
-        <div className="flex w-full overflow-x-auto">
-          <div className="hidden md:flex flex-1"></div>
-          <div className="flex-1">
+        <div className="grid grid-cols-4">
+          <div className="hidden md:block col-span-1"></div>
+          <div className="col-span-3 md:col-span-2">
             <Pagination
               pageCount={lastPage}
               currentPage={currentPage}
               onChangePage={handleChangePage}
             />
           </div>
-          <div className="hidden md:flex flex-1 items-end justify-end">
+          <div className="flex items-end justify-end col-span-1">
             {!!total && (
-              <p className="text-xs text-end text-gray-700 uppercase">{`Tổng: ${total}`}</p>
+              <p className="text-xs text-end text-foreground uppercase">{`Tổng: ${total}`}</p>
             )}
           </div>
         </div>

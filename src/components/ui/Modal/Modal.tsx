@@ -42,7 +42,7 @@ const Modal = (props: ModalProps) => {
             >
               <Dialog.Panel
                 className={cn(
-                  'rounded w-full max-w-xl h-full transform text-left align-middle transition-all p-8 md:px-10 py-10 bg-white shadow',
+                  'rounded w-full max-w-xl h-full transform text-left align-middle transition-all p-8 md:px-10 py-10 bg-secondary shadow-lg',
                   className,
                 )}
               >

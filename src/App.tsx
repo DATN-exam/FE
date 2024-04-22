@@ -7,23 +7,26 @@ import AuthAdminProvider from './providers/AuthAdminProvider'
 import AuthProvider from './providers/AuthProvider'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { appConfig } from './config/app'
+import ThemeProvider from './providers/ThemeProvider'
 
 function App() {
   return (
     <>
-      <LoadingProvider>
-        <GoogleOAuthProvider clientId={appConfig.google.clientId}>
-          <SidebarActiveProvider>
-            <AuthAdminProvider>
-              <AuthProvider>
-                <Suspense fallback={<LoadingOverlay open />}>
-                  <Routes />
-                </Suspense>
-              </AuthProvider>
-            </AuthAdminProvider>
-          </SidebarActiveProvider>
-        </GoogleOAuthProvider>
-      </LoadingProvider>
+      <ThemeProvider>
+        <LoadingProvider>
+          <GoogleOAuthProvider clientId={appConfig.google.clientId}>
+            <SidebarActiveProvider>
+              <AuthAdminProvider>
+                <AuthProvider>
+                  <Suspense fallback={<LoadingOverlay open />}>
+                    <Routes />
+                  </Suspense>
+                </AuthProvider>
+              </AuthAdminProvider>
+            </SidebarActiveProvider>
+          </GoogleOAuthProvider>
+        </LoadingProvider>
+      </ThemeProvider>
     </>
   )
 }

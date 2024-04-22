@@ -62,9 +62,9 @@ function Login() {
   }, [authToken])
 
   return (
-    <div className="w-screen min-h-screen flex justify-center items-center bg-gray-200">
+    <div className="w-screen min-h-screen flex justify-center items-center bg-secondary">
       <form onSubmit={handleSubmit(login)} className="w-full max-w-sm">
-        <Card className="shadow-lg">
+        <Card className="bg-card border-none shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Đăng nhập Admin</CardTitle>
           </CardHeader>

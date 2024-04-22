@@ -11,8 +11,8 @@ export type TableProps = {
   showHeader?: boolean
   customNullDataText?: string | ReactNode
   classNameLayout?: string
-  sortColumn?: string
-  sortType?: string
+  defaultSortColumn?: string
+  defaultSortType?: string
 } & TableHTMLAttributes<HTMLTableElement>
 
 export type TSortOrder = {

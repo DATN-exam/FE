@@ -71,7 +71,7 @@ function Register() {
   return (
     <form onSubmit={handleSubmit(register)}>
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold text-center">Đăng ký</h1>
+        <h1 className="text-3xl font-bold text-center text-foreground">Đăng ký</h1>
         <Input
           placeholder="Nguyen Van"
           label="Họ và tên lót"
@@ -130,7 +130,7 @@ function Register() {
         <Button type="submit" className="w-full">
           Đăng ký
         </Button>
-        <div className="!mt-4 text-center text-sm">
+        <div className="!mt-4 text-center text-sm text-foreground">
           Đã có tài khoản?{' '}
           <Link to={ROUTES_SITE.AUTH.LOGIN} className="underline">
             Đăng nhập
