@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import { BaseSelectProps, SelectProps } from '@/types'
 import React from 'react'
 import { Controller } from 'react-hook-form'
+import { Label } from '@/components/ui'
 
 const BaseSelect = React.forwardRef<HTMLSelectElement, BaseSelectProps>(
   ({ className, name, zeroValueText, options, error, ...props }, ref) => {
@@ -11,7 +12,7 @@ const BaseSelect = React.forwardRef<HTMLSelectElement, BaseSelectProps>(
         id={name}
         name={name}
         className={cn(
-          'flex w-full rounded-md border border-input bg-background px-2.5 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'flex w-full text-foreground rounded-md border border-input bg-background px-2.5 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           error && 'border-red-500 focus-visible:ring-red-500',
           className,
         )}
@@ -49,9 +50,9 @@ const Select = (props: SelectProps) => {
 
   return (
     <div className={classNameLayout}>
-      <label className={`font-medium text-gray-900 ${classNameLabel}`} htmlFor={name}>
+      <Label htmlFor={name} className={classNameLabel}>
         {label}
-      </label>
+      </Label>
       {control ? (
         <Controller
           disabled={disabled}

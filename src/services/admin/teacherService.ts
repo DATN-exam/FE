@@ -1,4 +1,4 @@
-import { UpdateTeacherStatusPayloads, TeacherSearchParams } from '@/types/admin'
+import { TeacherUpdateStatusPayloads, TeacherSearchParams } from '@/types/admin'
 import apiClient from './index'
 
 const teacherService = {
@@ -7,11 +7,11 @@ const teacherService = {
     const { data } = await apiClient.get(this.path, { params })
     return data
   },
-  async ban(id: number, payloads: UpdateTeacherStatusPayloads) {
+  async ban(id: number, payloads: TeacherUpdateStatusPayloads) {
     const { data } = await apiClient.post(`${this.path}/${id}/block`, payloads)
     return data
   },
-  async unBan(id: number, payloads: UpdateTeacherStatusPayloads) {
+  async unBan(id: number, payloads: TeacherUpdateStatusPayloads) {
     const { data } = await apiClient.post(`${this.path}/${id}/active`, payloads)
     return data
   },

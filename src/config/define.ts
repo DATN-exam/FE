@@ -37,7 +37,7 @@ export const AUTH_VERIFY_STATUS = {
   VERIFIED: 'verified',
 }
 
-export enum TeacherStatus {
+export enum UserStatus {
   WaitVerify = 'WAIT_VERIFY',
   Active = 'ACTIVE',
   Block = 'BLOCK',
@@ -46,23 +46,51 @@ export enum TeacherStatus {
 
 export const TEACHER_STATUS_LIST_OPTIONS = [
   {
-    id: 1,
-    name: 'Chờ xác nhận',
-    value: TeacherStatus.WaitVerify,
-  },
-  {
     id: 2,
     name: 'Đang hoạt động',
-    value: TeacherStatus.Active,
-  },
-  {
-    id: 3,
-    name: 'Riêng tư',
-    value: TeacherStatus.Block,
+    value: UserStatus.Active,
   },
   {
     id: 4,
     name: 'Bị khóa',
-    value: TeacherStatus.AdminBlock,
+    value: UserStatus.AdminBlock,
   },
 ]
+
+export const STUDENT_STATUS_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Chờ xác nhận',
+    value: UserStatus.WaitVerify,
+  },
+  {
+    id: 2,
+    name: 'Đang hoạt động',
+    value: UserStatus.Active,
+  },
+  {
+    id: 3,
+    name: 'Riêng tư',
+    value: UserStatus.Block,
+  },
+  {
+    id: 4,
+    name: 'Bị khóa',
+    value: UserStatus.AdminBlock,
+  },
+]
+
+export const THEMES = {
+  light: {
+    iconClassName: 'fa-solid fa-sun-bright',
+    text: 'Sáng',
+  },
+  dark: {
+    iconClassName: 'fa-solid fa-moon-stars',
+    text: 'Tối',
+  },
+  system: {
+    iconClassName: 'fa-solid fa-circle-half-stroke',
+    text: 'Mặc định hệ thống',
+  },
+}

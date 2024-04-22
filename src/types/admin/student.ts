@@ -1,6 +1,6 @@
 import { TSortOrder } from '../table'
 
-export type TTeacher = {
+export type TStudent = {
   id: number | null
   last_name: string | null
   first_name: string | null
@@ -9,26 +9,26 @@ export type TTeacher = {
   status: string | null
 }
 
-export type TeacherSearchParams = {
+export type StudentSearchParams = {
   id: number | null
   name: string | null
   email: string | null
   status: string | null
 } & TSortOrder
 
-export type TeacherSearchFormProps = {
-  dataSearch?: TeacherSearchParams
+export type StudentSearchFormProps = {
+  dataSearch?: StudentSearchParams
   setDataSearch: (value: any) => void
   onReset?: () => void
   onSearch?: () => void
 }
 
-export type TeacherUpdateStatusProps = {
-  teacher: TTeacher
+export type StudentUpdateStatusProps = {
+  student: TStudent
   currentPage: number
-  fetchTeachers: (...args: any) => void
+  fetchStudents: (...args: any) => void
 }
 
-export type TeacherUpdateStatusPayloads = {
+export type StudentUpdateStatusPayloads = {
   reason: string
 }

@@ -27,7 +27,7 @@ const MainLayout = () => {
   }, [authToken, currentRoute, authProfile])
 
   return (
-    <div className="wrapper bg-gray-200">
+    <div className="wrapper bg-secondary">
       <Header showSidebar={showSidebar} />
       <Sidebar isShowSidebar={isShowSidebar} hideSidebar={hideSidebar} />
       <main className="pt-20 px-3 pb-10 md:px-6 ml-0 md:ml-64 min-h-screen duration-200 relative z-10">

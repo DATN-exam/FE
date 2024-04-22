@@ -66,7 +66,7 @@ function Login() {
   return (
     <form onSubmit={handleSubmit(login)}>
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold text-center">Đăng nhập</h1>
+        <h1 className="text-3xl font-bold text-center text-foreground">Đăng nhập</h1>
         <Input
           type="email"
           placeholder="m@example.com"
@@ -89,7 +89,7 @@ function Login() {
             checked={isShowPassword}
             onCheckedChange={checked => setIsShowPassword(!!checked)}
           />
-          <Link to="#" className="text-sm underline">
+          <Link to="#" className="text-sm underline text-foreground">
             Quên mật khẩu
           </Link>
         </div>
@@ -108,7 +108,7 @@ function Login() {
             }}
           />
         </div>
-        <div className="text-center text-sm">
+        <div className="text-center text-sm text-foreground">
           Chưa có tài khoản?{' '}
           <Link to={ROUTES_SITE.AUTH.REGISTER} className="underline">
             Đăng ký

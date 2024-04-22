@@ -11,7 +11,7 @@ function Dashboard() {
 
   return (
     <>
-      <h1 className="text-3xl">Dashboard</h1>
+      <h1 className="text-3xl text-foreground">Dashboard</h1>
     </>
   )
 }
