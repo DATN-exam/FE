@@ -10,7 +10,7 @@ import studentService from '@/services/admin/studentService'
 import { setPaginationData } from '@/utils/pagination'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { ROUTES_ADMIN } from '@/config/routes'
-import { Table } from '@/components/ui'
+import { Badge, Table } from '@/components/ui'
 import SearchForm from './SearchForm'
 import UpdateStatus from './UpdateStatus'
 
@@ -59,7 +59,8 @@ function Student() {
       headerName: 'Trạng thái',
       field: 'status',
       valueGetter: row => {
-        return getValueFromObjectByKey(TEACHER_STATUS_LIST_OPTIONS, 'value', row.status, 'name')
+        const status = getValueFromObjectByKey(TEACHER_STATUS_LIST_OPTIONS, 'value', row.status)
+        return <Badge className={status?.badgeColor}>{status.name}</Badge>
       },
     },
     {
