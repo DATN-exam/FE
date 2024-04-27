@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Table } from '@/components/ui'
+import { Table, Badge } from '@/components/ui'
 import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE, TEACHER_STATUS_LIST_OPTIONS } from '@/config/define'
 import { ROUTES_ADMIN } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
@@ -59,7 +59,8 @@ function Teacher() {
       headerName: 'Trạng thái',
       field: 'status',
       valueGetter: row => {
-        return getValueFromObjectByKey(TEACHER_STATUS_LIST_OPTIONS, 'value', row.status, 'name')
+        const status = getValueFromObjectByKey(TEACHER_STATUS_LIST_OPTIONS, 'value', row.status)
+        return <Badge className={status?.badgeColor}>{status.name}</Badge>
       },
     },
     {

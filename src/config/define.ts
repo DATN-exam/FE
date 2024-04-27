@@ -44,16 +44,52 @@ export enum UserStatus {
   AdminBlock = 'ADMIN_BLOCK',
 }
 
+export enum TeacherRegistrationStatus {
+  Wait = 'WAIT',
+  Accept = 'ACCEPT',
+  Deny = 'DENY',
+  Cancel = 'CANCEL',
+}
+
+export const TEACHER_REGISTRATION_STATUS_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Chờ xác nhận',
+    value: TeacherRegistrationStatus.Wait,
+    badgeColor: 'bg-yellow-100',
+  },
+  {
+    id: 2,
+    name: 'Đã xác nhận',
+    value: TeacherRegistrationStatus.Accept,
+    badgeColor: 'bg-green-100',
+  },
+  {
+    id: 3,
+    name: 'Từ chối',
+    value: TeacherRegistrationStatus.Deny,
+    badgeColor: 'bg-red-200',
+  },
+  {
+    id: 4,
+    name: 'Đã hủy',
+    value: TeacherRegistrationStatus.Cancel,
+    badgeColor: 'bg-red-100',
+  },
+]
+
 export const TEACHER_STATUS_LIST_OPTIONS = [
   {
     id: 2,
     name: 'Đang hoạt động',
     value: UserStatus.Active,
+    badgeColor: 'bg-green-200',
   },
   {
     id: 4,
     name: 'Bị khóa',
     value: UserStatus.AdminBlock,
+    badgeColor: 'bg-red-200',
   },
 ]
 
@@ -62,21 +98,25 @@ export const STUDENT_STATUS_LIST_OPTIONS = [
     id: 1,
     name: 'Chờ xác nhận',
     value: UserStatus.WaitVerify,
+    badgeColor: 'bg-yellow-100',
   },
   {
     id: 2,
     name: 'Đang hoạt động',
     value: UserStatus.Active,
+    badgeColor: 'bg-green-200',
   },
   {
     id: 3,
     name: 'Riêng tư',
     value: UserStatus.Block,
+    badgeColor: 'bg-fuchsia-400',
   },
   {
     id: 4,
     name: 'Bị khóa',
     value: UserStatus.AdminBlock,
+    badgeColor: 'bg-red-200',
   },
 ]
 

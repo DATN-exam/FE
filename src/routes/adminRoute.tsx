@@ -1,6 +1,6 @@
 import { ROUTES_ADMIN } from '@/config/routes'
 import { MainLayout } from '@/components/Layouts/Admin'
-import { Dashboard, Student, Teacher } from '@/pages/Admin'
+import { Dashboard, Student, Teacher, TeacherRegistration } from '@/pages/Admin'
 import { Login } from '@/pages/Admin/Auth'
 
 const adminRoute = [
@@ -11,6 +11,10 @@ const adminRoute = [
       {
         path: ROUTES_ADMIN.DASHBOARD,
         element: <Dashboard />,
+      },
+      {
+        path: ROUTES_ADMIN.TEACER_REGISTRATION,
+        element: <TeacherRegistration />,
       },
       {
         path: ROUTES_ADMIN.TEACHER,

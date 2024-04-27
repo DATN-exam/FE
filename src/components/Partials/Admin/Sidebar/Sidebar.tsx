@@ -14,7 +14,7 @@ const NAV_ITEMS = [
     text: 'Dashboard',
   },
   {
-    to: '#',
+    to: ROUTES_ADMIN.TEACER_REGISTRATION,
     icon: 'fa-light fa-chalkboard-user',
     iconActive: 'fa-solid fa-chalkboard-user',
     text: 'Duyệt giáo viên',

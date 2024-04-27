@@ -6,6 +6,7 @@ export const ROUTES_ADMIN = {
   DASHBOARD: '/admin/dashboard',
   TEACHER: '/admin/teachers',
   STUDENT: '/admin/students',
+  TEACER_REGISTRATION: '/admin/teachers/registration',
 }
 
 export const ROUTES_SITE = {
