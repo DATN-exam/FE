@@ -17,13 +17,11 @@ function ToggleTheme() {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <div className="flex justify-center items-center w-6">
-            <i className={THEMES[theme].iconClassName}></i>
-          </div>
+        <Button variant="outline" className="flex justify-center items-center">
+          <i className={THEMES[theme].iconClassName}></i>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-fit">
         {themesArray.map(([themeKey, themeObj]) => (
           <DropdownMenuItem key={themeKey} className={cn(theme == themeKey ? 'bg-accent' : '')}>
             <button
