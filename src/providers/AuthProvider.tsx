@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AuthContext } from '@/contexts/auth'
 import authService from '@/services/site/authService'
 import state from '@/utils/localStorage'
@@ -93,17 +93,14 @@ const AuthProvider = (props: AuthProviderProps) => {
     }
   }, [authProfile])
 
-  const contextValue = useMemo(
-    () => ({
-      authToken,
-      authProfile,
-      authLogin,
-      authLoginWithGoogle,
-      authLogout,
-      authRemove,
-    }),
-    [authToken],
-  )
+  const contextValue = {
+    authToken,
+    authProfile,
+    authLogin,
+    authLoginWithGoogle,
+    authLogout,
+    authRemove,
+  }
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }

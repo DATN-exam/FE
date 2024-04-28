@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Header, Sidebar } from '@/components/Partials/Admin'
-import { useAuthAdmin } from '@/contexts/authAdmin'
-import { ROUTES_ADMIN, ROUTES_SITE } from '@/config/routes'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useAuth } from '@/contexts/auth'
+import { ROUTES_SITE } from '@/config/routes'
+import { Header, Sidebar } from '@/components/Partials/Site/Teacher'
 import { ROLE } from '@/config/define'
+import { Toast } from '@/components/ui'
 
-const MainLayout = () => {
-  const { authToken, authProfile } = useAuthAdmin()
+const TeacherLayout = () => {
+  const { authToken, authProfile } = useAuth()
   const [isShowSidebar, setIsShowSidebar] = useState(false)
   const [isChecking, setIsChecking] = useState(true)
   const navigate = useNavigate()
-  const location = useLocation()
-  const currentRoute = location.pathname
 
   const showSidebar = () => setIsShowSidebar(true)
   const hideSidebar = () => setIsShowSidebar(false)
@@ -20,17 +19,16 @@ const MainLayout = () => {
     setIsChecking(true)
 
     if (!authToken) {
-      navigate(ROUTES_ADMIN.AUTH.LOGIN)
+      navigate(ROUTES_SITE.AUTH.LOGIN)
     } else if (!authProfile) {
       return
-    } else if (authProfile?.role != ROLE.ADMIN) {
+    } else if (authProfile?.role != ROLE.TEACHER) {
       navigate(ROUTES_SITE.HOME, { replace: true })
-    } else if (currentRoute == ROUTES_ADMIN.HOME) {
-      navigate(ROUTES_ADMIN.DASHBOARD, { replace: true })
+      Toast.error('Cút ra ngoài...')
     }
 
     setIsChecking(false)
-  }, [authToken, currentRoute, authProfile])
+  }, [authToken, authProfile])
 
   return (
     !isChecking && (
@@ -51,4 +49,4 @@ const MainLayout = () => {
   )
 }
 
-export default MainLayout
+export default TeacherLayout

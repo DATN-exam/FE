@@ -8,7 +8,7 @@ export const DEBOUNCE = {
 }
 
 export const PAGINATION = {
-  PAGE_RANGE_DISPLAY: 2,
+  MARGIN_RANGE_DISPLAY: 3,
 }
 
 export const DEFAULT_PAGINATION_OBJECT = {

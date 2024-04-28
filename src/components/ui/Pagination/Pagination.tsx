@@ -12,7 +12,7 @@ const Pagination = (props: PaginationProps) => {
       previousLabel="<"
       nextLabel=">"
       forcePage={currentPage - 1}
-      pageRangeDisplayed={PAGINATION.PAGE_RANGE_DISPLAY}
+      marginPagesDisplayed={PAGINATION.MARGIN_RANGE_DISPLAY}
       pageCount={pageCount ?? 0}
       disableInitialCallback={true}
       renderOnZeroPageCount={null}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AuthAdminContext } from '@/contexts/authAdmin'
 import authService from '@/services/admin/authService'
 import state from '@/utils/localStorage'
@@ -83,16 +83,13 @@ const AuthAdminProvider = (props: AuthProviderProps) => {
     }
   }, [authProfile])
 
-  const contextValue = useMemo(
-    () => ({
-      authToken,
-      authProfile,
-      authLogin,
-      authLogout,
-      authRemove,
-    }),
-    [authToken],
-  )
+  const contextValue = {
+    authToken,
+    authProfile,
+    authLogin,
+    authLogout,
+    authRemove,
+  }
 
   return <AuthAdminContext.Provider value={contextValue}>{children}</AuthAdminContext.Provider>
 }
