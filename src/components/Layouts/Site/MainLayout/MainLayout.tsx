@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/auth'
 import { ROUTES_SITE } from '@/config/routes'
-import Header from '@/components/Partials/Site/Header'
+import { Header, Sidebar } from '@/components/Partials/Site'
 
 const MainLayout = () => {
   const { authToken, authProfile } = useAuth()
@@ -23,9 +23,14 @@ const MainLayout = () => {
 
   return (
     !isChecking && (
-      <div className="bg-secondary min-h-screen">
+      <div className="bg-secondary min-h-screen dark:bg-card">
         <Header />
-        <Outlet />
+        <main className="fixed top-[57px] bottom-0 left-0 right-0 flex">
+          <Sidebar />
+          <div className="bg-background flex-1 dark:bg-secondary overflow-auto">
+            <Outlet />
+          </div>
+        </main>
       </div>
     )
   )

@@ -51,6 +51,43 @@ export enum TeacherRegistrationStatus {
   Cancel = 'CANCEL',
 }
 
+export enum ClassroomStatus {
+  Active = 'ACTIVE',
+  Block = 'BLOCK',
+  AdminBlock = 'ADMIN_BLOCK',
+}
+
+export enum ClassroomStudentStatus {
+  Active = 'ACTIVE',
+  Block = 'BLOCK',
+}
+
+export enum ClassroomKeyStatus {
+  Active = 'ACTIVE',
+  InActive = 'INACTIVE',
+}
+
+export const CLASSROOM_STATUS_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Đang hoạt động',
+    value: ClassroomStatus.Active,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Khóa',
+    value: ClassroomStatus.Block,
+    badgeColor: 'bg-red-200',
+  },
+  {
+    id: 3,
+    name: 'Bị khóa',
+    value: ClassroomStatus.AdminBlock,
+    badgeColor: 'bg-red-400',
+  },
+]
+
 export const TEACHER_REGISTRATION_STATUS_LIST_OPTIONS = [
   {
     id: 1,
@@ -116,6 +153,36 @@ export const STUDENT_STATUS_LIST_OPTIONS = [
     id: 4,
     name: 'Bị khóa',
     value: UserStatus.AdminBlock,
+    badgeColor: 'bg-red-200',
+  },
+]
+
+export const CLASSROOM_STUDENT_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Hoạt động',
+    value: ClassroomStudentStatus.Active,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Đã khóa',
+    value: ClassroomStudentStatus.Block,
+    badgeColor: 'bg-red-200',
+  },
+]
+
+export const CLASSROOM_KEY_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Hoạt động',
+    value: ClassroomKeyStatus.Active,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Ngưng hoạt động',
+    value: ClassroomKeyStatus.InActive,
     badgeColor: 'bg-red-200',
   },
 ]

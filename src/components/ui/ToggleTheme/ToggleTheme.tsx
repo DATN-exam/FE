@@ -17,7 +17,10 @@ function ToggleTheme() {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex justify-center items-center">
+        <Button
+          variant="outline"
+          className="flex justify-center items-center border-none bg-secondary hover:bg-background"
+        >
           <i className={THEMES[theme].iconClassName}></i>
         </Button>
       </DropdownMenuTrigger>
