@@ -9,14 +9,15 @@ import useHandleError from '@/hooks/useHandleError'
 import { TSetPagination, TSortOrder, TTableColumn } from '@/types'
 import { setPaginationData } from '@/utils/pagination'
 import { ClassroomSearchParams } from '@/types/teacher'
-import classroomService from '@/services/site/teacher/classroomService'
-import SearchForm from '../SearchForm'
+import classroomService from '@/services/teacher/classroomService'
+import SearchForm from './SearchForm'
 import { useParams } from 'react-router-dom'
-import { TStudent } from '@/types/admin'
 import Header from '../Header'
 import { Tooltip } from 'react-tooltip'
 import { CLASSROOM_STUDENT_LIST_OPTIONS } from '@/config/define'
 import { getValueFromObjectByKey } from '@/utils/helper'
+import classroomStudentService from '@/services/teacher/classroomStudentService'
+import { TStudent } from '@/types/teacher/student'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -71,18 +72,22 @@ function ClassroomStudent() {
     },
     {
       headerName: 'Trạng thái',
-      field: 'status',
+      field: 'classroom_status',
       sortable: true,
       valueGetter: row => {
-        const status = getValueFromObjectByKey(CLASSROOM_STUDENT_LIST_OPTIONS, 'value', row.status)
+        const status = getValueFromObjectByKey(
+          CLASSROOM_STUDENT_LIST_OPTIONS,
+          'value',
+          row.classroom_status,
+        )
         return <Badge className={status?.badgeColor}>{status.name}</Badge>
       },
     },
     {
       headerName: 'Hành động',
-      field: 'status',
+      field: 'classroom_status',
       valueGetter: row =>
-        row.status === ClassroomStudentStatus.Active ? (
+        row.classroom_status === ClassroomStudentStatus.Active ? (
           <Button className="bg-red-600 hover:bg-red-700" onClick={() => handleBlockStudent(row)}>
             <i className="fa-solid fa-lock-keyhole"></i>
           </Button>
@@ -113,6 +118,8 @@ function ClassroomStudent() {
 
   const handleChangePage = (selected: number) => {
     setPagination({ ...pagination, currentPage: selected })
+    console.log(selected)
+    setDataSearch({ ...dataSearch, page: selected })
     debouncedFetchClassroomStudents({ page: selected })
   }
 
@@ -138,7 +145,19 @@ function ClassroomStudent() {
       'Không',
     )
     if (check) {
-      Toast.success('Chưa làm ban')
+      showLoading()
+      classroomStudentService
+        .block(id, student.id)
+        .then(() => {
+          Toast.success('Vô hiệu hóa khóa thành công')
+          debouncedFetchClassroomStudents(dataSearch)
+        })
+        .catch(err => {
+          handleResponseError(err)
+        })
+        .finally(() => {
+          hideLoading()
+        })
     }
   }
 
@@ -149,7 +168,19 @@ function ClassroomStudent() {
       'Không',
     )
     if (check) {
-      Toast.success('Chưa làm ân xá')
+      showLoading()
+      classroomStudentService
+        .active(id, student.id)
+        .then(() => {
+          Toast.success('Vô hiệu hóa khóa thành công')
+          debouncedFetchClassroomStudents(dataSearch)
+        })
+        .catch(err => {
+          handleResponseError(err)
+        })
+        .finally(() => {
+          hideLoading()
+        })
     }
   }
 

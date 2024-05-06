@@ -21,8 +21,9 @@ export const DEFAULT_PAGINATION_OBJECT = {
 }
 
 export const DATE_FORMAT = {
-  DATE_DASH: 'yyyy-MM-dd',
+  DATE_DASH: 'YYYY-MM-DD',
   DATE_SLASH: 'yyyy/MM/dd',
+  DATE_TIME_DASH: 'YYYY-MM-DD HH:mm:ss',
 }
 
 export const ROLE = {
@@ -85,6 +86,21 @@ export const CLASSROOM_STATUS_LIST_OPTIONS = [
     name: 'Bị khóa',
     value: ClassroomStatus.AdminBlock,
     badgeColor: 'bg-red-400',
+  },
+]
+
+export const CLASSROOM_STATUS_TEACHER_CREATE_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Hoạt động',
+    value: ClassroomStatus.Active,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Khóa',
+    value: ClassroomStatus.Block,
+    badgeColor: 'bg-red-200',
   },
 ]
 

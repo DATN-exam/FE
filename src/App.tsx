@@ -8,6 +8,7 @@ import AuthProvider from './providers/AuthProvider'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { appConfig } from './config/app'
 import ThemeProvider from './providers/ThemeProvider'
+import DatePickerProvider from './providers/DatePickerProvider'
 
 function App() {
   return (
@@ -15,15 +16,17 @@ function App() {
       <ThemeProvider>
         <LoadingProvider>
           <GoogleOAuthProvider clientId={appConfig.google.clientId}>
-            <SidebarActiveProvider>
-              <AuthAdminProvider>
-                <AuthProvider>
-                  <Suspense fallback={<LoadingOverlay open />}>
-                    <Routes />
-                  </Suspense>
-                </AuthProvider>
-              </AuthAdminProvider>
-            </SidebarActiveProvider>
+            <DatePickerProvider>
+              <SidebarActiveProvider>
+                <AuthAdminProvider>
+                  <AuthProvider>
+                    <Suspense fallback={<LoadingOverlay open />}>
+                      <Routes />
+                    </Suspense>
+                  </AuthProvider>
+                </AuthAdminProvider>
+              </SidebarActiveProvider>
+            </DatePickerProvider>
           </GoogleOAuthProvider>
         </LoadingProvider>
       </ThemeProvider>

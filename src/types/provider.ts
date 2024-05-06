@@ -4,6 +4,10 @@ export type LoadingProviderProps = {
   children: ReactNode
 }
 
+export type DatePickerProviderProps = {
+  children: ReactNode
+}
+
 export type SidebarActiveProviderProps = {
   children: ReactNode
 }
