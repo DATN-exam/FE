@@ -6,6 +6,10 @@ const classroomService = {
     const { data } = await apiClient.get(this.path, { params })
     return data
   },
+  async join(key: string) {
+    const { data } = await apiClient.get(`${this.path}/join/${key}`)
+    return data
+  },
 }
 
 export default classroomService

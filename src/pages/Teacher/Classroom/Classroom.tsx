@@ -14,10 +14,12 @@ import { TSetPagination, TSortOrder, TTableColumn } from '@/types'
 import { setPaginationData } from '@/utils/pagination'
 import { getValueFromObjectByKey } from '@/utils/helper'
 import { ClassroomSearchParams, TClassroom } from '@/types/teacher'
-import classroomService from '@/services/site/teacher/classroomService'
+import classroomService from '@/services/teacher/classroomService'
 import SearchForm from './SearchForm'
+import CreateForm from './CreateForm'
 import { Link } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
+import { Drawer } from 'antd'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -33,6 +35,7 @@ function Classroom() {
   const [classrooms, setClassrooms] = useState<TClassroom[]>([])
   const [pagination, setPagination] = useState<TSetPagination>(DEFAULT_PAGINATION_OBJECT)
   const [dataSearch, setDataSearch] = useState(defaultValueDataSearch)
+  const [openFormAdd, setOpenFormAdd] = useState(false)
 
   const columns: TTableColumn[] = [
     {
@@ -47,7 +50,8 @@ function Classroom() {
     },
     {
       headerName: 'Số lượng học sinh',
-      field: 'count_student',
+      field: 'quantity_student',
+      sortable: true,
     },
     {
       headerName: 'Mô tả',
@@ -105,6 +109,7 @@ function Classroom() {
 
   const handleChangePage = (selected: number) => {
     setPagination({ ...pagination, currentPage: selected })
+    setDataSearch({ ...dataSearch, page: selected })
     debouncedFetchClassrooms({ page: selected })
   }
 
@@ -124,7 +129,7 @@ function Classroom() {
   }
 
   const handleCreateClassroom = () => {
-    //
+    setOpenFormAdd(true)
   }
 
   useEffect(() => {
@@ -133,31 +138,51 @@ function Classroom() {
   }, [])
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl text-foreground">Danh sách lớp học</h1>
-      <div className="bg-card rounded p-5 shadow space-y-6">
-        <div className="flex justify-between">
+    <>
+      <div className="space-y-8">
+        <h1 className="text-3xl text-foreground">Danh sách lớp học</h1>
+        <div className="bg-card rounded p-5 shadow space-y-6">
+          <div className="flex justify-end">
+            <Button onClick={handleCreateClassroom}>Tạo lớp</Button>
+          </div>
           <SearchForm
+            className="!mt-1"
             dataSearch={dataSearch}
             setDataSearch={setDataSearch}
             onReset={resetDataSearch}
             onSearch={search}
           />
-          <div>
-            <Button onClick={handleCreateClassroom}>Tạo lớp</Button>
-          </div>
+          <Table
+            columns={columns}
+            rows={classrooms}
+            pagination={pagination}
+            defaultSortColumn={defaultValueDataSearch.sort_column}
+            defaultSortType={defaultValueDataSearch.sort_type}
+            onSort={sort}
+            handleChangePage={selected => handleChangePage(selected)}
+          />
         </div>
-        <Table
-          columns={columns}
-          rows={classrooms}
-          pagination={pagination}
-          defaultSortColumn={defaultValueDataSearch.sort_column}
-          defaultSortType={defaultValueDataSearch.sort_type}
-          onSort={sort}
-          handleChangePage={selected => handleChangePage(selected)}
-        />
       </div>
-    </div>
+      <Drawer
+        title="Tạo lớp học mới"
+        width={720}
+        onClose={() => setOpenFormAdd(false)}
+        open={openFormAdd}
+        styles={{
+          body: {
+            paddingBottom: 80,
+          },
+        }}
+      >
+        <CreateForm
+          showLoading={showLoading}
+          hideLoading={hideLoading}
+          debouncedFetchClassrooms={debouncedFetchClassrooms}
+          dataSearch={dataSearch}
+          setOpenFormAdd={setOpenFormAdd}
+        />
+      </Drawer>
+    </>
   )
 }
 

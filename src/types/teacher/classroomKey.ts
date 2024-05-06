@@ -7,3 +7,11 @@ export type TClassroomKey = {
   remaining: number | null
   expired: string | null
 }
+
+export type ClassroomKeyPayload = {
+  name: string | null
+  status: string | null
+  quantity: number | null
+  expired: string | null
+  classroom_id: string | null
+}

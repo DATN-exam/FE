@@ -14,12 +14,14 @@ import useHandleError from '@/hooks/useHandleError'
 import { TSetPagination, TSortOrder, TTableColumn } from '@/types'
 import { setPaginationData } from '@/utils/pagination'
 import { ClassroomSearchParams } from '@/types/teacher'
-import classroomService from '@/services/site/teacher/classroomService'
-import SearchForm from '../SearchForm'
+import classroomService from '@/services/teacher/classroomService'
+import SearchForm from './SearchForm'
 import { useParams } from 'react-router-dom'
 import Header from '../Header'
 import { getValueFromObjectByKey } from '@/utils/helper'
 import { TClassroomKey } from '@/types/teacher/classroomKey'
+import { Drawer } from 'antd'
+import CreateForm from './CreateForm'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -36,6 +38,7 @@ function ClassroomKey() {
   const [keys, setKeys] = useState<TClassroomKey[]>([])
   const [pagination, setPagination] = useState<TSetPagination>(DEFAULT_PAGINATION_OBJECT)
   const [dataSearch, setDataSearch] = useState(defaultValueDataSearch)
+  const [openFormAdd, setOpenFormAdd] = useState(false)
 
   const columns: TTableColumn[] = [
     {
@@ -169,6 +172,10 @@ function ClassroomKey() {
       })
   }
 
+  const handleCreateKey = () => {
+    setOpenFormAdd(true)
+  }
+
   useEffect(() => {
     setSidebarActive(ROUTES_TEACHER.CLASSROOM.INDEX)
     debouncedFetchClassroomKeys()
@@ -179,6 +186,9 @@ function ClassroomKey() {
       <Header />
       <h1 className="text-3xl text-foreground">Danh sách mã vào lớp</h1>
       <div className="bg-card rounded p-5 shadow space-y-6">
+        <div className="flex justify-end">
+          <Button onClick={handleCreateKey}>Tạo mã vào lớp</Button>
+        </div>
         <SearchForm
           dataSearch={dataSearch}
           setDataSearch={setDataSearch}
@@ -195,6 +205,25 @@ function ClassroomKey() {
           handleChangePage={selected => handleChangePage(selected)}
         />
       </div>
+      <Drawer
+        title="Tạo lớp mã vào lớp"
+        width={720}
+        onClose={() => setOpenFormAdd(false)}
+        open={openFormAdd}
+        styles={{
+          body: {
+            paddingBottom: 80,
+          },
+        }}
+      >
+        <CreateForm
+          showLoading={showLoading}
+          hideLoading={hideLoading}
+          debouncedFetchClassroomKeys={debouncedFetchClassroomKeys}
+          dataSearch={dataSearch}
+          setOpenFormAdd={setOpenFormAdd}
+        />
+      </Drawer>
     </div>
   )
 }

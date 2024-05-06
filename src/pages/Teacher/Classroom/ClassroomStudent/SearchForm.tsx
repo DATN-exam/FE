@@ -1,5 +1,5 @@
 import { Button, Input, Select } from '@/components/ui'
-import { CLASSROOM_STATUS_LIST_OPTIONS } from '@/config/define'
+import { CLASSROOM_STUDENT_LIST_OPTIONS } from '@/config/define'
 import { ClassroomSearchFormProps } from '@/types/teacher'
 import { cx } from 'class-variance-authority'
 import { ChangeEvent } from 'react'
@@ -29,7 +29,7 @@ const SearchForm = (props: ClassroomSearchFormProps) => {
           label="Trạng thái"
           name="status"
           zeroValueText="Tất cả trạng thái"
-          options={CLASSROOM_STATUS_LIST_OPTIONS}
+          options={CLASSROOM_STUDENT_LIST_OPTIONS}
           value={dataSearch?.status ?? ''}
           onChange={changeDataSearch}
         />

@@ -12,6 +12,7 @@ export type TClassroom = {
 export type ClassroomSearchParams = {
   name: string | null
   status: string | null
+  page?: number | null
 } & TSortOrder
 
 export type ClassroomSearchFormProps = {
@@ -19,9 +20,16 @@ export type ClassroomSearchFormProps = {
   setDataSearch: (value: any) => void
   onReset?: () => void
   onSearch?: () => void
+  className?: string | null
 }
 
 export type ClassroomUpdatePayloads = {
+  name: string | null
+  status: string | null
+  description: string | null
+}
+
+export type ClassroomCreatePayloads = {
   name: string | null
   status: string | null
   description: string | null

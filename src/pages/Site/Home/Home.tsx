@@ -1,9 +1,11 @@
 import {
+  Alert,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
   Pagination,
+  Toast,
 } from '@/components/ui'
 import { DEFAULT_PAGINATION_OBJECT } from '@/config/define'
 import { ROUTES_SITE } from '@/config/routes'
@@ -45,6 +47,26 @@ function Home() {
     fetchClassrooms({ page: selected })
   }
 
+  const handleJoinClassroom = async () => {
+    const key = await Alert.inputText('Nhập mã vào lớp học', 'Mã')
+    if (!key) {
+      return
+    }
+    classroomService
+      .join(key)
+      .then(data => {
+        console.log(data)
+        Toast.success('Tham gia lớp học thành công')
+        fetchClassrooms()
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
+
   useEffect(() => {
     setSidebarActive(ROUTES_SITE.HOME)
     fetchClassrooms()
@@ -62,7 +84,10 @@ function Home() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-fit">
             <DropdownMenuItem>
-              <button className="w-full flex items-center gap-3 text-base">
+              <button
+                className="w-full flex items-center gap-3 text-base"
+                onClick={handleJoinClassroom}
+              >
                 <div className="flex justify-center items-center w-6">
                   <i className="fa-solid fa-users-medical"></i>
                 </div>
