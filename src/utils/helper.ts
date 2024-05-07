@@ -13,3 +13,7 @@ export const getValueFromObjectByKey = (objectArray: any, keyFrom: string, value
 export const convertDate = (date: any, format?: string) => {
   return dayjs(date).format(format ?? DATE_FORMAT.DATE_DASH)
 }
+
+export const getRandomInt = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}

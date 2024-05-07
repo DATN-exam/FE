@@ -17,6 +17,12 @@ const NAV_ITEMS = [
     iconActive: 'fa-solid fa-gauge-max',
     text: 'Lớp học',
   },
+  {
+    to: ROUTES_TEACHER.SET_QUESTION.INDEX,
+    icon: 'fa-light fa-gauge-max',
+    iconActive: 'fa-solid fa-gauge-max',
+    text: 'Bộ câu hỏi',
+  },
 ]
 
 const Sidebar = (props: SidebarProps) => {

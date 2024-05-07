@@ -68,6 +68,21 @@ export enum ClassroomKeyStatus {
   InActive = 'INACTIVE',
 }
 
+export enum SetQuestionStatus {
+  Active = 'ACTIVE',
+  Block = 'BLOCK',
+}
+
+export enum QuestionStatus {
+  Active = 'ACTIVE',
+  Block = 'BLOCK',
+}
+
+export enum QuestionType {
+  Multiple = 'MULTIPLE',
+  Essay = 'ESSAY',
+}
+
 export const CLASSROOM_STATUS_LIST_OPTIONS = [
   {
     id: 1,
@@ -200,6 +215,49 @@ export const CLASSROOM_KEY_LIST_OPTIONS = [
     name: 'Ngưng hoạt động',
     value: ClassroomKeyStatus.InActive,
     badgeColor: 'bg-red-200',
+  },
+]
+
+export const SET_QUESTION_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Hoạt động',
+    value: SetQuestionStatus.Active,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Khóa',
+    value: SetQuestionStatus.Block,
+    badgeColor: 'bg-red-200',
+  },
+]
+
+export const QUESTION_STATUS_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Hoạt động',
+    value: QuestionStatus.Active,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Khóa',
+    value: QuestionStatus.Block,
+    badgeColor: 'bg-red-200',
+  },
+]
+
+export const QUESTION_TYPE_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Trắc nghiệm',
+    value: QuestionType.Multiple,
+  },
+  {
+    id: 2,
+    name: 'Tự luận',
+    value: QuestionType.Essay,
   },
 ]
 

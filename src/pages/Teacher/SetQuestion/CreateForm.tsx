@@ -1,19 +1,17 @@
 import { Button, Input, Select, Toast } from '@/components/ui'
-import {
-  CLASSROOM_STATUS_LIST_OPTIONS,
-  CLASSROOM_STATUS_TEACHER_CREATE_LIST_OPTIONS,
-} from '@/config/define'
+import { SET_QUESTION_LIST_OPTIONS } from '@/config/define'
 import useHandleError from '@/hooks/useHandleError'
-import classroomService from '@/services/teacher/classroomService'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { setErrorForInput } from '@/utils/handleErrors'
+import setQuestionService from '@/services/teacher/setQuestionService'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES_TEACHER } from '@/config/routes'
 
 const defaultValue = {
-  name: '',
-  status: CLASSROOM_STATUS_LIST_OPTIONS[0],
+  title: '',
+  status: SET_QUESTION_LIST_OPTIONS[0],
   description: '',
+  note: '',
 }
 const CreateForm = (props: any) => {
   const {
@@ -33,11 +31,11 @@ const CreateForm = (props: any) => {
       status: data.status.value,
     }
     showLoading()
-    classroomService
+    setQuestionService
       .create(data)
-      .then(({ data }) => {
-        Toast.success('Tạo lớp học thành công')
-        navigate(ROUTES_TEACHER.CLASSROOM.UPDATE.replace(':id', data.id))
+      .then(data => {
+        Toast.success('Tạo bộ câu hỏi thành công')
+        navigate(ROUTES_TEACHER.SET_QUESTION.UPDATE.replace(':id', data.id))
       })
       .catch((err: any) => {
         if (err.response.status == 422) {
@@ -49,25 +47,30 @@ const CreateForm = (props: any) => {
         hideLoading()
       })
   }
-  const { name: nameError, status: statusError, description: descriptionError } = errors
+  const {
+    title: titleError,
+    status: statusError,
+    description: descriptionError,
+    note: noteError,
+  } = errors
   return (
     <form onSubmit={handleSubmit(createClassroom)}>
       <div className="mt-4">
-        <label className="text-black">Tên lớp</label>
+        <label className="text-black">Tên bộ câu hỏi</label>
         <Input
           className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
-          placeholder="Tên lớp"
+          placeholder="Tên bộ câu hỏi"
           type="text"
-          name="name"
+          name="title"
           control={control}
-          error={nameError}
+          error={titleError}
         />
       </div>
       <div className="mt-4">
         <Select
           label="Trạng thái"
           name="status"
-          options={CLASSROOM_STATUS_TEACHER_CREATE_LIST_OPTIONS}
+          options={SET_QUESTION_LIST_OPTIONS}
           error={statusError}
         />
       </div>
@@ -80,6 +83,17 @@ const CreateForm = (props: any) => {
           name="description"
           control={control}
           error={descriptionError}
+        />
+      </div>
+      <div className="mt-4">
+        <label className="text-black">Lưu ý</label>
+        <Input
+          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          placeholder="Lưu ý"
+          type="text"
+          name="note"
+          control={control}
+          error={noteError}
         />
       </div>
       <div className="mt-4">
