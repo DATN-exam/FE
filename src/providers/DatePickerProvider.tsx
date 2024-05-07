@@ -31,7 +31,12 @@ const DatePickerProvider = (props: DatePickerProviderProps) => {
       ],
     },
   }
-
+  const theme = {
+    token: {
+      colorPrimary: '#00b96b',
+      colorBgContainer: '#f6ffed',
+    },
+  }
   const globalBuddhistLocale: typeof viVN = {
     ...viVN,
     DatePicker: {
@@ -40,7 +45,11 @@ const DatePickerProvider = (props: DatePickerProviderProps) => {
     },
   }
 
-  return <ConfigProvider locale={globalBuddhistLocale}>{children}</ConfigProvider>
+  return (
+    <ConfigProvider theme={theme} locale={globalBuddhistLocale}>
+      {children}
+    </ConfigProvider>
+  )
 }
 
 export default DatePickerProvider
