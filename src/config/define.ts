@@ -22,8 +22,10 @@ export const DEFAULT_PAGINATION_OBJECT = {
 
 export const DATE_FORMAT = {
   DATE_DASH: 'YYYY-MM-DD',
+  DATE_DASH_REGISTER: 'yyyy-mm-dd',
   DATE_SLASH: 'yyyy/MM/dd',
   DATE_TIME_DASH: 'YYYY-MM-DD HH:mm:ss',
+  TIME_DASH: 'HH:mm:ss',
 }
 
 export const ROLE = {
@@ -81,6 +83,12 @@ export enum QuestionStatus {
 export enum QuestionType {
   Multiple = 'MULTIPLE',
   Essay = 'ESSAY',
+}
+
+export enum QuestionLevel {
+  Easy = 'EASY',
+  Medium = 'MEDIUM',
+  Hard = 'HARD',
 }
 
 export const CLASSROOM_STATUS_LIST_OPTIONS = [
@@ -258,6 +266,27 @@ export const QUESTION_TYPE_LIST_OPTIONS = [
     id: 2,
     name: 'Tự luận',
     value: QuestionType.Essay,
+  },
+]
+
+export const QUESTION_LEVEL_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Dễ',
+    value: QuestionLevel.Easy,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Trung bình',
+    value: QuestionLevel.Medium,
+    badgeColor: 'bg-orange-200',
+  },
+  {
+    id: 3,
+    name: 'Khó',
+    value: QuestionLevel.Hard,
+    badgeColor: 'bg-red-200',
   },
 ]
 

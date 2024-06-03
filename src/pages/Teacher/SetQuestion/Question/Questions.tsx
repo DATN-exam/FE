@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Badge, Button, Table } from '@/components/ui'
 import {
   DEFAULT_PAGINATION_OBJECT,
+  QUESTION_LEVEL_LIST_OPTIONS,
   QUESTION_STATUS_LIST_OPTIONS,
   QUESTION_TYPE_LIST_OPTIONS,
   SORT_TYPE,
@@ -21,6 +22,7 @@ import { QuestionSearchParams, TQuestion } from '@/types/teacher/question'
 import { Drawer } from 'antd'
 import questionService from '@/services/teacher/questionService'
 import UpdateForm from './UpdateForm'
+import AddForm from './AddForm'
 
 const defaultValueDataSearch: QuestionSearchParams = {
   question: '',
@@ -40,6 +42,7 @@ function Questions() {
   const [pagination, setPagination] = useState<TSetPagination>(DEFAULT_PAGINATION_OBJECT)
   const [dataSearch, setDataSearch] = useState(defaultValueDataSearch)
   const [questionUpdate, setQuestionUpdate] = useState<TQuestion | null>(null)
+  const [openFormUpdate, setOpenFormUpdate] = useState(false)
   const [openFormAdd, setOpenFormAdd] = useState(false)
 
   const columns: TTableColumn[] = [
@@ -52,6 +55,16 @@ function Questions() {
       headerName: 'Câu hỏi',
       field: 'question',
       sortable: true,
+      valueGetter: row => {
+        return (
+          <>
+            <div
+              className="editor-content max-h-24 overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: row.question }}
+            />
+          </>
+        )
+      },
     },
     {
       headerName: 'Loại',
@@ -67,6 +80,15 @@ function Questions() {
       field: 'is_testing',
       sortable: true,
       valueGetter: row => (row.is_testing ? <p>Câu hỏi thử</p> : <p>Câu hỏi thật</p>),
+    },
+    {
+      headerName: 'Độ khó',
+      field: 'level',
+      sortable: true,
+      valueGetter: row => {
+        const level = getValueFromObjectByKey(QUESTION_LEVEL_LIST_OPTIONS, 'value', row.level)
+        return <Badge className={level?.badgeColor}>{level.name}</Badge>
+      },
     },
     {
       headerName: 'Trạng thái',
@@ -92,7 +114,7 @@ function Questions() {
 
   const handleUpdateQuestion = (row: TQuestion) => {
     setQuestionUpdate(row)
-    setOpenFormAdd(true)
+    setOpenFormUpdate(true)
   }
 
   const fetchQuestions = (params?: any) => {
@@ -133,6 +155,10 @@ function Questions() {
     debouncedFetchQuestions(dataTemp)
   }
 
+  const handleCreateQuestion = () => {
+    setOpenFormAdd(true)
+  }
+
   useEffect(() => {
     setSidebarActive(ROUTES_TEACHER.SET_QUESTION.INDEX)
     debouncedFetchQuestions()
@@ -143,6 +169,9 @@ function Questions() {
       <Header />
       <h1 className="text-3xl text-foreground">Danh sách câu hỏi</h1>
       <div className="bg-card rounded p-5 shadow space-y-6">
+        <div className="flex justify-end">
+          <Button onClick={handleCreateQuestion}>Tạo câu hỏi</Button>
+        </div>
         <SearchForm
           dataSearch={dataSearch}
           setDataSearch={setDataSearch}
@@ -160,10 +189,10 @@ function Questions() {
         />
       </div>
       <Drawer
-        title="Chỉnh sửa bộ câu hỏi"
-        width={720}
-        onClose={() => setOpenFormAdd(false)}
-        open={openFormAdd}
+        title="Chỉnh sửa câu hỏi"
+        width={1080}
+        onClose={() => setOpenFormUpdate(false)}
+        open={openFormUpdate}
         destroyOnClose={true}
         styles={{
           body: {
@@ -174,10 +203,33 @@ function Questions() {
         <UpdateForm
           showLoading={showLoading}
           hideLoading={hideLoading}
-          debouncedFetchQuestions={debouncedFetchQuestions}
+          fetchQuestions={fetchQuestions}
           dataSearch={dataSearch}
-          setOpenFormAdd={setOpenFormAdd}
+          setOpenForm={setOpenFormUpdate}
           question={questionUpdate}
+          pagination={pagination}
+        />
+      </Drawer>
+
+      <Drawer
+        title="Thêm câu hỏi"
+        width={1080}
+        onClose={() => setOpenFormAdd(false)}
+        open={openFormAdd}
+        destroyOnClose={true}
+        styles={{
+          body: {
+            paddingBottom: 80,
+          },
+        }}
+      >
+        <AddForm
+          showLoading={showLoading}
+          hideLoading={hideLoading}
+          fetchQuestions={fetchQuestions}
+          dataSearch={dataSearch}
+          setOpenForm={setOpenFormAdd}
+          pagination={pagination}
         />
       </Drawer>
     </div>

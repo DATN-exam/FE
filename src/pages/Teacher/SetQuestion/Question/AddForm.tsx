@@ -8,6 +8,8 @@ import {
   QUESTION_LEVEL_LIST_OPTIONS,
   QUESTION_STATUS_LIST_OPTIONS,
   QUESTION_TYPE_LIST_OPTIONS,
+  QuestionLevel,
+  QuestionStatus,
   QuestionType,
 } from '@/config/define'
 import { TAnswer } from '@/types/teacher/answer'
@@ -16,8 +18,18 @@ import { useParams } from 'react-router-dom'
 import AnswerMultiple from './AnswerMultiple'
 import AnswerEssay from './AnswerEssay'
 
-const UpdateForm = (props: any) => {
-  const { showLoading, hideLoading, question, fetchQuestions, pagination } = props
+const question = {
+  id: null,
+  question: '',
+  level: QuestionLevel.Easy,
+  type: QuestionType.Essay,
+  status: QuestionStatus.Active,
+  score: null,
+  is_testing: false,
+  answers: [],
+}
+const AddForm = (props: any) => {
+  const { showLoading, hideLoading, fetchQuestions, dataSearch } = props
   const {
     control,
     handleSubmit,
@@ -32,19 +44,15 @@ const UpdateForm = (props: any) => {
   const { handleResponseError } = useHandleError()
   const { id } = useParams()
   const [isTesting, setIsTesting] = useState(question.is_testing)
-  const [answersMultiple, setAnswersMultiple] = useState([])
   const [answersMultipleAdd, setAnswersMultipleAdd] = useState<TAnswer[]>([])
-  const [answersEssay, setAnswersEssay] = useState([])
   const [answersEssayAdd, setAnswersEssayAdd] = useState<TAnswer[]>([])
-  const [answersDelete, setAnswersDelete] = useState<number[]>([])
   const [idCorrect, setIdCorrect] = useState()
-  const [questionType, setQuestionType] = useState()
-  const [questionContent, setQuestionContent] = useState()
+  const [questionType, setQuestionType] = useState<any>()
+  const [questionContent, setQuestionContent] = useState<any>()
 
   const updateQuestion: SubmitHandler<any> = data => {
     clearErrors()
     let newAnswersAdd = []
-    let newAnswersUpdate = []
     if (questionType === QuestionType.Multiple) {
       newAnswersAdd = answersMultipleAdd.map((item: any) => {
         if (item.id === idCorrect) {
@@ -54,20 +62,11 @@ const UpdateForm = (props: any) => {
         }
         return item
       })
-      newAnswersUpdate = answersMultiple.map((item: any) => {
-        if (item.id === idCorrect) {
-          item.is_correct = true
-        } else {
-          item.is_correct = false
-        }
-        return item
-      })
     } else {
       newAnswersAdd = answersEssayAdd
-      newAnswersUpdate = answersEssay
     }
     const minLengthAnswer = questionType === QuestionType.Multiple ? 2 : 1
-    if (newAnswersAdd.length + newAnswersUpdate.length < minLengthAnswer) {
+    if (newAnswersAdd.length < minLengthAnswer) {
       return Alert.alert(
         `Cần có ít nhất ${minLengthAnswer}`,
         `Cần ít nhất ${minLengthAnswer} cho câu hỏi`,
@@ -78,18 +77,16 @@ const UpdateForm = (props: any) => {
       question: questionContent,
       is_testing: isTesting,
       status: data.status,
-      answers_delete: answersDelete,
-      answers_add: newAnswersAdd,
-      answers_update: newAnswersUpdate,
+      answers: newAnswersAdd,
       type: data.type,
       level: data.level,
     }
     showLoading()
     questionService
-      .update(id, question.id, dataSubmit)
+      .add(id, dataSubmit)
       .then(() => {
-        Toast.success('Cập nhật bộ câu hỏi thành công')
-        fetchQuestions({ page: pagination.currentPage })
+        Toast.success('Thêm câu hỏi thành công')
+        fetchQuestions({ ...dataSearch })
       })
       .catch((err: any) => {
         if (err.response.status == 422) {
@@ -116,17 +113,7 @@ const UpdateForm = (props: any) => {
 
   useEffect(() => {
     setQuestionContent(question.question)
-    setIdCorrect(
-      question.answers.find((item: any) => {
-        return item.is_correct
-      })?.id,
-    )
     setQuestionType(question.type)
-    if (question.type === QuestionType.Multiple) {
-      setAnswersMultiple(question.answers)
-    } else {
-      setAnswersEssay(question.answers)
-    }
   }, [])
 
   return (
@@ -137,7 +124,7 @@ const UpdateForm = (props: any) => {
     >
       <div className="flex justify-end">
         <Button type="submit" onClick={() => clearErrors()}>
-          Cập nhật
+          Thêm
         </Button>
       </div>
       <div className="flex gap-5 mt-4">
@@ -197,23 +184,23 @@ const UpdateForm = (props: any) => {
           <AnswerMultiple
             setIdCorrect={setIdCorrect}
             idCorrect={idCorrect}
-            answers={answersMultiple}
-            setAnswers={setAnswersMultiple}
+            answers={[]}
+            setAnswers={[]}
             answersAdd={answersMultipleAdd}
             setAnswersAdd={setAnswersMultipleAdd}
             control={control}
-            setAnswersDelete={setAnswersDelete}
-            answersDelete={answersDelete}
+            setAnswersDelete={[]}
+            answersDelete={[]}
           />
         ) : (
           <AnswerEssay
-            answers={answersEssay}
-            setAnswers={setAnswersEssay}
+            answers={[]}
+            setAnswers={[]}
             answersAdd={answersEssayAdd}
             setAnswersAdd={setAnswersEssayAdd}
             control={control}
-            setAnswersDelete={setAnswersDelete}
-            answersDelete={answersDelete}
+            setAnswersDelete={[]}
+            answersDelete={[]}
           />
         )}
       </div>
@@ -221,4 +208,4 @@ const UpdateForm = (props: any) => {
   )
 }
 
-export default UpdateForm
+export default AddForm

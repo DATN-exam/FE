@@ -45,6 +45,11 @@ function SetQuestion() {
       sortable: true,
     },
     {
+      headerName: 'Số lượng câu hỏi',
+      field: 'quantity_question',
+      // sortable: true,
+    },
+    {
       headerName: 'Mô tả',
       field: 'description',
       valueGetter: row => (

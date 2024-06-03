@@ -22,6 +22,20 @@ const Alert = {
     })
     return result.value
   },
+  async inputFile(title: string) {
+    const { value: file } = await MySwal.fire({
+      title: title,
+      input: 'file',
+      customClass: {
+        container: 'z-[3000]',
+      },
+      // inputAttributes: {
+      //   accept: '.csv',
+      //   'aria-label': 'Input your file',
+      // },
+    })
+    return file
+  },
   alert(title: string, text: string, icon: SweetAlertIcon | null) {
     MySwal.fire({
       title: title,

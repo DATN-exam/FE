@@ -7,6 +7,7 @@ export type TSetQuestion = {
   status: string | null
   description: string | null
   note: string | null
+  quantity_question: number | null
 }
 
 export type SetQuestionSearchParams = {

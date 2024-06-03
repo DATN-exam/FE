@@ -5,4 +5,7 @@ export const appConfig = {
   google: {
     clientId: import.meta.env.VITE_APP_GOOGLE_CLIENT_ID,
   },
+  tiny: {
+    key: import.meta.env.VITE_KEY_TINY,
+  },
 }

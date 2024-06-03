@@ -31,7 +31,7 @@ function Register() {
     showLoading()
     const payloads: RegisterPayloads = {
       ...fields,
-      dob: fields.dob ? format(new Date(fields.dob), DATE_FORMAT.DATE_DASH) : '',
+      dob: fields.dob ? format(new Date(fields.dob), DATE_FORMAT.DATE_DASH_REGISTER) : '',
     }
     authService
       .register(payloads)
