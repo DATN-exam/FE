@@ -2,6 +2,8 @@ import { ROUTES_SITE } from '@/config/routes'
 import { MainLayout, AuthLayout } from '@/components/Layouts/Site'
 import { Login, Register, Verify } from '@/pages/Site/Auth'
 import { Home } from '@/pages/Site'
+import { Classroom } from '@/pages/Site'
+import { Exam } from '@/pages/Site'
 
 const siteRoute = [
   {
@@ -11,6 +13,14 @@ const siteRoute = [
       {
         path: ROUTES_SITE.HOME,
         element: <Home />,
+      },
+      {
+        path: ROUTES_SITE.CLASROOM.INDEX,
+        element: <Classroom />,
+      },
+      {
+        path: ROUTES_SITE.CLASROOM.EXAM,
+        element: <Exam />,
       },
     ],
   },

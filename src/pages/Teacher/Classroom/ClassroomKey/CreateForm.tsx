@@ -38,7 +38,6 @@ const CreateForm = (props: any) => {
   }
   const createKey: SubmitHandler<ClassroomKeyPayload> = data => {
     showLoading()
-    showLoading()
     classroomKeyService
       .create(id, data)
       .then(data => {

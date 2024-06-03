@@ -11,6 +11,10 @@ const questionService = {
     const { data } = await apiClient.put(`${this.path}/${setQuestionId}/questions/${id}`, payloads)
     return data
   },
+  async add(setQuestionId: any, payloads: any) {
+    const { data } = await apiClient.post(`${this.path}/${setQuestionId}/questions`, payloads)
+    return data
+  },
 }
 
 export default questionService

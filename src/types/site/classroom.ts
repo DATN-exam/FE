@@ -1,5 +1,5 @@
 export type TClassroom = {
-  id: number | null
+  id: string | null
   name: string | null
   teacher_id: number | null
   status: string | null

@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/auth'
 import { ROUTES_SITE } from '@/config/routes'
 import { Header, Sidebar } from '@/components/Partials/Teacher'
 import { ROLE } from '@/config/define'
-import { Toast } from '@/components/ui'
+import { Alert } from '@/components/ui'
 
 const MainLayout = () => {
   const { authToken, authProfile } = useAuth()
@@ -24,7 +24,7 @@ const MainLayout = () => {
       return
     } else if (authProfile?.role != ROLE.TEACHER) {
       navigate(ROUTES_SITE.HOME, { replace: true })
-      Toast.error('Cút ra ngoài...')
+      Alert.alert('Bạn chưa phải là giáo viên!', 'Bạn không có quyền truy cập trang này', 'warning')
     }
 
     setIsChecking(false)

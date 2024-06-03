@@ -18,7 +18,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       const response = await authService.login(data)
       setAuthToken(response.access_token)
     } catch (err) {
-      return Promise.reject(err)
+      // return Promise.reject(err)
+      authRemove()
     }
   }
 

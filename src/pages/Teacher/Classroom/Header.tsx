@@ -47,6 +47,18 @@ function Header() {
           Danh sách mã
         </Link>
       </li>
+      <li className="me-2">
+        <Link
+          to={ROUTES_TEACHER.CLASSROOM.EXAMS.replace(':id', id ?? '')}
+          className={cx(
+            currentPath == ROUTES_TEACHER.CLASSROOM.EXAMS.replace(':id', id ?? '')
+              ? classNameActive
+              : classNameInActive,
+          )}
+        >
+          Cuộc thi
+        </Link>
+      </li>
     </ul>
   )
 }

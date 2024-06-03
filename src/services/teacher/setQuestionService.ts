@@ -7,6 +7,10 @@ const setQuestionService = {
     const { data } = await apiClient.get(this.path, { params })
     return data
   },
+  async getListReady() {
+    const { data } = await apiClient.get(`${this.path}/set-question-ready`)
+    return data
+  },
   async create(params: any) {
     const { data } = await apiClient.post(this.path, params)
     return data

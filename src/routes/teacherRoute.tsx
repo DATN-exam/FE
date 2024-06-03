@@ -6,6 +6,7 @@ import {
   ClassroomUpdate,
   ClassroomStudent,
   ClassroomKey,
+  ClassroomExam,
 } from '@/pages/Teacher'
 import { SetQuestion } from '@/pages/Teacher/SetQuestion'
 import { SetQuestionUpdate } from '@/pages/Teacher/SetQuestion/SetQuestionUpdate'
@@ -35,6 +36,10 @@ const teacherRoute = [
       {
         path: ROUTES_TEACHER.CLASSROOM.KEYS,
         element: <ClassroomKey />,
+      },
+      {
+        path: ROUTES_TEACHER.CLASSROOM.EXAMS,
+        element: <ClassroomExam />,
       },
       {
         path: ROUTES_TEACHER.SET_QUESTION.INDEX,

@@ -103,7 +103,7 @@ function Home() {
           {classrooms.map(classroom => (
             <Link
               key={classroom.id}
-              to="#"
+              to={ROUTES_SITE.CLASROOM.INDEX.replace(':classroomId', classroom.id ?? '')}
               className="shadow p-4 w-56 rounded bg-card border space-y-6 hover:bg-accent"
               title={classroom.name ?? ''}
             >
