@@ -34,13 +34,14 @@ const Input = (props: InputProps) => {
     name,
     disabled = false,
     error,
+    isRequired = false,
     ...rest
   } = props
 
   return (
     <div className={cn(classNameLayout)}>
       <Label htmlFor={name} className={classNameLabel}>
-        {label}
+        {label} {isRequired ? <span className="text-red-500">*</span> : ''}
       </Label>
       {control ? (
         <Controller

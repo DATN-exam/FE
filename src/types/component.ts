@@ -25,6 +25,7 @@ export type InputProps = {
   className?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
   ref?: MutableRefObject<HTMLInputElement | null>
+  isRequired?: boolean
 } & InputHTMLAttributes<HTMLInputElement>
 
 export type DatePickerProps = {
