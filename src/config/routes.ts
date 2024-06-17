@@ -1,6 +1,7 @@
 export const ROUTES_ADMIN = {
   AUTH: {
     LOGIN: '/admin/auth/login',
+    PROFILE: 'admin/auth/profile',
   },
   HOME: '/admin',
   DASHBOARD: '/admin/dashboard',
