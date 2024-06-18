@@ -39,10 +39,10 @@ const Header = (props: HeaderProps) => {
             <i className="fa-regular fa-bars"></i>
           </button>
         </li>
-        <li>
+        <li className="hidden md:block">
           <Link to={ROUTES_ADMIN.DASHBOARD}>Home</Link>
         </li>
-        <li>
+        <li className="hidden md:block">
           <Link to="#">Contact</Link>
         </li>
       </ul>

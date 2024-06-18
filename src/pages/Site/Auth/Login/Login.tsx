@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { Input, Button, Checkbox, Toast } from '@/components/ui'
 import { useAuth } from '@/contexts/auth'
 import { useLoading } from '@/contexts/loading'
@@ -32,7 +32,7 @@ function Login() {
   })
   const { email: emailError, password: passwordError } = errors
 
-  const login: SubmitHandler<LoginPayloads> = data => {
+  const login = (data: LoginPayloads) => {
     showLoading()
     authLogin(data)
       .catch((err: any) => {
@@ -74,6 +74,7 @@ function Login() {
           name="email"
           control={control}
           error={emailError}
+          isRequired
         />
         <Input
           type={`${isShowPassword ? 'text' : 'password'}`}
@@ -81,6 +82,8 @@ function Login() {
           name="password"
           control={control}
           error={passwordError}
+          autoComplete="off"
+          isRequired
         />
         <div className="flex justify-between !mt-2">
           <Checkbox
@@ -89,7 +92,7 @@ function Login() {
             checked={isShowPassword}
             onCheckedChange={checked => setIsShowPassword(!!checked)}
           />
-          <Link to="#" className="text-sm underline text-foreground">
+          <Link to={ROUTES_SITE.AUTH.FORGOT_PASSWORD} className="text-sm underline text-foreground">
             Quên mật khẩu
           </Link>
         </div>
