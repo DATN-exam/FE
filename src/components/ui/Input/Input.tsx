@@ -40,8 +40,8 @@ const Input = (props: InputProps) => {
 
   return (
     <div className={cn(classNameLayout)}>
-      <Label htmlFor={name} className={classNameLabel}>
-        {label} {isRequired ? <span className="text-red-500">*</span> : ''}
+      <Label htmlFor={name} className={classNameLabel} isRequired={isRequired}>
+        {label}
       </Label>
       {control ? (
         <Controller

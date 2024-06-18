@@ -1,15 +1,15 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input } from '@/components/ui'
-import { ROUTES_ADMIN } from '@/config/routes'
-import { useAuthAdmin } from '@/contexts/authAdmin'
-import { useSidebarActive } from '@/contexts/sidebarActive'
-import { cn } from '@/lib/utils'
+import { useAuth } from '@/contexts/auth'
 import userAvatarDefault from '@/assets/user-avatar-default.png'
+import { cn } from '@/lib/utils'
+import { useSidebarActive } from '@/contexts/sidebarActive'
+import { ROUTES_SITE } from '@/config/routes'
 
 const Profile = () => {
   const { setSidebarActive } = useSidebarActive()
-  const { authProfile } = useAuthAdmin()
+  const { authProfile } = useAuth()
   const [avatarUrlPreview, setAvatarUrlPreview] = useState<string | null>(null)
 
   const {
@@ -36,7 +36,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    setSidebarActive(ROUTES_ADMIN.AUTH.PROFILE)
+    setSidebarActive(ROUTES_SITE.AUTH.PROFILE)
   }, [])
 
   useEffect(() => {
@@ -53,9 +53,12 @@ const Profile = () => {
   }, [watch('avatar')])
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl text-foreground">Thông tin cá nhân</h1>
-      <div className="bg-card rounded p-5 shadow space-y-6">
+    <section>
+      <div className="px-6 py-5">
+        <h1 className="font-medium text-2xl text-foreground">Thông tin cá nhân</h1>
+      </div>
+      <hr />
+      <div className="bg-card rounded p-5 space-y-6 md:p-10">
         <form
           className="grid grid-cols-1 md:grid-cols-2 gap-5"
           onSubmit={handleSubmit(handleUpdate)}
@@ -138,7 +141,7 @@ const Profile = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   )
 }
 

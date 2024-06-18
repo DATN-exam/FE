@@ -1,7 +1,7 @@
 export const ROUTES_ADMIN = {
   AUTH: {
     LOGIN: '/admin/auth/login',
-    PROFILE: 'admin/auth/profile',
+    PROFILE: '/admin/auth/profile',
   },
   HOME: '/admin',
   DASHBOARD: '/admin/dashboard',
@@ -16,6 +16,9 @@ export const ROUTES_SITE = {
     REGISTER: '/auth/register',
     VERIFY: '/auth/verify',
     LOGIN_GOOGLE_CALLBACK: '/auth/google/callback',
+    PROFILE: '/auth/profile',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
   },
   HOME: '/',
   CLASROOM: {

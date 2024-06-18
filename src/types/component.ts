@@ -8,6 +8,9 @@ import {
 import { SelectSingleEventHandler } from 'react-day-picker'
 import { Control, FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
+import * as LabelPrimitive from '@radix-ui/react-label'
+import { VariantProps } from 'class-variance-authority'
+import { labelVariants } from '@/components/ui/Label'
 
 export type LoadingOverlayProps = {
   open: boolean
@@ -72,6 +75,7 @@ export type SelectProps = {
   ref?: MutableRefObject<HTMLSelectElement | null>
   zeroValueText?: string
   options?: TListOption[] | []
+  isRequired?: boolean
 } & SelectHTMLAttributes<HTMLSelectElement>
 
 export type ModalProps = {
@@ -81,3 +85,8 @@ export type ModalProps = {
   close: () => void
   afterLeave?: () => void
 }
+
+export type LabelProps = {
+  isRequired?: boolean
+} & React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+  VariantProps<typeof labelVariants>

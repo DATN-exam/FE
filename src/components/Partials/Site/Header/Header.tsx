@@ -53,6 +53,17 @@ function Header() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
+              <Link
+                className="w-full flex items-center gap-3 text-base"
+                to={ROUTES_SITE.AUTH.PROFILE}
+              >
+                <div className="flex justify-center items-center w-6">
+                  <i className="fa-solid fa-user"></i>
+                </div>
+                <span>Thông tin cá nhân</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
               <button className="w-full flex items-center gap-3 text-base" onClick={() => logout()}>
                 <div className="flex justify-center items-center w-6">
                   <i className="fa-solid fa-right-from-bracket"></i>

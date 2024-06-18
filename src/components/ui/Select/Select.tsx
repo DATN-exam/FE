@@ -45,12 +45,13 @@ const Select = (props: SelectProps) => {
     disabled = false,
     zeroValueText = '',
     error,
+    isRequired = false,
     ...rest
   } = props
 
   return (
     <div className={classNameLayout}>
-      <Label htmlFor={name} className={classNameLabel}>
+      <Label htmlFor={name} className={classNameLabel} isRequired={isRequired}>
         {label}
       </Label>
       {control ? (

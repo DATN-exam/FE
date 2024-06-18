@@ -15,9 +15,9 @@ const AuthLayout = () => {
   }, [authToken])
 
   return (
-    <div className="w-full min-height-screen md:grid md:grid-cols-2">
-      <div className="flex items-center justify-center bg-secondary py-20">
-        <div className="mx-auto grid w-[350px] gap-6">
+    <div className="w-full md:grid md:grid-cols-2">
+      <div className="flex items-center justify-center bg-secondary py-20 min-h-screen">
+        <div className="mx-auto w-[350px] gap-6">
           <Outlet />
         </div>
       </div>
