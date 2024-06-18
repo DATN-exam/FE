@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Alert,
   DropdownMenu,
@@ -16,8 +18,7 @@ import classroomService from '@/services/site/classroomService'
 import { TSetPagination } from '@/types'
 import { TClassroom } from '@/types/site'
 import { setPaginationData } from '@/utils/pagination'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import authBackground from '@/assets/student-auth-bg.jpg'
 
 function Home() {
   const { setSidebarActive } = useSidebarActive()
@@ -109,13 +110,10 @@ function Home() {
             >
               <div className="flex justify-center">
                 <img
-                  className="w-16 h-16 object-contain rounded"
+                  className="w-16 h-16 object-cover rounded"
                   alt={classroom.name ?? ''}
                   loading="lazy"
-                  src={
-                    classroom.avatar ??
-                    'https://cdn.discordapp.com/attachments/858695320753012789/1189189524312571984/user-avatar-default.png?ex=6630ea0c&is=661e750c&hm=9c27dfdba4c6a1a223538565c22d7c23b18980b7613f8321b071dd2d872a3b4f&'
-                  }
+                  src={classroom.avatar ?? authBackground}
                 />
               </div>
               <div className="flex items-center gap-2 text-foreground">

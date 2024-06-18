@@ -78,7 +78,7 @@ function Register() {
           name="last_name"
           control={control}
           error={lastNameError}
-          autoComplete="off"
+          isRequired
         />
         <Input
           placeholder="A"
@@ -86,7 +86,7 @@ function Register() {
           name="first_name"
           control={control}
           error={firstNameError}
-          autoComplete="off"
+          isRequired
         />
         <Input
           type="date"
@@ -94,7 +94,7 @@ function Register() {
           name="dob"
           control={control}
           error={dobError}
-          autoComplete="off"
+          isRequired
         />
         <Input
           type="email"
@@ -103,7 +103,7 @@ function Register() {
           name="email"
           control={control}
           error={emailError}
-          autoComplete="off"
+          isRequired
         />
         <Input
           type={`${isShowPassword ? 'text' : 'password'}`}
@@ -111,6 +111,7 @@ function Register() {
           name="password"
           control={control}
           error={passwordError}
+          isRequired
         />
         <Input
           type={`${isShowPassword ? 'text' : 'password'}`}
@@ -118,6 +119,7 @@ function Register() {
           name="password_confirm"
           control={control}
           error={passwordConfirmError}
+          isRequired
         />
         <div className="!mt-2">
           <Checkbox

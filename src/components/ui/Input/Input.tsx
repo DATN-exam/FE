@@ -34,12 +34,13 @@ const Input = (props: InputProps) => {
     name,
     disabled = false,
     error,
+    isRequired = false,
     ...rest
   } = props
 
   return (
     <div className={cn(classNameLayout)}>
-      <Label htmlFor={name} className={classNameLabel}>
+      <Label htmlFor={name} className={classNameLabel} isRequired={isRequired}>
         {label}
       </Label>
       {control ? (
