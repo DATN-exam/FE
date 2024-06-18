@@ -1,3 +1,4 @@
+import { ExamStatus } from '@/config/define'
 import { ROUTES_SITE } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
 import useHandleError from '@/hooks/useHandleError'
@@ -13,7 +14,8 @@ function Sidebar() {
 
   const { showLoading, hideLoading } = useLoading()
   const [showExamCurrent, setShowExamCurrent] = useState(true)
-  const [showExam, setShowExam] = useState(false)
+  const [showExamHappened, setShowExamHappened] = useState(true)
+  const [showExamUpComing, setShowExamUpComing] = useState(false)
   const [classroom, setClassroom] = useState<TClassroom>()
   const [exams, setExams] = useState<TExam[]>([])
   const { handleResponseError } = useHandleError()
@@ -85,39 +87,90 @@ function Sidebar() {
         </button>
         {showExamCurrent && (
           <div>
-            {exams.map(exam => (
-              <div key={exam.id} className="mt-1">
-                <Link
-                  to={ROUTES_SITE.CLASROOM.EXAM.replace(':classroomId', classroomId ?? '').replace(
-                    ':id',
-                    exam.id ?? '',
-                  )}
-                >
-                  {exam.name}
-                </Link>
-              </div>
-            ))}
+            {exams
+              .filter(exam => {
+                return exam.status === ExamStatus.Happening
+              })
+              .map(exam => (
+                <div key={exam.id} className="mt-1">
+                  <Link
+                    to={ROUTES_SITE.CLASROOM.EXAM.replace(
+                      ':classroomId',
+                      classroomId ?? '',
+                    ).replace(':id', exam.id ?? '')}
+                  >
+                    {exam.name}
+                  </Link>
+                </div>
+              ))}
           </div>
         )}
       </div>
 
       <div>
-        <button className="cursor-pointer mt-3" onClick={() => setShowExam(!showExam)}>
-          {showExam ? (
+        <button
+          className="cursor-pointer mt-3"
+          onClick={() => setShowExamUpComing(!showExamUpComing)}
+        >
+          {showExamUpComing ? (
             <i className="fa-solid fa-caret-right"></i>
           ) : (
             <i className="fa-sharp fa-solid fa-caret-down"></i>
           )}
-          <span className="ml-3">Cuộc thi đã diễn ra </span>
+          <span className="ml-3">Cuộc thi sắp diễn ra</span>
         </button>
-        {showExam && (
+        {showExamUpComing && (
           <div>
-            <div className="mt-1">
-              <Link to="#">Cuộc thi 1</Link>
-            </div>
-            <div className="mt-1">
-              <Link to="#">Cuộc thi 1</Link>
-            </div>
+            {exams
+              .filter(exam => {
+                return exam.status === ExamStatus.Upcoming
+              })
+              .map(exam => (
+                <div key={exam.id} className="mt-1">
+                  <Link
+                    to={ROUTES_SITE.CLASROOM.EXAM.replace(
+                      ':classroomId',
+                      classroomId ?? '',
+                    ).replace(':id', exam.id ?? '')}
+                  >
+                    {exam.name}
+                  </Link>
+                </div>
+              ))}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <button
+          className="cursor-pointer mt-3"
+          onClick={() => setShowExamHappened(!showExamHappened)}
+        >
+          {showExamHappened ? (
+            <i className="fa-solid fa-caret-right"></i>
+          ) : (
+            <i className="fa-sharp fa-solid fa-caret-down"></i>
+          )}
+          <span className="ml-3">Cuộc thi đã diễn ra</span>
+        </button>
+        {showExamHappened && (
+          <div>
+            {exams
+              .filter(exam => {
+                return exam.status === ExamStatus.Happened
+              })
+              .map(exam => (
+                <div key={exam.id} className="mt-1">
+                  <Link
+                    to={ROUTES_SITE.CLASROOM.EXAM.replace(
+                      ':classroomId',
+                      classroomId ?? '',
+                    ).replace(':id', exam.id ?? '')}
+                  >
+                    {exam.name}
+                  </Link>
+                </div>
+              ))}
           </div>
         )}
       </div>

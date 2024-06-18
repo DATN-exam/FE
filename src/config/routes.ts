@@ -20,6 +20,7 @@ export const ROUTES_SITE = {
   CLASROOM: {
     INDEX: '/classroom/:classroomId',
     EXAM: '/classroom/:classroomId/exams/:id',
+    DO_EXAM: '/classroom/:classroomId/exams/:id/do',
   },
 }
 

@@ -4,6 +4,7 @@ import { Login, Register, Verify } from '@/pages/Site/Auth'
 import { Home } from '@/pages/Site'
 import { Classroom } from '@/pages/Site'
 import { Exam } from '@/pages/Site'
+import { DoExam } from '@/pages/Site'
 
 const siteRoute = [
   {
@@ -21,6 +22,10 @@ const siteRoute = [
       {
         path: ROUTES_SITE.CLASROOM.EXAM,
         element: <Exam />,
+      },
+      {
+        path: ROUTES_SITE.CLASROOM.DO_EXAM,
+        element: <DoExam />,
       },
     ],
   },

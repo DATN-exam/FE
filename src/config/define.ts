@@ -91,6 +91,12 @@ export enum QuestionLevel {
   Hard = 'HARD',
 }
 
+export enum ExamStatus {
+  Happened = 'HAPPENED',
+  Upcoming = 'UPCOMING',
+  Happening = 'HAPPENING',
+}
+
 export const CLASSROOM_STATUS_LIST_OPTIONS = [
   {
     id: 1,

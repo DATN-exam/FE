@@ -48,7 +48,7 @@ const CreateForm = (props: any) => {
     setQuestionService
       .getListReady()
       .then(data => {
-        setValue('title', data[0] ?? [])
+        setValue('title', data[0].id ?? [])
         setSetQuestions(data)
       })
       .catch(err => {
@@ -62,6 +62,7 @@ const CreateForm = (props: any) => {
     const itemSelect: any = setQuestions.find((item: any) => {
       return item.id == getValues('title')
     })
+    console.log(getValues('title'))
     setMaxQuestion({
       easy: itemSelect?.question_easy_count ?? 1,
       medium: itemSelect?.question_medium_count ?? 1,
@@ -134,7 +135,7 @@ const CreateForm = (props: any) => {
         />
       </div>
       <div className="mt-4">
-        <label className="text-black">Thời gian</label>
+        <label className="text-black">Thời gian làm bài</label>
         <RangePicker
           showTime
           className="w-full mt-1 bg-white"

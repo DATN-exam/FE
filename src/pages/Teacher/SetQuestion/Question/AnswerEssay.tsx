@@ -1,6 +1,7 @@
 import { Alert, Button, Input } from '@/components/ui'
 import { getRandomInt } from '@/utils/helper'
 import { Space } from 'antd'
+import { useEffect } from 'react'
 
 const AnswerEssay = (props: any) => {
   const {
@@ -65,6 +66,10 @@ const AnswerEssay = (props: any) => {
       },
     ])
   }
+
+  useEffect(() => {
+    console.log(answers)
+  }, [])
   return (
     <>
       <Space direction="vertical" className="mt-1 block w-full grid grid-cols-2">

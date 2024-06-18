@@ -1,5 +1,6 @@
 export type TExam = {
   id: string | null
+  status: string | null
   set_question_id: string | null
   classroom_id: number | null
   name: string | null
