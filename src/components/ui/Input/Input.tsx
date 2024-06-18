@@ -53,7 +53,14 @@ const Input = (props: InputProps) => {
           )}
         />
       ) : (
-        <BaseInput ref={ref} name={name} className={className} error={error} {...rest} />
+        <BaseInput
+          disabled={disabled}
+          ref={ref}
+          name={name}
+          className={className}
+          error={error}
+          {...rest}
+        />
       )}
       {error && (
         <p className="text-red-500 text-xs italic !mt-1">{error.message?.toString() ?? ''}</p>
