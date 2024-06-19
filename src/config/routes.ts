@@ -21,6 +21,7 @@ export const ROUTES_SITE = {
     RESET_PASSWORD: '/reset-password',
   },
   HOME: '/',
+  ACTIVITY: '/activity',
   CLASROOM: {
     INDEX: '/classroom/:classroomId',
     EXAM: '/classroom/:classroomId/exams/:id',
