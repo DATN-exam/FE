@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Table } from '@/components/ui'
+import { Alert, Button, Table } from '@/components/ui'
 import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE } from '@/config/define'
 import { ROUTES_TEACHER } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
@@ -15,6 +15,7 @@ import { Drawer } from 'antd'
 import CreateForm from './CreateForm'
 import examService from '@/services/teacher/examService'
 import { TExam } from '@/types/teacher/exam'
+import UpdateForm from './UpdateForm'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -32,6 +33,8 @@ function ClassroomExam() {
   const [pagination, setPagination] = useState<TSetPagination>(DEFAULT_PAGINATION_OBJECT)
   const [dataSearch, setDataSearch] = useState(defaultValueDataSearch)
   const [openFormAdd, setOpenFormAdd] = useState(false)
+  const [openFormUpdate, setOpenFormUpdate] = useState(false)
+  const [examUpdate, setExamUpdate] = useState<TExam>()
 
   const columns: TTableColumn[] = [
     {
@@ -50,6 +53,11 @@ function ClassroomExam() {
       sortable: true,
     },
     {
+      headerName: 'Hiển thị kết quả sau khi nộp bài',
+      field: 'is_show_result',
+      valueGetter: row => (row.is_show_result ? 'Có' : 'Không'),
+    },
+    {
       headerName: 'Ngày bắt đầu',
       field: 'start_date',
     },
@@ -58,19 +66,51 @@ function ClassroomExam() {
       field: 'end_date',
     },
     {
-      headerName: 'Câu hỏi dễ',
-      field: 'number_question_easy',
-    },
-    {
-      headerName: 'Câu hỏi trung bình',
-      field: 'number_question_medium',
-    },
-    {
-      headerName: 'Câu hỏi khó',
-      field: 'number_question_hard',
+      headerName: 'Hành động',
+      field: 'end_date',
+      valueGetter: row => (
+        <div className="flex gap-3">
+          <Button onClick={() => handleUpdate(row)}>
+            <i className="fa-sharp fa-solid fa-pen-to-square"></i>
+          </Button>
+          <Button className="bg-red-600 hover:bg-red-700" onClick={() => handleDelete(row)}>
+            <i className="fa-solid fa-trash-can-slash"></i>
+          </Button>
+        </div>
+      ),
     },
   ]
+  const handleUpdate = (exam: TExam) => {
+    setExamUpdate(exam)
+    setOpenFormUpdate(true)
+  }
 
+  const handleDelete = async (exam: TExam) => {
+    const confirm = await Alert.confirm(
+      'Bạn có chắc chắn muốn xóa cuộc thi này không?',
+      'Có',
+      'Không',
+      'error',
+    )
+    if (confirm) {
+      fetchDeleteExams(exam)
+    }
+  }
+  const fetchDeleteExams = (exam: TExam) => {
+    showLoading()
+    examService
+      .delete(id, exam.id)
+      .then(() => {
+        Alert.alert('Thành công', 'Bạn đã xóa cuộc thi thành công', 'success')
+        debouncedFetchExams(dataSearch)
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
   const fetchExams = () => {
     showLoading()
     examService
@@ -137,6 +177,27 @@ function ClassroomExam() {
           dataSearch={dataSearch}
           setDataSearch={setDataSearch}
           setOpenFormAdd={setOpenFormAdd}
+        />
+      </Drawer>
+
+      <Drawer
+        title="Cập nhật cuộc thi"
+        width={720}
+        onClose={() => setOpenFormUpdate(false)}
+        destroyOnClose={true}
+        open={openFormUpdate}
+        styles={{
+          body: {
+            paddingBottom: 80,
+          },
+        }}
+      >
+        <UpdateForm
+          showLoading={showLoading}
+          hideLoading={hideLoading}
+          debouncedFetchExams={() => debouncedFetchExams(dataSearch)}
+          setOpenFormUpdate={setOpenFormUpdate}
+          exam={examUpdate}
         />
       </Drawer>
     </div>

@@ -12,26 +12,15 @@ import { setErrorForInput } from '@/utils/handleErrors'
 import moment from 'moment'
 
 const { RangePicker } = DatePicker
-const CreateForm = (props: any) => {
-  const defaultValue = {
-    name: '',
-    title: '',
-    number_question_hard: 1,
-    number_question_medium: 1,
-    number_question_easy: 1,
-    start_date: '',
-    end_date: '',
-    working_time: '',
-    note: '',
-    is_show_result: false,
-  }
+const UpdateForm = (props: any) => {
+  const { showLoading, hideLoading, exam, debouncedFetchExams, setOpenFormUpdate } = props
+  const defaultValue = { ...exam, title: exam.set_question_id }
   const {
     control,
     formState: { errors },
     setValue,
     handleSubmit,
     getValues,
-    reset,
     watch,
     setError,
     clearErrors,
@@ -39,7 +28,6 @@ const CreateForm = (props: any) => {
     defaultValues: defaultValue,
   })
   const { id } = useParams()
-  const { showLoading, hideLoading } = props
   const [setQuestions, setSetQuestions] = useState([])
   const [maxQuestion, setMaxQuestion] = useState({ easy: 1, medium: 1, hard: 1 })
   const { handleResponseError } = useHandleError()
@@ -50,7 +38,8 @@ const CreateForm = (props: any) => {
     setQuestionService
       .getListReady()
       .then(data => {
-        setValue('title', data[0].id ?? [])
+        console.log(exam)
+        setValue('title', exam.set_question_id)
         setSetQuestions(data)
       })
       .catch(err => {
@@ -84,10 +73,11 @@ const CreateForm = (props: any) => {
     }
     showLoading()
     examService
-      .create(id, payload)
+      .update(id, payload, exam.id)
       .then(() => {
-        Toast.success('Tạo cuộc thi thành công')
-        reset(defaultValue)
+        Toast.success('Cập nhật cuộc thi thành công')
+        debouncedFetchExams()
+        setOpenFormUpdate(false)
       })
       .catch((err: any) => {
         if (err.response.status == 422) {
@@ -199,10 +189,10 @@ const CreateForm = (props: any) => {
         />
       </div>
       <div className="mt-4">
-        <Button type="submit">Tạo mới</Button>
+        <Button type="submit">Cập nhật</Button>
       </div>
     </form>
   )
 }
 
-export default CreateForm
+export default UpdateForm

@@ -4,10 +4,15 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 
 const Alert = {
-  async confirm(title: string, confirmText?: string, cancelText?: string) {
+  async confirm(
+    title: string,
+    confirmText?: string,
+    cancelText?: string,
+    icon?: SweetAlertIcon | null,
+  ) {
     const result = await MySwal.fire({
       title: title,
-      icon: 'warning',
+      icon: icon ?? 'warning',
       showCancelButton: true,
       confirmButtonText: confirmText ?? 'Xác nhận',
       cancelButtonText: cancelText ?? 'Hủy',

@@ -2,18 +2,16 @@ import { Input } from '@/components/ui'
 import useHandleError from '@/hooks/useHandleError'
 import examService from '@/services/site/examService'
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 function QuestionEssay(props: any) {
-  const { examAnswer, index, disabled } = props
-  const { id } = useParams()
+  const { examAnswer, index, disabled, examHistoryId } = props
   const { handleResponseError } = useHandleError()
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [value, setValue] = useState('')
 
   const fetchChangeAnswer = (answer: any) => {
     examService
-      .changeAnswer(id, examAnswer.id, { answer_text: answer })
+      .changeAnswer(examHistoryId, examAnswer.id, { answer_text: answer })
       .then(data => {
         console.log(data)
       })

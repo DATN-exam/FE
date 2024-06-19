@@ -4,6 +4,7 @@ export type TExam = {
   id: number | null
   name: string | null
   start_date: string | null
+  is_show_result: boolean
   end_date: string | null
   number_question_hard: number | null
   number_question_medium: number | null

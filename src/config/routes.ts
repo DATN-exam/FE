@@ -26,6 +26,7 @@ export const ROUTES_SITE = {
     INDEX: '/classroom/:classroomId',
     EXAM: '/classroom/:classroomId/exams/:id',
     DO_EXAM: '/classroom/:classroomId/exams/:id/do',
+    SHOW_RESULT: '/classroom/:classroomId/exams/:id/show-result',
   },
 }
 
