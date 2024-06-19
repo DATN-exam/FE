@@ -1,7 +1,7 @@
 import { ROUTES_SITE } from '@/config/routes'
 import { MainLayout, AuthLayout } from '@/components/Layouts/Site'
 import { ForgotPassword, Login, Profile, Register, ResetPassword, Verify } from '@/pages/Site/Auth'
-import { Home } from '@/pages/Site'
+import { Activity, Home } from '@/pages/Site'
 import { Classroom } from '@/pages/Site'
 import { Exam } from '@/pages/Site'
 import { DoExam, ShowResult } from '@/pages/Site'
@@ -34,6 +34,10 @@ const siteRoute = [
       {
         path: ROUTES_SITE.AUTH.PROFILE,
         element: <Profile />,
+      },
+      {
+        path: ROUTES_SITE.ACTIVITY,
+        element: <Activity />,
       },
     ],
   },
