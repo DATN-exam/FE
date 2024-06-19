@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const NAV_ITEMS = [
   {
-    to: '#',
+    to: ROUTES_SITE.ACTIVITY,
     icon: 'fa-light fa-bell',
     iconActive: 'fa-solid fa-bell',
     text: 'Hoạt động',
