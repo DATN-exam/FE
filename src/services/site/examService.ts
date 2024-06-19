@@ -33,13 +33,9 @@ const examService = {
   },
 
   async submit(examHistoryId: any) {
-    const { data } = await apiClient.post(
-      `exams/${examHistoryId}/submit`
-    )
+    const { data } = await apiClient.post(`exams/${examHistoryId}/submit`)
     return data
   },
-
-
 }
 
 export default examService

@@ -55,15 +55,15 @@ function Exam() {
     await examService
       .start(classroomId, id)
       .then(data => {
-        setExamCurrent(data)
+        return data
       })
-      .then(() => {
+      .then(data => {
         navigate(
           ROUTES_SITE.CLASROOM.DO_EXAM.replace(':classroomId', classroomId ?? '').replace(
             ':id',
-            id ?? '',
+            data.id ?? '',
           ),
-          { state: { exam: exam, examHistory: examCurrent } },
+          { state: { exam: exam, examHistory: data } },
         )
       })
       .catch(err => {
@@ -77,6 +77,16 @@ function Exam() {
   const handleDoExam = () => {
     //call api start exam
     fetchStartExam()
+  }
+
+  const handleShowResult = () => {
+    navigate(
+      ROUTES_SITE.CLASROOM.SHOW_RESULT.replace(':classroomId', classroomId ?? '').replace(
+        ':id',
+        id ?? '',
+      ),
+      { state: { exam: exam, examHistory: examCurrent } },
+    )
   }
   const handleDoingExam = () => {
     navigate(
@@ -102,16 +112,23 @@ function Exam() {
         <p className="text-gray-500">Ngày bắt đầu: {exam?.start_date}</p>
         <p className="text-gray-500">Đến hạn: {exam?.end_date}</p>
         <h1 className="mt-3 font-medium text-xl">Thời gian làm bài {exam?.working_time}</h1>
-        <h1 className="mt-3 font-medium text-xl">Điểm của bạn: {examCurrent?.total_score}</h1>
+        {examCurrent?.show_result === false ? (
+          <h1>Kết quả sẽ có sau khi cuộc thi kết thúc</h1>
+        ) : (
+          <h1 className="mt-3 font-medium text-xl">Điểm của bạn: {examCurrent?.total_score}</h1>
+        )}
         {exam?.status === ExamStatus.Happening && (
           <div className="mt-3 flex gap-5">
             <Button>Thi thử</Button>
             {examCurrent ? (
-              examCurrent.is_submit ? (
-                <Button onClick={handleDoingExam}>Xem kết quả</Button>
-              ) : (
+              examCurrent.is_submit === false ? (
                 <Button onClick={handleDoingExam}>Tiếp tục làm bài</Button>
-              )
+              ) : examCurrent.show_result ? (
+                <>
+                  <Button onClick={handleShowResult}>Xem kết quả</Button>
+                  <Button onClick={handleShowResult}>Xem bảng xếp hạng</Button>
+                </>
+              ) : null
             ) : (
               <Button onClick={handleDoExam}>Làm bài</Button>
             )}
@@ -119,8 +136,6 @@ function Exam() {
         )}
 
         {exam?.status == ExamStatus.Upcoming && <div>Cuộc thi này chưa bắt đầu</div>}
-
-        {exam?.status == ExamStatus.Happened && <Button>Xem kết quả</Button>}
       </div>
     </section>
   )

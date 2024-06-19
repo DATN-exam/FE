@@ -3,19 +3,17 @@ import examService from '@/services/site/examService'
 import type { RadioChangeEvent } from 'antd'
 import { Radio } from 'antd'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 function QuestionMutiple(props: any) {
   const [value, setValue] = useState()
-  const { examAnswer, index, disabled } = props
+  const { examAnswer, index, disabled, examHistoryId } = props
   const { handleResponseError } = useHandleError()
-  const { id } = useParams()
 
   const fetchChangeAnswer = (idAnswer: any) => {
     examService
-      .changeAnswer(id, examAnswer.id, { answer_id: idAnswer })
-      .then(data => {
-        console.log(data)
+      .changeAnswer(examHistoryId, examAnswer.id, { answer_id: idAnswer })
+      .then(() => {
+        // console.log(data)
       })
       .catch(err => {
         handleResponseError(err)
@@ -27,6 +25,7 @@ function QuestionMutiple(props: any) {
     fetchChangeAnswer(e.target.value)
   }
   useEffect(() => {
+    console.log(examAnswer)
     setValue(examAnswer.answer_id)
   }, [])
   return (
@@ -37,11 +36,25 @@ function QuestionMutiple(props: any) {
           className="editor-content overflow-hidden"
           dangerouslySetInnerHTML={{ __html: examAnswer?.question?.question }}
         />
+        {disabled ? (
+          examAnswer.is_correct ? (
+            <i className="fa-sharp fa-solid fa-circle-check text-green-600 text-xl"></i>
+          ) : (
+            <i className="fa-sharp fa-solid fa-circle-xmark text-red-600 text-xl"></i>
+          )
+        ) : null}
       </div>
       <Radio.Group onChange={onChange} value={value}>
         {examAnswer.question.answers.map((answer: any) => (
           <div className="mt-4" key={answer.id}>
-            <Radio value={answer.id} disabled={disabled}>{answer.answer}</Radio>
+            <Radio value={answer.id} disabled={disabled}>
+              <div className="flex gap-3 items-center">
+                {answer.answer}
+                {disabled && answer.is_correct && (
+                  <i className="fa-sharp fa-solid fa-circle-check text-green-600"></i>
+                )}
+              </div>
+            </Radio>
           </div>
         ))}
       </Radio.Group>
