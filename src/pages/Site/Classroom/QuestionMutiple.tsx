@@ -25,7 +25,6 @@ function QuestionMutiple(props: any) {
     fetchChangeAnswer(e.target.value)
   }
   useEffect(() => {
-    console.log(examAnswer)
     setValue(examAnswer.answer_id)
   }, [])
   return (

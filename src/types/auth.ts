@@ -14,6 +14,7 @@ export type TAuthAdminProfile = {
   address: string | null
   avatar: string | null
   description: string | null
+  has_teacher_registration: boolean | null
 }
 
 export type RegisterPayloads = {
