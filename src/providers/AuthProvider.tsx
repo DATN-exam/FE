@@ -39,7 +39,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       await authService.logout()
       authRemove()
     } catch (err) {
-      return Promise.reject(err)
+      authRemove()
+      // return Promise.reject(err)
     }
   }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Table } from '@/components/ui'
+import { Alert, Button, Modal, Table } from '@/components/ui'
 import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE } from '@/config/define'
 import { ROUTES_TEACHER } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
@@ -11,11 +11,13 @@ import { setPaginationData } from '@/utils/pagination'
 import { ClassroomSearchParams } from '@/types/teacher'
 import { useParams } from 'react-router-dom'
 import Header from '../Header'
-import { Drawer } from 'antd'
+import { Drawer, Modal as ModalAnt } from 'antd'
 import CreateForm from './CreateForm'
 import examService from '@/services/teacher/examService'
 import { TExam } from '@/types/teacher/exam'
 import UpdateForm from './UpdateForm'
+import Ranking from './Ranking'
+import Analysis from './Analysis'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -35,6 +37,10 @@ function ClassroomExam() {
   const [openFormAdd, setOpenFormAdd] = useState(false)
   const [openFormUpdate, setOpenFormUpdate] = useState(false)
   const [examUpdate, setExamUpdate] = useState<TExam>()
+  const [showModalRanking, setShowModalRanking] = useState(false)
+  const [examShowRanking, setExamShowRanking] = useState<TExam>()
+  const [examShowAnalysis, setExamShowAnalysis] = useState<TExam>()
+  const [showModalAnalysis, setShowModalAnalysis] = useState(false)
 
   const columns: TTableColumn[] = [
     {
@@ -79,7 +85,32 @@ function ClassroomExam() {
         </div>
       ),
     },
+    {
+      headerName: 'Thống kê',
+      field: 'end_date',
+      valueGetter: row => (
+        <div className="flex gap-3">
+          <Button onClick={() => handleShowRanking(row)}>
+            <i className="fa-sharp fa-solid fa-ranking-star"></i>
+          </Button>
+          <Button className="" onClick={() => handleShowAnalysis(row)}>
+            <i className="fa-sharp fa-solid fa-display-chart-up"></i>
+          </Button>
+        </div>
+      ),
+    },
   ]
+
+  const handleShowAnalysis = (exam: TExam) => {
+    setExamShowAnalysis(exam)
+    setShowModalAnalysis(true)
+  }
+
+  const handleShowRanking = (exam: TExam) => {
+    setExamShowRanking(exam)
+    setShowModalRanking(true)
+  }
+
   const handleUpdate = (exam: TExam) => {
     setExamUpdate(exam)
     setOpenFormUpdate(true)
@@ -200,6 +231,23 @@ function ClassroomExam() {
           exam={examUpdate}
         />
       </Drawer>
+      <Modal
+        show={showModalRanking}
+        close={() => {
+          setShowModalRanking(false)
+        }}
+      >
+        <Ranking exam={examShowRanking} />
+      </Modal>
+      <ModalAnt
+        title="Thống kê cuộc thi"
+        open={showModalAnalysis}
+        onCancel={() => setShowModalAnalysis(false)}
+        width={1000}
+        destroyOnClose={true}
+      >
+        <Analysis exam={examShowAnalysis} />
+      </ModalAnt>
     </div>
   )
 }

@@ -40,7 +40,6 @@ function Exam() {
       .getCurrent(classroomId, id)
       .then(data => {
         setExamCurrent(Object.keys(data).length > 0 ? data : null)
-        console.log(data)
       })
       .catch(err => {
         handleResponseError(err)
@@ -61,7 +60,7 @@ function Exam() {
         navigate(
           ROUTES_SITE.CLASROOM.DO_EXAM.replace(':classroomId', classroomId ?? '').replace(
             ':id',
-            data.id ?? '',
+            id ?? '',
           ),
           { state: { exam: exam, examHistory: data } },
         )

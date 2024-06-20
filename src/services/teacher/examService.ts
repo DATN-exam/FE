@@ -18,6 +18,16 @@ const examService = {
     const { data } = await apiClient.delete(`${this.path}/${id}/exams/${examId}`)
     return data
   },
+  async getTop(id: any, examId: any) {
+    const { data } = await apiClient.get(`${this.path}/${id}/exams/${examId}/get-top`)
+    return data
+  },
+  async getTopExport(id: any, examId: any) {
+    const { data } = await apiClient.get(`${this.path}/${id}/exams/${examId}/get-top-export`, {
+      responseType: 'blob',
+    })
+    return data
+  },
 }
 
 export default examService

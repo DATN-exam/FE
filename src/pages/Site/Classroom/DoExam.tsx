@@ -33,6 +33,7 @@ function DoExam() {
         if (data.remaining_time === 0) {
           fetchSubmit()
         }
+        console.log(data)
         setTime(data.remaining_time)
       })
       .catch(err => {

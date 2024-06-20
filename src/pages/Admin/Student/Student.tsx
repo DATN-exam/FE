@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE, TEACHER_STATUS_LIST_OPTIONS } from '@/config/define'
+import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE, STUDENT_STATUS_LIST_OPTIONS } from '@/config/define'
 import { useLoading } from '@/contexts/loading'
 import { useSidebarActive } from '@/contexts/sidebarActive'
 import useHandleError from '@/hooks/useHandleError'
@@ -59,7 +59,7 @@ function Student() {
       headerName: 'Trạng thái',
       field: 'status',
       valueGetter: row => {
-        const status = getValueFromObjectByKey(TEACHER_STATUS_LIST_OPTIONS, 'value', row.status)
+        const status = getValueFromObjectByKey(STUDENT_STATUS_LIST_OPTIONS, 'value', row.status)
         return <Badge className={status?.badgeColor}>{status.name}</Badge>
       },
     },

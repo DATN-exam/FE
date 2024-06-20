@@ -27,6 +27,10 @@ const authService = {
     const { data } = await apiClient.post(`${this.path}/google/callback`, payloads)
     return data
   },
+  async registerTeacher(payloads: any) {
+    const { data } = await apiClient.post(`/teachers/register`, payloads)
+    return data
+  },
 }
 
 export default authService

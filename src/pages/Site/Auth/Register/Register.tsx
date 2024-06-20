@@ -2,15 +2,14 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useState } from 'react'
 import { Button, Checkbox, Input } from '@/components/ui'
-import { format } from 'date-fns'
 import { ROUTES_SITE } from '@/config/routes'
 import { RegisterPayloads } from '@/types'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { DATE_FORMAT } from '@/config/define'
 import authService from '@/services/site/authService'
 import { useLoading } from '@/contexts/loading'
 import { setErrorForInput } from '@/utils/handleErrors'
+import { formatDate } from '@/utils/helper'
 
 const defaultValues: RegisterPayloads = {
   first_name: '',
@@ -31,7 +30,7 @@ function Register() {
     showLoading()
     const payloads: RegisterPayloads = {
       ...fields,
-      dob: fields.dob ? format(new Date(fields.dob), DATE_FORMAT.DATE_DASH_REGISTER) : '',
+      dob: fields.dob ? formatDate(new Date(fields.dob)) : '',
     }
     authService
       .register(payloads)
