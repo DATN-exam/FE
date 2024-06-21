@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/auth'
-import { ROUTES_SITE } from '@/config/routes'
+import { ROUTES_SITE, ROUTES_TEACHER } from '@/config/routes'
 import { Header, Sidebar } from '@/components/Partials/Teacher'
 import { ROLE } from '@/config/define'
 import { Alert } from '@/components/ui'
@@ -10,6 +10,8 @@ const MainLayout = () => {
   const { authToken, authProfile } = useAuth()
   const [isShowSidebar, setIsShowSidebar] = useState(false)
   const [isChecking, setIsChecking] = useState(true)
+  const location = useLocation()
+  const currentRoute = location.pathname
   const navigate = useNavigate()
 
   const showSidebar = () => setIsShowSidebar(true)
@@ -25,10 +27,12 @@ const MainLayout = () => {
     } else if (authProfile?.role != ROLE.TEACHER) {
       navigate(ROUTES_SITE.HOME, { replace: true })
       Alert.alert('Bạn chưa phải là giáo viên!', 'Bạn không có quyền truy cập trang này', 'warning')
+    } else if (currentRoute == ROUTES_TEACHER.HOME) {
+      navigate(ROUTES_TEACHER.DASHBOARD, { replace: true })
     }
 
     setIsChecking(false)
-  }, [authToken, authProfile])
+  }, [authToken, authProfile, currentRoute])
 
   return (
     !isChecking && (
