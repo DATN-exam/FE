@@ -15,7 +15,7 @@ const MainLayout = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(authToken)
+    console.log(authProfile)
   }, [])
 
   useEffect(() => {
@@ -34,13 +34,16 @@ const MainLayout = () => {
     })
     const channel = pusher.subscribe(`private-App.Models.User.${authProfile.id}`)
     channel.bind('user-notification', function (data: any) {
+      console.log(data)
       openNotification(data.message)
     })
   }, [authProfile])
 
   const openNotification = (message: any) => {
     api.open({
-      message: <h1 className="text-xl font-bold">Bạn có 1 thông báo mới</h1>,
+      message: (
+        <h1 className="text-xl font-bold !select-none !cursor-default">Bạn có 1 thông báo mới</h1>
+      ),
       description: <NotificationPopup message={message} />,
       duration: 0,
       placement: 'bottomLeft',
