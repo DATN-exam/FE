@@ -66,7 +66,7 @@ function Login() {
   return (
     <form onSubmit={handleSubmit(login)}>
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold text-center text-foreground">Đăng nhập</h1>
+        <h1 className="text-center text-3xl font-bold text-foreground">Đăng nhập</h1>
         <Input
           type="email"
           placeholder="m@example.com"
@@ -85,14 +85,14 @@ function Login() {
           autoComplete="off"
           isRequired
         />
-        <div className="flex justify-between !mt-2">
+        <div className="!mt-2 flex justify-between">
           <Checkbox
             label="Hiển thị mật khẩu"
             name="show-password"
             checked={isShowPassword}
             onCheckedChange={checked => setIsShowPassword(!!checked)}
           />
-          <Link to={ROUTES_SITE.AUTH.FORGOT_PASSWORD} className="text-sm underline text-foreground">
+          <Link to={ROUTES_SITE.AUTH.FORGOT_PASSWORD} className="text-sm text-foreground underline">
             Quên mật khẩu
           </Link>
         </div>

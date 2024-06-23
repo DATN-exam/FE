@@ -32,16 +32,16 @@ const Sidebar = (props: SidebarProps) => {
   return (
     <aside
       className={cn(
-        'fixed top-0 bottom-0 duration-200 w-64 z-50 md:ml-0 bg-primary dark:bg-card',
+        'fixed bottom-0 top-0 z-50 w-64 bg-primary duration-200 dark:bg-card md:ml-0',
         isShowSidebar ? 'ml-0' : '-ml-64',
       )}
     >
-      <Link to={ROUTES_TEACHER.DASHBOARD} className="px-2 py-2.5 block w-100 border-b text-center">
-        <span className="text-primary-foreground dark:text-card-foreground text-3xl font-bold">
+      <Link to={ROUTES_TEACHER.DASHBOARD} className="w-100 block border-b px-2 py-2.5 text-center">
+        <span className="text-3xl font-bold text-primary-foreground dark:text-card-foreground">
           Exams Teacher
         </span>
       </Link>
-      <ul className="p-2 flex flex-col gap-2">
+      <ul className="flex flex-col gap-2 p-2">
         {NAV_ITEMS.map((item, index) => {
           const isActive = sidebarActive == item.to
           const linkClassName = isActive
@@ -51,10 +51,10 @@ const Sidebar = (props: SidebarProps) => {
             <li key={index}>
               <Link
                 to={item.to}
-                className={cn('flex items-center gap-3 text-md px-4 py-2.5 rounded', linkClassName)}
+                className={cn('text-md flex items-center gap-3 rounded px-4 py-2.5', linkClassName)}
                 onClick={() => hideSidebar()}
               >
-                <div className="flex justify-center items-center text-xl w-7">
+                <div className="flex w-7 items-center justify-center text-xl">
                   <i className={isActive ? item.iconActive : item.icon}></i>
                 </div>
                 <p>{item.text}</p>
@@ -65,10 +65,10 @@ const Sidebar = (props: SidebarProps) => {
         <li>
           <Link
             type="button"
-            className="flex w-full items-center gap-3 text-md px-4 py-2.5 rounded text-primary-foreground hover:bg-accent hover:text-secondary-foreground dark:text-card-foreground"
+            className="text-md flex w-full items-center gap-3 rounded px-4 py-2.5 text-primary-foreground hover:bg-accent hover:text-secondary-foreground dark:text-card-foreground"
             to={ROUTES_SITE.HOME}
           >
-            <div className="flex justify-center items-center text-xl w-7">
+            <div className="flex w-7 items-center justify-center text-xl">
               <i className="fa-light fa-right-from-bracket"></i>
             </div>
             <p>Thoát</p>

@@ -55,21 +55,21 @@ const Profile = () => {
   return (
     <div className="space-y-8">
       <h1 className="text-3xl text-foreground">Thông tin cá nhân</h1>
-      <div className="bg-card rounded p-5 shadow space-y-6">
+      <div className="space-y-6 rounded bg-card p-5 shadow">
         <form
-          className="grid grid-cols-1 md:grid-cols-2 gap-5"
+          className="grid grid-cols-1 gap-5 md:grid-cols-2"
           onSubmit={handleSubmit(handleUpdate)}
         >
           <div
             className={cn(
-              'h-fit p-5 rounded border border-transparent',
+              'h-fit rounded border border-transparent p-5',
               avatarError && 'border-red-500',
             )}
           >
-            <div className="flex justify-center mb-4">
+            <div className="mb-4 flex justify-center">
               <img
                 src={avatarUrlPreview ?? userAvatarDefault}
-                className="rounded-full w-4/5 md:w-3/5 object-cover aspect-square"
+                className="aspect-square w-4/5 rounded-full object-cover md:w-3/5"
                 alt="avatar"
               />
             </div>
@@ -77,7 +77,7 @@ const Profile = () => {
               <div className="btn btn-primary rounded-lg">
                 <label
                   className={cn(
-                    'flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-full cursor-pointer',
+                    'flex h-10 cursor-pointer items-center gap-2 rounded-full bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90',
                   )}
                   htmlFor="chooseAvatar"
                 >
@@ -92,7 +92,7 @@ const Profile = () => {
               </div>
             </div>
             {avatarError && (
-              <p className="text-red-500 text-xs italic !mt-5 text-center">
+              <p className="!mt-5 text-center text-xs italic text-red-500">
                 {avatarError.message?.toString() ?? ''}
               </p>
             )}

@@ -127,7 +127,7 @@ const AddForm = (props: any) => {
           Thêm
         </Button>
       </div>
-      <div className="flex gap-5 mt-4">
+      <div className="mt-4 flex gap-5">
         <div>
           <label className="text-black">Trạng thái</label>
           <Select
@@ -173,12 +173,12 @@ const AddForm = (props: any) => {
 
       <div className="mt-4">
         {questionError && <p className="!text-red-600">{questionError.message?.toString()}</p>}
-        <label className="text-black mt-1 block text-xl">Câu hỏi:</label>
+        <label className="mt-1 block text-xl text-black">Câu hỏi:</label>
         <TextEditor question={questionContent} setQuestion={setQuestionContent} />
       </div>
 
       <div className="mt-4 w-full">
-        <label className="text-black mt-1 block text-xl">Câu trả lời:</label>
+        <label className="mt-1 block text-xl text-black">Câu trả lời:</label>
         {answerError ? <p className="!text-red-600">{answerError?.message?.toString()}</p> : ''}
         {questionType === QuestionType.Multiple ? (
           <AnswerMultiple

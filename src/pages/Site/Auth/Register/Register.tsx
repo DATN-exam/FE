@@ -70,7 +70,7 @@ function Register() {
   return (
     <form onSubmit={handleSubmit(register)}>
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold text-center text-foreground">Đăng ký</h1>
+        <h1 className="text-center text-3xl font-bold text-foreground">Đăng ký</h1>
         <Input
           placeholder="Nguyen Van"
           label="Họ và tên lót"

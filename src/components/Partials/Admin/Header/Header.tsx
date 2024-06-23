@@ -30,7 +30,7 @@ const Header = (props: HeaderProps) => {
   return (
     <nav
       className={cn(
-        'p-2 border-b ml-0 md:ml-64 fixed top-0 right-0 left-0 bg-card text-foreground duration-200 z-30 flex justify-between items-center nav-header',
+        'nav-header fixed left-0 right-0 top-0 z-30 ml-0 flex items-center justify-between border-b bg-card p-2 text-foreground duration-200 md:ml-64',
       )}
     >
       <ul className="flex items-center">
@@ -52,29 +52,29 @@ const Header = (props: HeaderProps) => {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="p-0 pl-3 w-fit bg-secondary rounded-full border-none hover:bg-background"
+              className="w-fit rounded-full border-none bg-secondary p-0 pl-3 hover:bg-background"
             >
-              <div className="rounded-full flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-full">
                 <p className="text-sm font-normal">{`${authProfile?.first_name} ${authProfile?.last_name}`}</p>
-                <img src={userAvatarDefault} alt="user-avatar" className="w-10 h-10 rounded-full" />
+                <img src={userAvatarDefault} alt="user-avatar" className="h-10 w-10 rounded-full" />
               </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-fit">
             <DropdownMenuItem>
               <Link
-                className="w-full flex items-center gap-3 text-base"
+                className="flex w-full items-center gap-3 text-base"
                 to={ROUTES_ADMIN.AUTH.PROFILE}
               >
-                <div className="flex justify-center items-center w-6">
+                <div className="flex w-6 items-center justify-center">
                   <i className="fa-solid fa-user"></i>
                 </div>
                 <span>Thông tin cá nhân</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <button className="w-full flex items-center gap-3 text-base" onClick={() => logout()}>
-                <div className="flex justify-center items-center w-6">
+              <button className="flex w-full items-center gap-3 text-base" onClick={() => logout()}>
+                <div className="flex w-6 items-center justify-center">
                   <i className="fa-solid fa-right-from-bracket"></i>
                 </div>
                 <span>Đăng xuất</span>

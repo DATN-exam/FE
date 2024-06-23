@@ -16,12 +16,12 @@ const AuthLayout = () => {
 
   return (
     <div className="w-full md:grid md:grid-cols-2">
-      <div className="flex items-center justify-center bg-secondary py-20 min-h-screen">
+      <div className="flex min-h-screen items-center justify-center bg-secondary py-20">
         <div className="mx-auto w-[350px] gap-6">
           <Outlet />
         </div>
       </div>
-      <div className="hidden md:block bg-muted h-screen sticky top-0 right-0 bottom-0">
+      <div className="sticky bottom-0 right-0 top-0 hidden h-screen bg-muted md:block">
         <img
           src={studentAuthBg}
           alt="image"

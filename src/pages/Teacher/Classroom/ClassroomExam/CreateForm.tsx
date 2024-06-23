@@ -118,7 +118,7 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Tên cuộc thi</label>
         <Input
-          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
           placeholder="Tên cuộc thi"
           type="text"
           name="name"
@@ -129,7 +129,7 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Lưu ý</label>
         <Input
-          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
           placeholder="Lưu ý"
           type="text"
           name="note"
@@ -141,13 +141,13 @@ const CreateForm = (props: any) => {
         <label className="text-black">Thời gian làm bài</label>
         <RangePicker
           showTime
-          className="w-full mt-1 bg-white"
+          className="mt-1 w-full bg-white"
           onChange={handleChange}
           disabledDate={disabledDate}
         />
       </div>
       <div className="mt-4">
-        <label className="text-black mr-3">Thời gian làm bài:</label>
+        <label className="mr-3 text-black">Thời gian làm bài:</label>
         <TimePicker className="mt-1 bg-white" type="time" onChange={hanldeChangeTime} />
 
         <Radio.Group value={showResult ? 'a' : 'b'} buttonStyle="solid" className="mt-1 block">

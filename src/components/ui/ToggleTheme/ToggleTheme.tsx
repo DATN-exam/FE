@@ -19,7 +19,7 @@ function ToggleTheme() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex justify-center items-center border-none bg-secondary hover:bg-background"
+          className="flex items-center justify-center border-none bg-secondary hover:bg-background"
         >
           <i className={THEMES[theme].iconClassName}></i>
         </Button>
@@ -28,10 +28,10 @@ function ToggleTheme() {
         {themesArray.map(([themeKey, themeObj]) => (
           <DropdownMenuItem key={themeKey} className={cn(theme == themeKey ? 'bg-accent' : '')}>
             <button
-              className="w-full flex items-center gap-3 text-base"
+              className="flex w-full items-center gap-3 text-base"
               onClick={() => setTheme(themeKey as Theme)}
             >
-              <div className="flex justify-center items-center w-6">
+              <div className="flex w-6 items-center justify-center">
                 <i className={themeObj.iconClassName}></i>
               </div>
               <span>{themeObj.text}</span>

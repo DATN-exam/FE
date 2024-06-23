@@ -46,12 +46,12 @@ const Table = (props: TableProps) => {
       <div className="w-full overflow-x-auto">
         <table
           className={cn(
-            'w-full shadow-md sm:rounded-lg text-sm text-left rtl:text-right text-foreground',
+            'w-full text-left text-sm text-foreground shadow-md sm:rounded-lg rtl:text-right',
             className,
           )}
         >
           {showHeader && (
-            <thead className="text-xs text-foreground uppercase bg-secondary">
+            <thead className="bg-secondary text-xs uppercase text-foreground">
               <tr>
                 {columns?.map((column, index) => {
                   const { sortable, headerName, field } = column
@@ -65,10 +65,10 @@ const Table = (props: TableProps) => {
                       }}
                       className={`px-6 py-4 ${sortable ? 'cursor-pointer' : ''}`}
                     >
-                      <div className={`${sortable ? 'flex justify-start items-center gap-2' : ''}`}>
+                      <div className={`${sortable ? 'flex items-center justify-start gap-2' : ''}`}>
                         <p>{headerName}</p>
                         {sortable && sortOrder.sort_column === field && sortOrder.sort_type && (
-                          <div className="flex justify-center items-center">
+                          <div className="flex items-center justify-center">
                             <i
                               className={`fa-solid ${
                                 sortOrder.sort_type == SORT_TYPE.ASC
@@ -120,7 +120,7 @@ const Table = (props: TableProps) => {
 
       {handleChangePage && lastPage && currentPage ? (
         <div className="grid grid-cols-4">
-          <div className="hidden md:block col-span-1"></div>
+          <div className="col-span-1 hidden md:block"></div>
           <div className="col-span-3 md:col-span-2">
             <Pagination
               pageCount={lastPage}
@@ -128,9 +128,9 @@ const Table = (props: TableProps) => {
               onChangePage={handleChangePage}
             />
           </div>
-          <div className="flex items-end justify-end col-span-1">
+          <div className="col-span-1 flex items-end justify-end">
             {!!total && (
-              <p className="text-xs text-end text-foreground uppercase">{`Tổng: ${total}`}</p>
+              <p className="text-end text-xs uppercase text-foreground">{`Tổng: ${total}`}</p>
             )}
           </div>
         </div>

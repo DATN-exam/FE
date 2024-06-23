@@ -50,14 +50,14 @@ const Activity = () => {
         <div
           key={notification.id}
           onClick={() => handleOnclick(notification)}
-          className="flex justify-center items-center gap-2 md:gap-5 w-full hover:bg-accent p-3 rounded-lg cursor-pointer"
+          className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg p-3 hover:bg-accent md:gap-5"
         >
           <img
             src={userAvatarDefault}
             alt=""
-            className="size-14 md:size-20 aspect-square object-cover rounded-full"
+            className="aspect-square size-14 rounded-full object-cover md:size-20"
           />
-          <div className="flex-1 flex flex-col gap-2">
+          <div className="flex flex-1 flex-col gap-2">
             <div className="break-all">
               {/* <strong>Nguyễn Đắc Toàn</strong> đã thông báo với bạn */}
               {notification.data?.message}
@@ -65,7 +65,7 @@ const Activity = () => {
             {/* khac */}
             <p className="text-sm text-primary">{notification.time_ago}</p>
           </div>
-          <div className="flex justify-center items-center text-primary text-sm">
+          <div className="flex items-center justify-center text-sm text-primary">
             <i className="fa-solid fa-circle"></i>
           </div>
         </div>
@@ -74,14 +74,14 @@ const Activity = () => {
       {/* Đã xem */}
       <Link
         to="#"
-        className="flex justify-center items-center gap-2 md:gap-5 w-full hover:bg-accent p-3 rounded-lg"
+        className="flex w-full items-center justify-center gap-2 rounded-lg p-3 hover:bg-accent md:gap-5"
       >
         <img
           src={userAvatarDefault}
           alt=""
-          className="size-14 md:size-20 aspect-square object-cover rounded-full"
+          className="aspect-square size-14 rounded-full object-cover md:size-20"
         />
-        <div className="flex-1 flex flex-col gap-2">
+        <div className="flex flex-1 flex-col gap-2">
           <div className="break-all">
             <strong>Nguyễn Đắc Toàn</strong> đã thông báo với bạn
             dfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfd

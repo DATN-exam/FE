@@ -11,7 +11,7 @@ const Header = (props: HeaderProps) => {
   return (
     <nav
       className={cn(
-        'p-2 border-b ml-0 md:ml-64 fixed top-0 right-0 left-0 bg-card text-foreground duration-200 z-30 flex justify-between items-center nav-header',
+        'nav-header fixed left-0 right-0 top-0 z-30 ml-0 flex items-center justify-between border-b bg-card p-2 text-foreground duration-200 md:ml-64',
       )}
     >
       <ul className="flex items-center">

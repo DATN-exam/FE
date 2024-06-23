@@ -37,7 +37,7 @@ const MainLayout = () => {
   const openNotification = (message: any) => {
     api.open({
       message: (
-        <h1 className="text-xl font-bold !select-none !cursor-default">Bạn có 1 thông báo mới</h1>
+        <h1 className="!cursor-default !select-none text-xl font-bold">Bạn có 1 thông báo mới</h1>
       ),
       description: <NotificationPopup message={message} />,
       duration: 0,
@@ -57,11 +57,11 @@ const MainLayout = () => {
 
   return (
     !isChecking && (
-      <div className="bg-secondary min-h-screen dark:bg-card">
+      <div className="min-h-screen bg-secondary dark:bg-card">
         <Header />
-        <main className="fixed top-[57px] bottom-0 left-0 right-0 flex">
+        <main className="fixed bottom-0 left-0 right-0 top-[57px] flex">
           <Sidebar />
-          <div className="bg-background flex-1 dark:bg-secondary overflow-auto">
+          <div className="flex-1 overflow-auto bg-background dark:bg-secondary">
             <Outlet />
           </div>
         </main>
