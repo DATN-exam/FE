@@ -13,14 +13,14 @@ const NAV_ITEMS = [
   },
   {
     to: ROUTES_TEACHER.CLASSROOM.INDEX,
-    icon: 'fa-light fa-gauge-max',
-    iconActive: 'fa-solid fa-gauge-max',
+    icon: 'fa-light fa-people-roof',
+    iconActive: 'fa-solid fa-people-roof',
     text: 'Lớp học',
   },
   {
     to: ROUTES_TEACHER.SET_QUESTION.INDEX,
-    icon: 'fa-light fa-gauge-max',
-    iconActive: 'fa-solid fa-gauge-max',
+    icon: 'fa-light fa-seal-question',
+    iconActive: 'fa-solid fa-seal-question',
     text: 'Bộ câu hỏi',
   },
 ]

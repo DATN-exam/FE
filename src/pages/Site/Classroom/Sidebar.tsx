@@ -11,7 +11,7 @@ import { Link, useParams } from 'react-router-dom'
 import studentAuthBg from '@/assets/student-auth-bg.jpg'
 import { cn } from '@/lib/utils'
 
-type TListExam = {
+type ListExamProps = {
   classroomId: string
   examId: string
   isShow: boolean
@@ -20,7 +20,7 @@ type TListExam = {
   onClick: MouseEventHandler<HTMLButtonElement>
 }
 
-const ListExams = (props: TListExam) => {
+const ListExams = (props: ListExamProps) => {
   const { classroomId, examId, isShow, title, exams, onClick } = props
 
   return (

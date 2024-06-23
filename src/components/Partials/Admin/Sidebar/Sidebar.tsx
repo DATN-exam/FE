@@ -13,8 +13,8 @@ const NAV_ITEMS = [
   },
   {
     to: ROUTES_ADMIN.TEACER_REGISTRATION,
-    icon: 'fa-light fa-chalkboard-user',
-    iconActive: 'fa-solid fa-chalkboard-user',
+    icon: 'fa-light fa-person-circle-check',
+    iconActive: 'fa-solid fa-person-circle-check',
     text: 'Duyệt giáo viên',
   },
   {

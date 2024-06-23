@@ -46,13 +46,13 @@ function ShowResult() {
       <div className="col-span-3 p-5">
         <div className="flex justify-between">
           <div>
-            <h1 className="font-medium text-2xl">
+            <h1 className="text-2xl font-medium">
               Xem kết quả cuộc thi {exam?.name}{' '}
               {examDetail.type === ExamHistoryType.Experiment && '(Thi thử)'}
             </h1>
-            <h1 className="font-medium text-2xl mt-2">Tổng điểm {examDetail?.total_score}</h1>
-            <h1 className="mt-3 font-medium text-xl">Thời gian làm bài {exam?.working_time}</h1>
-            <h2 className="mt-3 font-medium text-lg">
+            <h1 className="mt-2 text-2xl font-medium">Tổng điểm {examDetail?.total_score}</h1>
+            <h1 className="mt-3 text-xl font-medium">Thời gian làm bài {exam?.working_time}</h1>
+            <h2 className="mt-3 text-lg font-medium">
               Bộ câu hỏi {examDetail?.exam?.set_question?.name}
             </h2>
           </div>

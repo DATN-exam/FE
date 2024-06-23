@@ -104,10 +104,10 @@ const Analysis = (props: any) => {
         </div>
       </div>
 
-      <div className="flex justify-between gap-3 w-full">
-        <div className="bg-gray-200 mt-3 p-3 flex-1 ">
-          <div className="flex gap-3 items-center justify-start">
-            <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
+      <div className="flex w-full justify-between gap-3">
+        <div className="mt-3 flex-1 bg-gray-200 p-3">
+          <div className="flex items-center justify-start gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 p-3">
               <i className="fa-sharp fa-solid fa-person text-blue-500"></i>
             </div>
             <span>Thời gian trung bình làm bài</span>
@@ -117,9 +117,9 @@ const Analysis = (props: any) => {
             <h1 className="ml-1 mt-3 text-green-500"></h1>
           </div>
         </div>
-        <div className="bg-gray-200 mt-3 p-3 flex-1">
-          <div className="flex gap-3 items-center justify-start">
-            <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
+        <div className="mt-3 flex-1 bg-gray-200 p-3">
+          <div className="flex items-center justify-start gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 p-3">
               <i className="fa-sharp fa-light fa-hundred-points text-blue-500"></i>
             </div>
             <span>Điểm tối đa</span>
