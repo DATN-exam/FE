@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ROUTES_TEACHER } from '@/config/routes'
 import { useSidebarActive } from '@/contexts/sidebarActive'
-import Char1 from './Char1'
-import Char2 from './Char2'
-import Char3 from './Char3'
 import { useLoading } from '@/contexts/loading'
 import useHandleError from '@/hooks/useHandleError'
 import analysisService from '@/services/teacher/analysisService'
+import { HorizontalBarChart, InfoCard } from '@/components/ui/Chart'
 
 function Dashboard() {
   const { setSidebarActive } = useSidebarActive()
@@ -38,63 +36,44 @@ function Dashboard() {
     <>
       <div className="space-y-8">
         <h1 className="text-3xl text-foreground">Thống kê</h1>
-        <div className="flex justify-between gap-3 w-full">
-          <div className="bg-gray-200 mt-3 p-3 flex-1 ">
-            <div className="flex gap-3 items-center justify-start">
-              <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
-                <i className="fa-sharp fa-solid fa-person text-blue-500"></i>
-              </div>
-              <span>Số lượng lớp học</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.classrooms_count}</h1>
-              <h1 className="ml-1 mt-3 text-green-500"></h1>
-            </div>
-          </div>
-          <div className="bg-gray-200 mt-3 p-3 flex-1">
-            <div className="flex gap-3 items-center justify-start">
-              <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
-                <i className="fa-sharp fa-light fa-hundred-points text-blue-500"></i>
-              </div>
-              <span>Số lượng lớp học đang hoạt động</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.classroom_active_count}</h1>
-            </div>
-          </div>
-        </div>
 
-        <div className="flex justify-between gap-3 w-full">
-          <div className="bg-gray-200 mt-3 p-3 flex-1 ">
-            <div className="flex gap-3 items-center justify-start">
-              <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
-                <i className="fa-sharp fa-solid fa-person text-blue-500"></i>
-              </div>
-              <span>Số lượng bộ câu hỏi</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.set_question_count}</h1>
-              <h1 className="ml-1 mt-3 text-green-500"></h1>
-            </div>
-          </div>
-          <div className="bg-gray-200 mt-3 p-3 flex-1">
-            <div className="flex gap-3 items-center justify-start">
-              <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
-                <i className="fa-sharp fa-light fa-hundred-points text-blue-500"></i>
-              </div>
-              <span>Số lượng bộ câu hỏi đang hoạt động</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <h1 className="ml-1 mt-3 text-2xl font-bold">
-                {analysis?.set_question_active_count}
-              </h1>
-            </div>
-          </div>
-        </div>
-        <div className="bg-card rounded p-5 shadow space-y-10">
-          <Char1 />
-          <Char3 />
-          <Char2 />
+        <div className="grid grid-cols-1 gap-x-5 gap-y-10 rounded bg-card p-5 shadow md:grid-cols-2">
+          <InfoCard
+            iconClassName="fa-solid fa-people-roof"
+            title="Số lượng lớp học"
+            content={analysis?.classrooms_count}
+          />
+          <InfoCard
+            iconClassName="fa-solid fa-people-roof"
+            title="Số lượng lớp học đang hoạt động"
+            content={analysis?.classroom_active_count}
+          />
+          <InfoCard
+            iconClassName="fa-solid fa-seal-question"
+            title="Số lượng bộ câu hỏi"
+            content={analysis?.set_question_count}
+          />
+          <InfoCard
+            iconClassName="fa-solid fa-seal-question"
+            title="Số lượng bộ câu hỏi đang hoạt động"
+            content={analysis?.set_question_active_count}
+          />
+          <HorizontalBarChart
+            layoutClassName="col-span-1 md:col-span-2 2xl:col-span-1"
+            title="Số lượng học sinh theo lớp học"
+            dataLabel="Học sinh"
+            labels={analysis?.classrooms?.map((room: any) => room.name)}
+            dataset={analysis?.classrooms?.map((room: any) => room.students_count)}
+          />
+          <HorizontalBarChart
+            layoutClassName="col-span-1 md:col-span-2 2xl:col-span-1"
+            title="Số lượng câu hỏi theo bộ câu hỏi"
+            dataLabel="Câu hỏi"
+            chartBackgroundColor="rgb(255, 99, 132)"
+            chartBorderColor="rgba(255, 99, 132, 0.5)"
+            labels={analysis?.set_question?.map((room: any) => room.title)}
+            dataset={analysis?.set_question?.map((room: any) => room.questions_count)}
+          />
         </div>
       </div>
     </>

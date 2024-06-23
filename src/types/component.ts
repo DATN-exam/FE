@@ -90,3 +90,20 @@ export type LabelProps = {
   isRequired?: boolean
 } & React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
   VariantProps<typeof labelVariants>
+
+export type HorizontalBarChartProps = {
+  layoutClassName: string
+  title: string
+  dataLabel: string
+  dataset: number[] | string[]
+  labels: string[]
+  chartBackgroundColor?: string
+  chartBorderColor?: string
+}
+
+export type InfoCardProps = {
+  layoutClassName?: string
+  iconClassName: string
+  title: string
+  content: string
+}
