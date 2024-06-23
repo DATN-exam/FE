@@ -23,7 +23,7 @@ function Sidebar() {
 
   return (
     <aside className="w-[70px] border-e">
-      <ul className="pl-1 flex flex-col">
+      <ul className="flex flex-col pl-1">
         {NAV_ITEMS.map((item, index) => {
           const isActive = sidebarActive == item.to
           const linkClassName = isActive
@@ -38,7 +38,7 @@ function Sidebar() {
                   linkClassName,
                 )}
               >
-                <div className="flex justify-center items-center text-lg">
+                <div className="flex items-center justify-center text-lg">
                   <i className={isActive ? item.iconActive : item.icon}></i>
                 </div>
                 <p className="text-center font-light">{item.text}</p>

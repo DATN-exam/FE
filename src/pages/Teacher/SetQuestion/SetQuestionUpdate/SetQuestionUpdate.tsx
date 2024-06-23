@@ -89,12 +89,12 @@ function SetQuestionUpdate() {
     <div className="space-y-8">
       <Header />
       <h1 className="text-3xl text-foreground">Chỉnh sửa thông tin bộ câu hỏi</h1>
-      <div className="bg-card rounded p-5 shadow space-y-6">
+      <div className="space-y-6 rounded bg-card p-5 shadow">
         <form onSubmit={hanldSubmitUpdate}>
           <div className="mt-4">
             <label className="text-black">Tên bộ câu hỏi</label>
             <Input
-              className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+              className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
               placeholder="Tên bộ câu hỏi"
               type="text"
               name="title"
@@ -109,7 +109,7 @@ function SetQuestionUpdate() {
           <div className="mt-4">
             <label className="text-black">Mô tả</label>
             <Input
-              className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+              className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
               placeholder="Mô tả"
               type="text"
               name="description"
@@ -120,7 +120,7 @@ function SetQuestionUpdate() {
           <div className="mt-4">
             <label className="text-black">Lưu ý</label>
             <Input
-              className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+              className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
               placeholder="Lưu ý"
               type="text"
               name="note"

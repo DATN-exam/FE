@@ -39,12 +39,12 @@ const MainLayout = () => {
       <div className="bg-secondary">
         <Header showSidebar={showSidebar} />
         <Sidebar isShowSidebar={isShowSidebar} hideSidebar={hideSidebar} />
-        <main className="pt-20 px-3 pb-10 md:px-6 ml-0 md:ml-64 min-h-screen duration-200 relative z-10">
+        <main className="relative z-10 ml-0 min-h-screen px-3 pb-10 pt-20 duration-200 md:ml-64 md:px-6">
           <Outlet />
         </main>
         {isShowSidebar && (
           <div
-            className="fixed top-0 left-0 right-0 bottom-0 z-40 opacity-75 bg-gray-500 md:hidden"
+            className="fixed bottom-0 left-0 right-0 top-0 z-40 bg-gray-500 opacity-75 md:hidden"
             onClick={() => hideSidebar()}
           ></div>
         )}

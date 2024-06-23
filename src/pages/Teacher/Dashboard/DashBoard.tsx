@@ -16,7 +16,7 @@ function Dashboard() {
     <>
       <div className="space-y-8">
         <h1 className="text-3xl text-foreground">Dashboard</h1>
-        <div className="bg-card rounded p-5 shadow space-y-10">
+        <div className="space-y-10 rounded bg-card p-5 shadow">
           <Char1 />
           <Char3 />
           <Char2 />

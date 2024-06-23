@@ -45,7 +45,7 @@ function DatePicker(props: DatePickerProps) {
         </PopoverContent>
       </Popover>
       {error && (
-        <p className="text-red-500 text-xs italic !mt-1">{error.message?.toString() ?? ''}</p>
+        <p className="!mt-1 text-xs italic text-red-500">{error.message?.toString() ?? ''}</p>
       )}
     </div>
   )

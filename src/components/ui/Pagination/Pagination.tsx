@@ -16,7 +16,7 @@ const Pagination = (props: PaginationProps) => {
       pageCount={pageCount ?? 0}
       disableInitialCallback={true}
       renderOnZeroPageCount={null}
-      className={cn('flex flex-wrap justify-center items-center select-none gap-2')}
+      className={cn('flex select-none flex-wrap items-center justify-center gap-2')}
       breakLinkClassName={cn(
         'flex items-center justify-center px-3 h-8 leading-tight bg-background text-foreground border rounded hover:bg-accent',
       )}

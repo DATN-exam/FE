@@ -6,19 +6,62 @@ import classroomService from '@/services/site/classroomService'
 import examService from '@/services/site/examService'
 import { TClassroom } from '@/types/site'
 import { TExam } from '@/types/site/exam'
-import { useEffect, useState } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import studentAuthBg from '@/assets/student-auth-bg.jpg'
+import { cn } from '@/lib/utils'
 
-function Sidebar() {
-  const { classroomId } = useParams()
+type TListExam = {
+  classroomId: string
+  examId: string
+  isShow: boolean
+  title: string
+  exams: TExam[]
+  onClick: MouseEventHandler<HTMLButtonElement>
+}
 
+const ListExams = (props: TListExam) => {
+  const { classroomId, examId, isShow, title, exams, onClick } = props
+
+  return (
+    <div>
+      <button className="cursor-pointer space-x-3" onClick={onClick}>
+        <i className={cn('fa-sharp fa-solid fa-caret-right transition', isShow && 'rotate-90')}></i>
+        <span>{title}</span>
+      </button>
+      {isShow && (
+        <div className="ml-5 mt-1 space-y-1">
+          {exams.map(exam => (
+            <div key={exam.id}>
+              <Link
+                className={cn(
+                  'block w-full px-3 py-1 font-medium',
+                  examId == exam.id ? 'bg-accent' : 'hover:bg-accent',
+                )}
+                to={ROUTES_SITE.CLASROOM.EXAM.replace(':classroomId', classroomId).replace(
+                  ':id',
+                  exam.id ?? '',
+                )}
+              >
+                {exam.name}
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+const Sidebar = () => {
+  const { classroomId, id: examId } = useParams()
   const { showLoading, hideLoading } = useLoading()
-  const [showExamCurrent, setShowExamCurrent] = useState(true)
-  const [showExamHappened, setShowExamHappened] = useState(true)
+  const { handleResponseError } = useHandleError()
+  const [showExamCurrent, setShowExamCurrent] = useState(false)
   const [showExamUpComing, setShowExamUpComing] = useState(false)
+  const [showExamHappened, setShowExamHappened] = useState(false)
   const [classroom, setClassroom] = useState<TClassroom>()
   const [exams, setExams] = useState<TExam[]>([])
-  const { handleResponseError } = useHandleError()
 
   const fetchClassroom = () => {
     showLoading()
@@ -55,124 +98,62 @@ function Sidebar() {
     fetchExams()
   }, [])
 
+  useEffect(() => {
+    if (!examId || !exams.length) {
+      setShowExamCurrent(true)
+    } else {
+      const examStatus = exams.find(exam => exam.id == examId)?.status
+      if (examStatus === ExamStatus.Happening) {
+        setShowExamCurrent(true)
+      } else if (examStatus === ExamStatus.Upcoming) {
+        setShowExamUpComing(true)
+      } else if (examStatus === ExamStatus.Happened) {
+        setShowExamHappened(true)
+      }
+    }
+  }, [examId, exams.length])
+
   return (
-    <div className="border-r-2 px-3">
-      <Link to={ROUTES_SITE.HOME}>
-        <div className="hover:text-blue-500">
-          <i className="fa-regular fa-angle-left"></i>
-          <span className="ml-3">Tất cả các lớp</span>
-        </div>
+    <div className="hidden space-y-5 border-r p-5 md:block">
+      <Link to={ROUTES_SITE.HOME} className="space-x-3 text-sm hover:text-primary">
+        <i className="fa-regular fa-angle-left"></i>
+        <span className="ml-3">Tất cả các lớp</span>
       </Link>
-      <div className="mt-3">
-        <img
-          className="w-16 h-16 rounded"
-          src="https://hoangviettravel.vn/wp-content/uploads/2023/12/dai-dien-11.jpg"
-          alt="Default avatar"
-        />
-      </div>
-      <div className="mt-3 border-b-4">
-        <h1 className="font-medium text-xl">{classroom?.name}</h1>
-      </div>
-      <div>
-        <button
-          className="cursor-pointer mt-3"
+      <img
+        className="aspect-square size-16 rounded object-cover"
+        src={classroom?.avatar ?? studentAuthBg}
+        alt="Default avatar"
+      />
+      <h1 className="text-xl font-bold">{classroom?.name}</h1>
+      <div className="space-y-3">
+        <div className="ml-3">
+          <Link to="#">Trang chủ</Link>
+        </div>
+        <hr />
+        <ListExams
+          classroomId={classroomId ?? ''}
+          examId={examId ?? ''}
+          isShow={showExamCurrent}
+          title="Cuộc thi đang diễn ra"
+          exams={exams.filter(exam => exam.status === ExamStatus.Happening)}
           onClick={() => setShowExamCurrent(!showExamCurrent)}
-        >
-          {showExamCurrent ? (
-            <i className="fa-solid fa-caret-right"></i>
-          ) : (
-            <i className="fa-sharp fa-solid fa-caret-down"></i>
-          )}
-          <span className="ml-3">Cuộc thi đang diễn ra</span>
-        </button>
-        {showExamCurrent && (
-          <div>
-            {exams
-              .filter(exam => {
-                return exam.status === ExamStatus.Happening
-              })
-              .map(exam => (
-                <div key={exam.id} className="mt-1">
-                  <Link
-                    to={ROUTES_SITE.CLASROOM.EXAM.replace(
-                      ':classroomId',
-                      classroomId ?? '',
-                    ).replace(':id', exam.id ?? '')}
-                  >
-                    {exam.name}
-                  </Link>
-                </div>
-              ))}
-          </div>
-        )}
-      </div>
-
-      <div>
-        <button
-          className="cursor-pointer mt-3"
+        />
+        <ListExams
+          classroomId={classroomId ?? ''}
+          examId={examId ?? ''}
+          isShow={showExamUpComing}
+          title="Cuộc thi sắp diễn ra"
+          exams={exams.filter(exam => exam.status === ExamStatus.Upcoming)}
           onClick={() => setShowExamUpComing(!showExamUpComing)}
-        >
-          {showExamUpComing ? (
-            <i className="fa-solid fa-caret-right"></i>
-          ) : (
-            <i className="fa-sharp fa-solid fa-caret-down"></i>
-          )}
-          <span className="ml-3">Cuộc thi sắp diễn ra</span>
-        </button>
-        {showExamUpComing && (
-          <div>
-            {exams
-              .filter(exam => {
-                return exam.status === ExamStatus.Upcoming
-              })
-              .map(exam => (
-                <div key={exam.id} className="mt-1">
-                  <Link
-                    to={ROUTES_SITE.CLASROOM.EXAM.replace(
-                      ':classroomId',
-                      classroomId ?? '',
-                    ).replace(':id', exam.id ?? '')}
-                  >
-                    {exam.name}
-                  </Link>
-                </div>
-              ))}
-          </div>
-        )}
-      </div>
-
-      <div>
-        <button
-          className="cursor-pointer mt-3"
+        />
+        <ListExams
+          classroomId={classroomId ?? ''}
+          examId={examId ?? ''}
+          isShow={showExamHappened}
+          title="Cuộc thi đã kết thúc"
+          exams={exams.filter(exam => exam.status === ExamStatus.Happened)}
           onClick={() => setShowExamHappened(!showExamHappened)}
-        >
-          {showExamHappened ? (
-            <i className="fa-solid fa-caret-right"></i>
-          ) : (
-            <i className="fa-sharp fa-solid fa-caret-down"></i>
-          )}
-          <span className="ml-3">Cuộc thi đã diễn ra</span>
-        </button>
-        {showExamHappened && (
-          <div>
-            {exams
-              .filter(exam => {
-                return exam.status === ExamStatus.Happened
-              })
-              .map(exam => (
-                <div key={exam.id} className="mt-1">
-                  <Link
-                    to={ROUTES_SITE.CLASROOM.EXAM.replace(
-                      ':classroomId',
-                      classroomId ?? '',
-                    ).replace(':id', exam.id ?? '')}
-                  >
-                    {exam.name}
-                  </Link>
-                </div>
-              ))}
-          </div>
-        )}
+        />
       </div>
     </div>
   )

@@ -39,7 +39,7 @@ function QuestionEssay(props: any) {
   }, [])
   return (
     <div>
-      <div className="flex gap-3 mb-3">
+      <div className="mb-3 flex gap-3">
         <h3 className="text-xl font-semibold">Câu hỏi {index}. </h3>
         <div
           className="editor-content overflow-hidden"

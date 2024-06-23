@@ -27,9 +27,10 @@ function QuestionMutiple(props: any) {
   useEffect(() => {
     setValue(examAnswer.answer_id)
   }, [])
+
   return (
     <div>
-      <div className="flex gap-3 items-center">
+      <div className="flex items-center gap-3">
         <h3 className="text-lg font-semibold">Câu hỏi {index}. </h3>
         <div
           className="editor-content overflow-hidden"
@@ -37,9 +38,9 @@ function QuestionMutiple(props: any) {
         />
         {disabled ? (
           examAnswer.is_correct ? (
-            <i className="fa-sharp fa-solid fa-circle-check text-green-600 text-xl"></i>
+            <i className="fa-sharp fa-solid fa-circle-check text-xl text-green-600"></i>
           ) : (
-            <i className="fa-sharp fa-solid fa-circle-xmark text-red-600 text-xl"></i>
+            <i className="fa-sharp fa-solid fa-circle-xmark text-xl text-red-600"></i>
           )
         ) : null}
       </div>
@@ -47,7 +48,7 @@ function QuestionMutiple(props: any) {
         {examAnswer.question.answers.map((answer: any) => (
           <div className="mt-4" key={answer.id}>
             <Radio value={answer.id} disabled={disabled}>
-              <div className="flex gap-3 items-center">
+              <div className="flex items-center gap-3">
                 {answer.answer}
                 {disabled && answer.is_correct && (
                   <i className="fa-sharp fa-solid fa-circle-check text-green-600"></i>

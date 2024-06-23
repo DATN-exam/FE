@@ -6,8 +6,8 @@ import AccountMenu from './AccountMenu'
 
 function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 p-2 flex justify-between items-center gap-5 border-b text-foreground">
-      <Link to={ROUTES_SITE.HOME} className="w-[58px] flex justify-center">
+    <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between gap-5 border-b p-2 text-foreground">
+      <Link to={ROUTES_SITE.HOME} className="flex w-[58px] justify-center">
         <img src={viteLogo} alt="Logo" />
       </Link>
       <div className="flex items-center gap-1">
