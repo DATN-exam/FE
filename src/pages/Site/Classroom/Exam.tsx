@@ -168,18 +168,18 @@ function Exam() {
   }, [id])
 
   return (
-    <section className="grid grid-cols-4 p-5 h-full">
+    <section className="grid h-full grid-cols-4">
       <Sidebar />
-      <div className="p-5 col-span-3">
-        <h1 className="font-medium text-2xl">Cuộc thi {exam?.name}</h1>
+      <div className="col-span-3 p-5">
+        <h1 className="text-2xl font-medium">Cuộc thi {exam?.name}</h1>
         <p className="text-gray-500">Ngày bắt đầu: {exam?.start_date}</p>
         <p className="text-gray-500">Đến hạn: {exam?.end_date}</p>
-        <h1 className="mt-3 font-medium text-xl">Thời gian làm bài {exam?.working_time}</h1>
+        <h1 className="mt-3 text-xl font-medium">Thời gian làm bài {exam?.working_time}</h1>
         {examCurrent?.show_result === false ? (
           <h1>Kết quả sẽ có sau khi cuộc thi kết thúc</h1>
         ) : (
           <>
-            <h1 className="mt-3 font-medium text-xl">Điểm của bạn: {examCurrent?.total_score}</h1>
+            <h1 className="mt-3 text-xl font-medium">Điểm của bạn: {examCurrent?.total_score}</h1>
           </>
         )}
         {/* {exam?.status === ExamStatus.Happening && (

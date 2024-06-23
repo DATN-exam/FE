@@ -68,7 +68,7 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Tên mã</label>
         <Input
-          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
           placeholder="Tên mã"
           type="text"
           name="name"
@@ -88,7 +88,7 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Số lượng</label>
         <Input
-          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
           placeholder="Số lượng"
           type="number"
           name="quantity"
@@ -99,12 +99,12 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Ngày hết hạn</label>
         <DatePicker
-          className="w-full mt-1"
+          className="mt-1 w-full"
           onChange={e => hanldChangeDate(e)}
           status={expiredError ? 'error' : ''}
         />
         {expiredError && (
-          <p className="text-red-500 text-xs italic !mt-1">{expiredError?.message}</p>
+          <p className="!mt-1 text-xs italic text-red-500">{expiredError?.message}</p>
         )}
       </div>
       <div className="mt-4">

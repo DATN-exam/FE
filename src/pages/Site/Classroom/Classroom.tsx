@@ -11,7 +11,7 @@ function Classroom() {
   }, [])
 
   return (
-    <section className="grid grid-cols-4 p-5 h-full">
+    <section className="grid h-full grid-cols-4">
       <Sidebar />
     </section>
   )

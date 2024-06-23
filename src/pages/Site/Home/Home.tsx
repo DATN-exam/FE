@@ -75,21 +75,21 @@ function Home() {
 
   return (
     <section>
-      <div className="px-6 py-5 flex justify-between items-center">
-        <h1 className="font-medium text-2xl text-foreground">Lớp học của tôi</h1>
+      <div className="flex items-center justify-between px-6 py-5">
+        <h1 className="text-2xl font-medium text-foreground">Lớp học của tôi</h1>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-2 flex justify-center items-center bg-transparent border-none hover:bg-transparent hover:text-primary gap-2">
+            <button className="flex items-center justify-center gap-2 border-none bg-transparent p-2 hover:bg-transparent hover:text-primary">
               <i className="fa-regular fa-ellipsis"></i>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-fit">
             <DropdownMenuItem>
               <button
-                className="w-full flex items-center gap-3 text-base"
+                className="flex w-full items-center gap-3 text-base"
                 onClick={handleJoinClassroom}
               >
-                <div className="flex justify-center items-center w-6">
+                <div className="flex w-6 items-center justify-center">
                   <i className="fa-solid fa-users-medical"></i>
                 </div>
                 <span>Tham gia lớp học</span>
@@ -105,12 +105,12 @@ function Home() {
             <Link
               key={classroom.id}
               to={ROUTES_SITE.CLASROOM.INDEX.replace(':classroomId', classroom.id ?? '')}
-              className="shadow p-4 w-56 rounded bg-card border space-y-6 hover:bg-accent"
+              className="w-56 space-y-6 rounded border bg-card p-4 shadow hover:bg-accent"
               title={classroom.name ?? ''}
             >
               <div className="flex justify-center">
                 <img
-                  className="w-16 h-16 object-cover rounded"
+                  className="h-16 w-16 rounded object-cover"
                   alt={classroom.name ?? ''}
                   loading="lazy"
                   src={classroom.avatar ?? authBackground}
@@ -118,9 +118,9 @@ function Home() {
               </div>
               <div className="flex items-center gap-2 text-foreground">
                 <div className="flex-1">
-                  <p className="text-sm text-ellipsis line-clamp-2">{classroom.name}</p>
+                  <p className="line-clamp-2 text-ellipsis text-sm">{classroom.name}</p>
                 </div>
-                <div className="flex justify-center items-center w-4 h-5 hover:text-primary">
+                <div className="flex h-5 w-4 items-center justify-center hover:text-primary">
                   <i className="fa-regular fa-ellipsis"></i>
                 </div>
               </div>

@@ -38,7 +38,7 @@ const TeacherRegistration = () => {
   }
   return (
     <form className="space-y-6" onSubmit={handleSubmit(handleRegister)}>
-      <h1 className="text-3xl font-medium text-center text-foreground">Đăng ký làm giáo viên</h1>
+      <h1 className="text-center text-3xl font-medium text-foreground">Đăng ký làm giáo viên</h1>
       <Input
         placeholder="Lý do"
         label="Lý do"

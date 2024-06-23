@@ -39,7 +39,7 @@ function ResetPassword() {
   return (
     <form onSubmit={handleSubmit(handleForgotPassword)}>
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold text-center text-foreground">Đặt lại mật khẩu</h1>
+        <h1 className="text-center text-3xl font-bold text-foreground">Đặt lại mật khẩu</h1>
         <Input
           type="password"
           label="Mật khẩu mới"
@@ -58,8 +58,8 @@ function ResetPassword() {
           autoComplete="off"
           isRequired
         />
-        <div className="flex justify-end !mt-1">
-          <Link to={ROUTES_SITE.AUTH.LOGIN} className="text-sm underline text-foreground">
+        <div className="!mt-1 flex justify-end">
+          <Link to={ROUTES_SITE.AUTH.LOGIN} className="text-sm text-foreground underline">
             Đăng nhập
           </Link>
         </div>

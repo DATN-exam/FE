@@ -72,9 +72,9 @@ const AnswerEssay = (props: any) => {
   }, [])
   return (
     <>
-      <Space direction="vertical" className="mt-1 block w-full grid grid-cols-2">
+      <Space direction="vertical" className="mt-1 grid w-full grid-cols-2">
         {answers.map((answer: any) => (
-          <div className="flex mt-2 gap-2" key={answer.id}>
+          <div className="mt-2 flex gap-2" key={answer.id}>
             <Input
               control={control}
               type="text"
@@ -92,7 +92,7 @@ const AnswerEssay = (props: any) => {
           </div>
         ))}
         {answersAdd.map((answer: any) => (
-          <div className="flex mt-2 gap-2" key={answer.id}>
+          <div className="mt-2 flex gap-2" key={answer.id}>
             <Input
               control={control}
               type="text"
@@ -109,7 +109,7 @@ const AnswerEssay = (props: any) => {
             </Button>
           </div>
         ))}
-        <div className="w-full mt-2 flex">
+        <div className="mt-2 flex w-full">
           <Button onClick={handleAddAnswer} type="button">
             Thêm câu trả lời tự luận
           </Button>

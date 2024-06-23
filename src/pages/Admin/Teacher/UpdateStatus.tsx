@@ -43,7 +43,7 @@ const TeacherAction = (props: any) => {
       >
         <form className="space-y-6" onSubmit={onSubmit}>
           <div className="mb-8">
-            <h1 className="text-3xl font-medium text-center text-foreground">{modalTitle}</h1>
+            <h1 className="text-center text-3xl font-medium text-foreground">{modalTitle}</h1>
             <p className="!mt-0 text-center text-sm font-light text-foreground">
               {modalDescription}
             </p>

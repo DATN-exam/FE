@@ -74,12 +74,12 @@ const Analysis = (props: any) => {
   }, [])
 
   return (
-    <div className="p-3 w-full">
+    <div className="w-full p-3">
       <h1 className="text-xl font-bold">Thống kê về cuộc thi {exam.name}</h1>
-      <div className="flex justify-between gap-3 w-full">
-        <div className="bg-gray-200 mt-3 p-3 flex-1 ">
-          <div className="flex gap-3 items-center justify-start">
-            <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
+      <div className="flex w-full justify-between gap-3">
+        <div className="mt-3 flex-1 bg-gray-200 p-3">
+          <div className="flex items-center justify-start gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 p-3">
               <i className="fa-sharp fa-solid fa-person text-blue-500"></i>
             </div>
             <span>Số lượng học sinh tham gia</span>
@@ -91,9 +91,9 @@ const Analysis = (props: any) => {
             </h1>
           </div>
         </div>
-        <div className="bg-gray-200 mt-3 p-3 flex-1">
-          <div className="flex gap-3 items-center justify-start">
-            <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
+        <div className="mt-3 flex-1 bg-gray-200 p-3">
+          <div className="flex items-center justify-start gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 p-3">
               <i className="fa-sharp fa-light fa-hundred-points text-blue-500"></i>
             </div>
             <span>Điểm trung bình</span>
@@ -130,15 +130,15 @@ const Analysis = (props: any) => {
         </div>
       </div>
       <div className="mt-5">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold">Bảng xếp hạng cuộc thi: {exam.name}</h1>
           <Button onClick={handleExport}>
             <i className="fa-sharp fa-solid fa-file-export"></i>
             <span>Excel</span>
           </Button>
         </div>
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-3">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="mt-3 w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
+          <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Top
@@ -156,10 +156,10 @@ const Analysis = (props: any) => {
           </thead>
           <tbody>
             {students.map((student, index) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                 >
                   {index + 1}
                 </th>

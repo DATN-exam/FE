@@ -55,7 +55,7 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Tên lớp</label>
         <Input
-          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
           placeholder="Tên lớp"
           type="text"
           name="name"
@@ -74,7 +74,7 @@ const CreateForm = (props: any) => {
       <div className="mt-4">
         <label className="text-black">Mô tả</label>
         <Input
-          className="w-full bg-white rounded-md border-gray-300 text-black px-2 py-1 mt-1"
+          className="mt-1 w-full rounded-md border-gray-300 bg-white px-2 py-1 text-black"
           placeholder="Mô tả"
           type="text"
           name="description"

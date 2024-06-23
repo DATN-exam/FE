@@ -62,9 +62,9 @@ function Login() {
   }, [authToken])
 
   return (
-    <div className="w-screen min-h-screen flex justify-center items-center bg-secondary">
+    <div className="flex min-h-screen w-screen items-center justify-center bg-secondary">
       <form onSubmit={handleSubmit(login)} className="w-full max-w-sm">
-        <Card className="bg-card border-none shadow-lg">
+        <Card className="border-none bg-card shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Đăng nhập Admin</CardTitle>
           </CardHeader>
@@ -84,7 +84,7 @@ function Login() {
               control={control}
               error={passwordError}
             />
-            <div className="flex justify-between !mt-2">
+            <div className="!mt-2 flex justify-between">
               <Checkbox
                 label="Hiển thị mật khẩu"
                 name="show-password"

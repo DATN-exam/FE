@@ -41,9 +41,9 @@ function ShowResult() {
   }, [])
 
   return (
-    <section className="grid grid-cols-4 p-5 h-full">
+    <section className="grid h-full grid-cols-4 p-5">
       <Sidebar />
-      <div className="p-5 col-span-3">
+      <div className="col-span-3 p-5">
         <div className="flex justify-between">
           <div>
             <h1 className="font-medium text-2xl">

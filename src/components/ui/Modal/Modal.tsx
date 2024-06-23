@@ -30,7 +30,7 @@ const Modal = (props: ModalProps) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto" ref={cancelButtonRef}>
-          <div className="flex min-h-full items-center justify-center px-4 sm:px-10 md:px-20 py-4 text-center">
+          <div className="flex min-h-full items-center justify-center px-4 py-4 text-center sm:px-10 md:px-20">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -42,7 +42,7 @@ const Modal = (props: ModalProps) => {
             >
               <Dialog.Panel
                 className={cn(
-                  'rounded w-full max-w-xl h-full transform text-left align-middle transition-all p-8 md:px-10 py-10 bg-secondary shadow-lg',
+                  'h-full w-full max-w-xl transform rounded bg-secondary p-8 py-10 text-left align-middle shadow-lg transition-all md:px-10',
                   className,
                 )}
               >

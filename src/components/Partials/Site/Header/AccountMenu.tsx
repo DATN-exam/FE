@@ -33,29 +33,29 @@ const AccountMenu = () => {
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="p-0 pl-3 w-fit bg-transparent rounded-full border-none hover:bg-background"
+            className="w-fit rounded-full border-none bg-transparent p-0 pl-3 hover:bg-background"
           >
-            <div className="rounded-full flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full">
               <p className="text-sm font-normal">{`${authProfile?.first_name} ${authProfile?.last_name}`}</p>
-              <img src={userAvatarDefault} alt="user-avatar" className="w-10 h-10 rounded-full" />
+              <img src={userAvatarDefault} alt="user-avatar" className="h-10 w-10 rounded-full" />
             </div>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-fit">
           <DropdownMenuItem>
             {authProfile?.role === ROLE.TEACHER ? (
-              <Link to={ROUTES_TEACHER.HOME} className="w-full flex items-center gap-3 text-base">
-                <div className="flex justify-center items-center w-6">
+              <Link to={ROUTES_TEACHER.HOME} className="flex w-full items-center gap-3 text-base">
+                <div className="flex w-6 items-center justify-center">
                   <i className="fa-solid fa-chalkboard-user"></i>
                 </div>
                 <span>Trang giáo viên</span>
               </Link>
             ) : authProfile?.has_teacher_registration ? null : (
               <button
-                className="w-full flex items-center gap-3 text-base"
+                className="flex w-full items-center gap-3 text-base"
                 onClick={() => setShowModal(true)}
               >
-                <div className="flex justify-center items-center w-6">
+                <div className="flex w-6 items-center justify-center">
                   <i className="fa-solid fa-chalkboard-user"></i>
                 </div>
                 <span>Đăng ký trở thành giáo viên</span>
@@ -64,18 +64,18 @@ const AccountMenu = () => {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link
-              className="w-full flex items-center gap-3 text-base"
+              className="flex w-full items-center gap-3 text-base"
               to={ROUTES_SITE.AUTH.PROFILE}
             >
-              <div className="flex justify-center items-center w-6">
+              <div className="flex w-6 items-center justify-center">
                 <i className="fa-solid fa-user"></i>
               </div>
               <span>Thông tin cá nhân</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <button className="w-full flex items-center gap-3 text-base" onClick={() => logout()}>
-              <div className="flex justify-center items-center w-6">
+            <button className="flex w-full items-center gap-3 text-base" onClick={() => logout()}>
+              <div className="flex w-6 items-center justify-center">
                 <i className="fa-solid fa-right-from-bracket"></i>
               </div>
               <span>Đăng xuất</span>

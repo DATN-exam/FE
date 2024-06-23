@@ -177,7 +177,7 @@ function ClassroomExam() {
     <div className="space-y-8">
       <Header />
       <h1 className="text-3xl text-foreground">Danh sách cuộc thi</h1>
-      <div className="bg-card rounded p-5 shadow space-y-6">
+      <div className="space-y-6 rounded bg-card p-5 shadow">
         <div className="flex justify-end">
           <Button onClick={handleCreateExam}>Tạo cuộc thi</Button>
         </div>
