@@ -102,6 +102,27 @@ export enum ExamHistoryType {
   Experiment = 'EXPERIMENT',
 }
 
+export const EXAM_STATUS_LIST_OPTIONS = [
+  {
+    id: 1,
+    name: 'Đang diễn ra',
+    value: ExamStatus.Happening,
+    badgeColor: 'bg-green-200',
+  },
+  {
+    id: 2,
+    name: 'Đã kết thúc',
+    value: ExamStatus.Happened,
+    badgeColor: 'bg-red-200',
+  },
+  {
+    id: 3,
+    name: 'Sắp diễn ra',
+    value: ExamStatus.Upcoming,
+    badgeColor: 'bg-red-400',
+  },
+]
+
 export const CLASSROOM_STATUS_LIST_OPTIONS = [
   {
     id: 1,

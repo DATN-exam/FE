@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Modal, Table } from '@/components/ui'
-import { DEFAULT_PAGINATION_OBJECT, SORT_TYPE } from '@/config/define'
+import { Alert, Badge, Button, Modal, Table } from '@/components/ui'
+import { DEFAULT_PAGINATION_OBJECT, EXAM_STATUS_LIST_OPTIONS, SORT_TYPE } from '@/config/define'
 import { ROUTES_TEACHER } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
 import { useSidebarActive } from '@/contexts/sidebarActive'
@@ -18,6 +18,7 @@ import { TExam } from '@/types/teacher/exam'
 import UpdateForm from './UpdateForm'
 import Ranking from './Ranking'
 import Analysis from './Analysis'
+import { getValueFromObjectByKey } from '@/utils/helper'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -52,6 +53,15 @@ function ClassroomExam() {
       headerName: 'Tên',
       field: 'name',
       sortable: true,
+    },
+    {
+      headerName: 'Trạng thái',
+      field: 'status',
+      sortable: true,
+      valueGetter: row => {
+        const status = getValueFromObjectByKey(EXAM_STATUS_LIST_OPTIONS, 'value', row.status)
+        return <Badge className={status?.badgeColor}>{status.name}</Badge>
+      },
     },
     {
       headerName: 'Thời gian làm bài',
@@ -204,7 +214,7 @@ function ClassroomExam() {
         <CreateForm
           showLoading={showLoading}
           hideLoading={hideLoading}
-          debouncedFetchExams={debouncedFetchExams}
+          debouncedFetchExams={() => debouncedFetchExams(dataSearch)}
           dataSearch={dataSearch}
           setDataSearch={setDataSearch}
           setOpenFormAdd={setOpenFormAdd}
