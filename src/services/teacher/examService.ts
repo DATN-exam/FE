@@ -28,6 +28,10 @@ const examService = {
     })
     return data
   },
+  async analysis(id: any, examId: any) {
+    const { data } = await apiClient.get(`${this.path}/${id}/exams/${examId}/analysis`)
+    return data
+  },
 }
 
 export default examService
