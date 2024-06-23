@@ -61,6 +61,8 @@ const UpdateForm = (props: any) => {
     })
   }, [watch('title')])
   useEffect(() => {
+    console.log(exam)
+    setShowResult(exam.is_show_result)
     fetchSetQuestionReady()
   }, [])
   const { name: nameError, note: noteError } = errors

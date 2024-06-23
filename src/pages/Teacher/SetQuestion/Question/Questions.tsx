@@ -132,6 +132,29 @@ function Questions() {
         hideLoading()
       })
   }
+
+  const handleExportWord = () => {
+    showLoading()
+    questionService
+      .exportWord(id, dataSearch)
+      .then(blob => {
+        console.log(blob)
+        const blobS = window.URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = blobS
+        link.setAttribute('download', 'document.docx')
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
+
   const debouncedFetchQuestions = useDebouncedCallback(fetchQuestions)
 
   const handleChangePage = (selected: number) => {
@@ -169,8 +192,12 @@ function Questions() {
       <Header />
       <h1 className="text-3xl text-foreground">Danh sách câu hỏi</h1>
       <div className="space-y-6 rounded bg-card p-5 shadow">
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-3">
           <Button onClick={handleCreateQuestion}>Tạo câu hỏi</Button>
+          <Button onClick={handleExportWord}>
+            <i className="fa-sharp fa-solid fa-file-export"></i>
+            <span>Word</span>
+          </Button>
         </div>
         <SearchForm
           dataSearch={dataSearch}

@@ -31,7 +31,6 @@ const CreateForm = (props: any) => {
     setValue,
     handleSubmit,
     getValues,
-    reset,
     watch,
     setError,
     clearErrors,
@@ -39,7 +38,7 @@ const CreateForm = (props: any) => {
     defaultValues: defaultValue,
   })
   const { id } = useParams()
-  const { showLoading, hideLoading } = props
+  const { showLoading, hideLoading, debouncedFetchExams, setOpenFormAdd } = props
   const [setQuestions, setSetQuestions] = useState([])
   const [maxQuestion, setMaxQuestion] = useState({ easy: 1, medium: 1, hard: 1 })
   const { handleResponseError } = useHandleError()
@@ -64,7 +63,6 @@ const CreateForm = (props: any) => {
     const itemSelect: any = setQuestions.find((item: any) => {
       return item.id == getValues('title')
     })
-    console.log(getValues('title'))
     setMaxQuestion({
       easy: itemSelect?.question_easy_count ?? 1,
       medium: itemSelect?.question_medium_count ?? 1,
@@ -87,7 +85,8 @@ const CreateForm = (props: any) => {
       .create(id, payload)
       .then(() => {
         Toast.success('Tạo cuộc thi thành công')
-        reset(defaultValue)
+        setOpenFormAdd(false)
+        debouncedFetchExams()
       })
       .catch((err: any) => {
         if (err.response.status == 422) {

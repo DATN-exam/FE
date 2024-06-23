@@ -15,6 +15,13 @@ const questionService = {
     const { data } = await apiClient.post(`${this.path}/${setQuestionId}/questions`, payloads)
     return data
   },
+  async exportWord(idSetQuestion: any, params: QuestionSearchParams) {
+    const { data } = await apiClient.get(`${this.path}/${idSetQuestion}/questions/export-word`, {
+      params,
+      responseType: 'blob',
+    })
+    return data
+  },
 }
 
 export default questionService
