@@ -10,8 +10,20 @@ const examService = {
     const { data } = await apiClient.get(`${this.path}/${idClassroom}/exams/${id}/get-current`)
     return data
   },
+  async getCurrentExperiment(idClassroom: any, id: any) {
+    const { data } = await apiClient.get(
+      `${this.path}/${idClassroom}/exams/${id}/get-current-experiment`,
+    )
+    return data
+  },
   async start(idClassroom: any, id: any) {
     const { data } = await apiClient.post(`${this.path}/${idClassroom}/exams/${id}/start`)
+    return data
+  },
+  async startExperiment(idClassroom: any, id: any) {
+    const { data } = await apiClient.post(
+      `${this.path}/${idClassroom}/exams/${id}/start-experiment`,
+    )
     return data
   },
   async examHistortyDetail(idClassroom: any, id: any, idHistory: any) {

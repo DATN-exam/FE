@@ -17,6 +17,7 @@ function Exam() {
   const { handleResponseError } = useHandleError()
   const [exam, setExam] = useState<TExam>()
   const [examCurrent, setExamCurrent] = useState<any>()
+  const [examCurrentExperiment, setExamCurrentExperiment] = useState<any>()
   const navigate = useNavigate()
 
   const fetchExam = () => {
@@ -49,10 +50,49 @@ function Exam() {
       })
   }
 
+  const fetchExamCurrentExpriment = () => {
+    showLoading()
+    examService
+      .getCurrentExperiment(classroomId, id)
+      .then(data => {
+        setExamCurrentExperiment(Object.keys(data).length > 0 ? data : null)
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
+
   const fetchStartExam = async () => {
     showLoading()
     await examService
       .start(classroomId, id)
+      .then(data => {
+        return data
+      })
+      .then(data => {
+        navigate(
+          ROUTES_SITE.CLASROOM.DO_EXAM.replace(':classroomId', classroomId ?? '').replace(
+            ':id',
+            id ?? '',
+          ),
+          { state: { exam: exam, examHistory: data } },
+        )
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
+
+  const fetchStartExamExpriment = async () => {
+    showLoading()
+    await examService
+      .startExperiment(classroomId, id)
       .then(data => {
         return data
       })
@@ -87,6 +127,16 @@ function Exam() {
       { state: { exam: exam, examHistory: examCurrent } },
     )
   }
+  const handleShowResultExperiment = () => {
+    navigate(
+      ROUTES_SITE.CLASROOM.SHOW_RESULT.replace(':classroomId', classroomId ?? '').replace(
+        ':id',
+        id ?? '',
+      ),
+      { state: { exam: exam, examHistory: examCurrentExperiment } },
+    )
+  }
+
   const handleDoingExam = () => {
     navigate(
       ROUTES_SITE.CLASROOM.DO_EXAM.replace(':classroomId', classroomId ?? '').replace(
@@ -97,10 +147,24 @@ function Exam() {
     )
   }
 
+  const handleDoingExamExpriment = () => {
+    navigate(
+      ROUTES_SITE.CLASROOM.DO_EXAM.replace(':classroomId', classroomId ?? '').replace(
+        ':id',
+        id ?? '',
+      ),
+      { state: { exam: exam, examHistory: examCurrentExperiment } },
+    )
+  }
+
+  const handleDoExamExperiment = () => {
+    fetchStartExamExpriment()
+  }
   useEffect(() => {
     setSidebarActive(ROUTES_SITE.HOME)
     fetchExam()
     fetchExamCurrent()
+    fetchExamCurrentExpriment()
   }, [id])
 
   return (
@@ -114,9 +178,11 @@ function Exam() {
         {examCurrent?.show_result === false ? (
           <h1>Kết quả sẽ có sau khi cuộc thi kết thúc</h1>
         ) : (
-          <h1 className="mt-3 font-medium text-xl">Điểm của bạn: {examCurrent?.total_score}</h1>
+          <>
+            <h1 className="mt-3 font-medium text-xl">Điểm của bạn: {examCurrent?.total_score}</h1>
+          </>
         )}
-        {exam?.status === ExamStatus.Happening && (
+        {/* {exam?.status === ExamStatus.Happening && (
           <div className="mt-3 flex gap-5">
             <Button>Thi thử</Button>
             {examCurrent ? (
@@ -124,7 +190,9 @@ function Exam() {
                 <Button onClick={handleDoingExam}>Tiếp tục làm bài</Button>
               ) : examCurrent.show_result ? (
                 <>
-                  <Button onClick={handleShowResult}>Xem kết quả</Button>
+                  <Button onClick={handleShowResult} className="mr-3">
+                    Xem kết quả
+                  </Button>
                   <Button onClick={handleShowResult}>Xem bảng xếp hạng</Button>
                 </>
               ) : null
@@ -132,7 +200,37 @@ function Exam() {
               <Button onClick={handleDoExam}>Làm bài</Button>
             )}
           </div>
-        )}
+        )} */}
+        <div className="mt-3 flex gap-5">
+          {examCurrentExperiment && !examCurrentExperiment.is_submit ? (
+            <Button onClick={handleDoingExamExpriment}>Tiếp tục thi thử</Button>
+          ) : (
+            <Button onClick={handleDoExamExperiment}>Thi thử</Button>
+          )}
+          {examCurrentExperiment && examCurrentExperiment.is_submit && (
+            <Button onClick={handleShowResultExperiment}>Xem kết quả thi thử</Button>
+          )}
+        </div>
+        <div className="mt-3 flex gap-5">
+          {exam?.status === ExamStatus.Happening &&
+            examCurrent &&
+            examCurrent.isSumit === false && (
+              <Button onClick={handleDoingExam}>Tiếp tục làm bài</Button>
+            )}
+
+          {exam?.status === ExamStatus.Happening && !examCurrent && (
+            <Button onClick={handleDoExam}>Làm bài</Button>
+          )}
+
+          {examCurrent && examCurrent.show_result && (
+            <>
+              <Button onClick={handleShowResult} className="mr-3">
+                Xem kết quả
+              </Button>
+              <Button onClick={handleShowResult}>Xem bảng xếp hạng</Button>
+            </>
+          )}
+        </div>
 
         {exam?.status == ExamStatus.Upcoming && <div>Cuộc thi này chưa bắt đầu</div>}
       </div>

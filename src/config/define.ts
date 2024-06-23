@@ -97,6 +97,11 @@ export enum ExamStatus {
   Happening = 'HAPPENING',
 }
 
+export enum ExamHistoryType {
+  Test = 'HAPPENED',
+  Experiment = 'EXPERIMENT',
+}
+
 export const CLASSROOM_STATUS_LIST_OPTIONS = [
   {
     id: 1,

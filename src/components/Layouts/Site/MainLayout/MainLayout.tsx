@@ -15,10 +15,6 @@ const MainLayout = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(authProfile)
-  }, [])
-
-  useEffect(() => {
     if (!authProfile) {
       return
     }
@@ -34,10 +30,9 @@ const MainLayout = () => {
     })
     const channel = pusher.subscribe(`private-App.Models.User.${authProfile.id}`)
     channel.bind('user-notification', function (data: any) {
-      console.log(data)
       openNotification(data.message)
     })
-  }, [authProfile])
+  }, [authProfile?.id])
 
   const openNotification = (message: any) => {
     api.open({
@@ -52,7 +47,6 @@ const MainLayout = () => {
 
   useEffect(() => {
     setIsChecking(true)
-
     if (!authToken) {
       navigate(ROUTES_SITE.AUTH.LOGIN)
     } else if (!authProfile) {
