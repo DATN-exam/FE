@@ -214,7 +214,7 @@ function Exam() {
         <div className="mt-3 flex gap-5">
           {exam?.status === ExamStatus.Happening &&
             examCurrent &&
-            examCurrent.isSumit === false && (
+            examCurrent.is_submit === false && (
               <Button onClick={handleDoingExam}>Tiếp tục làm bài</Button>
             )}
 

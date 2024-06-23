@@ -10,6 +10,7 @@ const Analysis = (props: any) => {
   const { showLoading, hideLoading } = useLoading()
   const { handleResponseError } = useHandleError()
   const [students, setStudents] = useState<any[]>([])
+  const [analysis, setAnalysis] = useState<any>()
   const { id } = useParams()
   const fetchRanking = () => {
     showLoading()
@@ -17,6 +18,21 @@ const Analysis = (props: any) => {
       .getTop(id, exam.id)
       .then(data => {
         setStudents(data)
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
+
+  const fetchAnalysis = () => {
+    showLoading()
+    examService
+      .analysis(id, exam.id)
+      .then(data => {
+        setAnalysis(data)
       })
       .catch(err => {
         handleResponseError(err)
@@ -54,6 +70,7 @@ const Analysis = (props: any) => {
 
   useEffect(() => {
     fetchRanking()
+    fetchAnalysis()
   }, [])
 
   return (
@@ -68,8 +85,10 @@ const Analysis = (props: any) => {
             <span>Số lượng học sinh tham gia</span>
           </div>
           <div className="flex items-center justify-between">
-            <h1 className="ml-1 mt-3 text-2xl font-bold">45</h1>
-            <h1 className="ml-1 mt-3 text-green-500">35%</h1>
+            <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.number_student_join}</h1>
+            <h1 className="ml-1 mt-3 text-green-500">
+              {((analysis?.number_student_join / analysis?.total_student) * 100).toFixed(2)}%
+            </h1>
           </div>
         </div>
         <div className="bg-gray-200 mt-3 p-3 flex-1">
@@ -80,7 +99,33 @@ const Analysis = (props: any) => {
             <span>Điểm trung bình</span>
           </div>
           <div className="flex items-center justify-between">
-            <h1 className="ml-1 mt-3 text-2xl font-bold">45</h1>
+            <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.average_score}</h1>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-between gap-3 w-full">
+        <div className="bg-gray-200 mt-3 p-3 flex-1 ">
+          <div className="flex gap-3 items-center justify-start">
+            <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
+              <i className="fa-sharp fa-solid fa-person text-blue-500"></i>
+            </div>
+            <span>Thời gian trung bình làm bài</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.average_time_taken}</h1>
+            <h1 className="ml-1 mt-3 text-green-500"></h1>
+          </div>
+        </div>
+        <div className="bg-gray-200 mt-3 p-3 flex-1">
+          <div className="flex gap-3 items-center justify-start">
+            <div className="bg-gray-200 rounded-full w-12 h-12 p-3 flex items-center justify-center">
+              <i className="fa-sharp fa-light fa-hundred-points text-blue-500"></i>
+            </div>
+            <span>Điểm tối đa</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <h1 className="ml-1 mt-3 text-2xl font-bold">{analysis?.max_score}</h1>
           </div>
         </div>
       </div>
