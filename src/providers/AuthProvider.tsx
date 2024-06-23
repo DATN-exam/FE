@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { AuthContext } from '@/contexts/auth'
 import authService from '@/services/site/authService'
 import state from '@/utils/localStorage'
-import apiClient from '@/services/admin'
+import apiClient from '@/services/site'
 import { AuthProviderProps, LoginPayloads, TAuthAdminProfile } from '@/types'
 
 const AuthProvider = (props: AuthProviderProps) => {
@@ -18,8 +18,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       const response = await authService.login(data)
       setAuthToken(response.access_token)
     } catch (err) {
-      // return Promise.reject(err)
-      authRemove()
+      return Promise.reject(err)
+      // authRemove()
     }
   }
 
@@ -50,7 +50,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       const response = await authService.getProfile()
       setAuthProfile(response)
     } catch (err) {
-      return Promise.reject(err)
+      authRemove()
+      // return Promise.reject(err)
     }
   }
 

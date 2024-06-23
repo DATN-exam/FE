@@ -9,7 +9,7 @@ import QuestionMutiple from './QuestionMutiple'
 import QuestionEssay from './QuestionEssay'
 import examService from '@/services/site/examService'
 import useHandleError from '@/hooks/useHandleError'
-import { QuestionType } from '@/config/define'
+import { ExamHistoryType, QuestionType } from '@/config/define'
 
 function DoExam() {
   const { setSidebarActive } = useSidebarActive()
@@ -78,7 +78,10 @@ function DoExam() {
       <div className="p-5 col-span-3">
         <div className="flex justify-between">
           <div>
-            <h1 className="font-medium text-2xl">Làm bài cuộc thi {exam?.name}</h1>
+            <h1 className="font-medium text-2xl">
+              Làm bài cuộc thi {exam?.name}{' '}
+              {examHistory.type === ExamHistoryType.Experiment && '(Thi thử)'}
+            </h1>
             <h1 className="mt-3 font-medium text-xl">Thời gian làm bài {exam?.working_time}</h1>
             <h2 className="mt-3 font-medium text-lg">
               Bộ câu hỏi {examDetail?.exam?.set_question?.name}

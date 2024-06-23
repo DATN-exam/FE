@@ -48,6 +48,7 @@ const Activity = () => {
       {/* Chưa xem */}
       {notifications.map(notification => (
         <div
+          key={notification.id}
           onClick={() => handleOnclick(notification)}
           className="flex justify-center items-center gap-2 md:gap-5 w-full hover:bg-accent p-3 rounded-lg cursor-pointer"
         >
@@ -61,6 +62,7 @@ const Activity = () => {
               {/* <strong>Nguyễn Đắc Toàn</strong> đã thông báo với bạn */}
               {notification.data?.message}
             </div>
+            {/* khac */}
             <p className="text-sm text-primary">{notification.time_ago}</p>
           </div>
           <div className="flex justify-center items-center text-primary text-sm">
