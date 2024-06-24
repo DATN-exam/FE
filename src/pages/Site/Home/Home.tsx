@@ -60,8 +60,12 @@ function Home() {
         Toast.success('Tham gia lớp học thành công')
         fetchClassrooms()
       })
-      .catch(err => {
-        handleResponseError(err)
+      .catch(() => {
+        Alert.alert(
+          'Mã tham gia vào lớp không chính xác',
+          'Mã tham gia vào lớp của bạn không chính xác',
+          'error',
+        )
       })
       .finally(() => {
         hideLoading()

@@ -1,16 +1,21 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input } from '@/components/ui'
+import { Alert, Button, Input } from '@/components/ui'
 import { useAuth } from '@/contexts/auth'
 import userAvatarDefault from '@/assets/user-avatar-default.png'
 import { cn } from '@/lib/utils'
 import { useSidebarActive } from '@/contexts/sidebarActive'
 import { ROUTES_SITE } from '@/config/routes'
+import { useLoading } from '@/contexts/loading'
+import useHandleError from '@/hooks/useHandleError'
+import authService from '@/services/site/authService'
 
 const Profile = () => {
   const { setSidebarActive } = useSidebarActive()
-  const { authProfile } = useAuth()
+  const { authProfile, getProfile } = useAuth()
   const [avatarUrlPreview, setAvatarUrlPreview] = useState<string | null>(null)
+  const { showLoading, hideLoading } = useLoading()
+  const { handleResponseError } = useHandleError()
 
   const {
     control,
@@ -26,23 +31,42 @@ const Profile = () => {
   const handleChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files) {
-      setValue('avatar', files[0])
+      setValue('new_avatar', files[0])
     }
     e.target.value = ''
   }
 
   const handleUpdate = (fields: any) => {
-    console.log(fields)
+    if (fields.new_avatar) {
+      fields = { ...fields, avatar: fields.new_avatar }
+    } else {
+      delete fields.avatar
+    }
+    showLoading()
+    authService
+      .update(fields)
+      .then(() => {
+        Alert.alert('Thành công', 'Cập nhật thông tin cá nhân thành công', 'success')
+        getProfile()
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
   }
 
   useEffect(() => {
+    setAvatarUrlPreview(authProfile.avatar ?? userAvatarDefault)
     setSidebarActive(ROUTES_SITE.AUTH.PROFILE)
   }, [])
 
   useEffect(() => {
     let url: string
-    if (getValues('avatar')) {
-      url = URL.createObjectURL(getValues('avatar'))
+    console.log(getValues('new_avatar'))
+    if (getValues('new_avatar')) {
+      url = URL.createObjectURL(getValues('new_avatar'))
       setAvatarUrlPreview(url)
       clearErrors('images')
     }
@@ -50,7 +74,7 @@ const Profile = () => {
     return () => {
       url && URL.revokeObjectURL(url)
     }
-  }, [watch('avatar')])
+  }, [watch('new_avatar')])
 
   return (
     <section>
@@ -71,7 +95,7 @@ const Profile = () => {
           >
             <div className="mb-4 flex justify-center">
               <img
-                src={avatarUrlPreview ?? userAvatarDefault}
+                src={avatarUrlPreview ?? ''}
                 className="aspect-square w-4/5 rounded-full object-cover md:w-3/5"
                 alt="avatar"
               />

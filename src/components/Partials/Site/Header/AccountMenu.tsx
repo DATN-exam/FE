@@ -37,7 +37,11 @@ const AccountMenu = () => {
           >
             <div className="flex items-center gap-2 rounded-full">
               <p className="text-sm font-normal">{`${authProfile?.first_name} ${authProfile?.last_name}`}</p>
-              <img src={userAvatarDefault} alt="user-avatar" className="h-10 w-10 rounded-full" />
+              <img
+                src={authProfile?.avatar ?? userAvatarDefault}
+                alt="user-avatar"
+                className="h-10 w-10 rounded-full"
+              />
             </div>
           </Button>
         </DropdownMenuTrigger>

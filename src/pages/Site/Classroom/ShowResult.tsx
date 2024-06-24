@@ -48,7 +48,7 @@ function ShowResult() {
           <div>
             <h1 className="text-2xl font-medium">
               Xem kết quả cuộc thi {exam?.name}{' '}
-              {examDetail.type === ExamHistoryType.Experiment && '(Thi thử)'}
+              {examDetail?.type === ExamHistoryType.Experiment && '(Thi thử)'}
             </h1>
             <h1 className="mt-2 text-2xl font-medium">Tổng điểm {examDetail?.total_score}</h1>
             <h1 className="mt-3 text-xl font-medium">Thời gian làm bài {exam?.working_time}</h1>
