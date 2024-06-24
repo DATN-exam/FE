@@ -103,6 +103,7 @@ const AuthProvider = (props: AuthProviderProps) => {
     authLoginWithGoogle,
     authLogout,
     authRemove,
+    getProfile,
   }
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

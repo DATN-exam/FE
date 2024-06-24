@@ -19,6 +19,14 @@ const authService = {
     const { data } = await apiClient.post(`${this.path}/register`, payloads)
     return data
   },
+  async update(payloads: any) {
+    const { data } = await apiClient.post(`${this.path}/update`, payloads, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return data
+  },
   async verify(payloads: VerifyPayload) {
     const { data } = await apiClient.post(`${this.path}/verify`, payloads)
     return data
