@@ -57,7 +57,7 @@ const MainLayout = () => {
 
   return (
     !isChecking && (
-      <div className="min-h-screen bg-secondary dark:bg-card">
+      <div className="min-h-dvh bg-secondary dark:bg-card">
         <Header />
         <main className="fixed bottom-0 left-0 right-0 top-[57px] flex">
           <Sidebar />
