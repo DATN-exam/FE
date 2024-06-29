@@ -39,6 +39,15 @@ const authService = {
     const { data } = await apiClient.post(`/teachers/register`, payloads)
     return data
   },
+
+  async forgotPass(payloads: any) {
+    const { data } = await apiClient.post(`${this.path}/forgot-pass`, payloads)
+    return data
+  },
+  async confirmForgotPass(payloads: any) {
+    const { data } = await apiClient.post(`${this.path}/confirm-forgot-pass`, payloads)
+    return data
+  },
 }
 
 export default authService

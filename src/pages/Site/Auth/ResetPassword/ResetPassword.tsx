@@ -1,13 +1,16 @@
-import { Button, Input } from '@/components/ui'
+import { Alert, Button, Input } from '@/components/ui'
 import { ROUTES_SITE } from '@/config/routes'
+import { useLoading } from '@/contexts/loading'
+import useHandleError from '@/hooks/useHandleError'
+import authService from '@/services/site/authService'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 const defaultValues = {
   token: '',
-  password_new: '',
-  password_new_confirm: '',
+  new_password: '',
+  confirm_password: '',
 }
 
 function ResetPassword() {
@@ -23,10 +26,26 @@ function ResetPassword() {
   } = useForm({
     defaultValues: defaultValues,
   })
-  const { password_new: passwordNewError, password_new_confirm: passwordNewConfirmError } = errors
+  const { new_password: newPasswordError, confirm_password: confirmPasswordError } = errors
+  const { showLoading, hideLoading } = useLoading()
+  const { handleResponseError } = useHandleError()
 
   const handleForgotPassword = (fields: any) => {
-    console.log(fields)
+    showLoading()
+    authService
+      .confirmForgotPass(fields)
+      .then(() => {
+        Alert.alert('Thành công', 'Bạn đã đổi mật khẩu thành công', 'success')
+      })
+      .then(() => {
+        navigate(ROUTES_SITE.AUTH.LOGIN)
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
   }
 
   useEffect(() => {
@@ -43,18 +62,18 @@ function ResetPassword() {
         <Input
           type="password"
           label="Mật khẩu mới"
-          name="password_new"
+          name="new_password"
           control={control}
-          error={passwordNewError}
+          error={newPasswordError}
           autoComplete="off"
           isRequired
         />
         <Input
           type="password"
           label="Xác nhận mật khẩu mới"
-          name="password_new_confirm"
+          name="confirm_password"
           control={control}
-          error={passwordNewConfirmError}
+          error={confirmPasswordError}
           autoComplete="off"
           isRequired
         />
