@@ -1,5 +1,8 @@
-import { Button, Input } from '@/components/ui'
+import { Alert, Button, Input } from '@/components/ui'
 import { ROUTES_SITE } from '@/config/routes'
+import { useLoading } from '@/contexts/loading'
+import useHandleError from '@/hooks/useHandleError'
+import authService from '@/services/site/authService'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
@@ -16,9 +19,26 @@ function ForgotPassword() {
     defaultValues: defaultValues,
   })
   const { email: emailError } = errors
+  const { showLoading, hideLoading } = useLoading()
+  const { handleResponseError } = useHandleError()
 
   const handleForgotPassword = (fields: any) => {
-    console.log(fields)
+    showLoading()
+    authService
+      .forgotPass(fields)
+      .then(() => {
+        Alert.alert(
+          'Thành công',
+          'Yêu cầu đổi mật khẩu thành công! Vui lòng kiểm tra email của bạn',
+          'success',
+        )
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
   }
 
   return (
