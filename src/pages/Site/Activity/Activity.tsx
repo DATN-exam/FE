@@ -2,7 +2,6 @@ import { ROUTES_SITE } from '@/config/routes'
 import { useSidebarActive } from '@/contexts/sidebarActive'
 import { useEffect, useState } from 'react'
 import userAvatarDefault from '@/assets/user-avatar-default.png'
-import { Link } from 'react-router-dom'
 import { useLoading } from '@/contexts/loading'
 import useHandleError from '@/hooks/useHandleError'
 import notificationService from '@/services/site/notificationService'
@@ -70,25 +69,6 @@ const Activity = () => {
           </div>
         </div>
       ))}
-
-      {/* Đã xem */}
-      <Link
-        to="#"
-        className="flex w-full items-center justify-center gap-2 rounded-lg p-3 hover:bg-accent md:gap-5"
-      >
-        <img
-          src={userAvatarDefault}
-          alt=""
-          className="aspect-square size-14 rounded-full object-cover md:size-20"
-        />
-        <div className="flex flex-1 flex-col gap-2">
-          <div className="break-all">
-            <strong>Nguyễn Đắc Toàn</strong> đã thông báo với bạn
-            dfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfddfgsfd
-          </div>
-          <p className="text-sm">1 ngày trước</p>
-        </div>
-      </Link>
     </section>
   )
 }
