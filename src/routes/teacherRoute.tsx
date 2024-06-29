@@ -11,6 +11,7 @@ import {
 import { SetQuestion } from '@/pages/Teacher/SetQuestion'
 import { SetQuestionUpdate } from '@/pages/Teacher/SetQuestion/SetQuestionUpdate'
 import { Questions } from '@/pages/Teacher/SetQuestion/Question'
+import { ShowResult } from '@/pages/Teacher/Classroom'
 
 const teacherRoute = [
   {
@@ -52,6 +53,10 @@ const teacherRoute = [
       {
         path: ROUTES_TEACHER.SET_QUESTION.QUESTIONS,
         element: <Questions />,
+      },
+      {
+        path: ROUTES_TEACHER.CLASSROOM.SHOW_RESULT,
+        element: <ShowResult />,
       },
     ],
   },

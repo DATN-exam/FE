@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui'
+import { ROUTES_TEACHER } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
 import useHandleError from '@/hooks/useHandleError'
 import examService from '@/services/teacher/examService'
@@ -17,6 +18,7 @@ const Analysis = (props: any) => {
     examService
       .getTop(id, exam.id)
       .then(data => {
+        console.log(data)
         setStudents(data)
       })
       .catch(err => {
@@ -152,6 +154,9 @@ const Analysis = (props: any) => {
               <th scope="col" className="px-6 py-3">
                 Thời gian làm bài
               </th>
+              <th scope="col" className="px-6 py-3">
+                Xem bài làm
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -166,6 +171,18 @@ const Analysis = (props: any) => {
                 <td className="px-6 py-4">{`${student.student.first_name} ${student.student.last_name}`}</td>
                 <td className="px-6 py-4">{student.total_score}</td>
                 <td className="px-6 py-4">{student.time_taken}</td>
+                <td className="px-6 py-4">
+                  <a
+                    href={ROUTES_TEACHER.CLASSROOM.SHOW_RESULT.replace(':classroomId', id ?? '')
+                      .replace(':idExam', student.exam_id ?? '')
+                      .replace(':idHistory', student.id ?? '')}
+                    target="_blank"
+                  >
+                    <Button>
+                      <i className="fa-sharp fa-solid fa-eye"></i>
+                    </Button>
+                  </a>
+                </td>
               </tr>
             ))}
           </tbody>

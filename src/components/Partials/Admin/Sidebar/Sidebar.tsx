@@ -9,7 +9,7 @@ const NAV_ITEMS = [
     to: ROUTES_ADMIN.DASHBOARD,
     icon: 'fa-light fa-gauge-max',
     iconActive: 'fa-solid fa-gauge-max',
-    text: 'Dashboard',
+    text: 'Thống kê',
   },
   {
     to: ROUTES_ADMIN.TEACER_REGISTRATION,

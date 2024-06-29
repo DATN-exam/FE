@@ -10,8 +10,8 @@ const examService = {
     const { data } = await apiClient.post(`${this.path}/${id}/exams/${examId}`, payloads)
     return data
   },
-  async getList(id: any) {
-    const { data } = await apiClient.get(`${this.path}/${id}/exams`)
+  async getList(id: any, params: any) {
+    const { data } = await apiClient.get(`${this.path}/${id}/exams`, { params })
     return data
   },
   async delete(id: any, examId: any) {
@@ -30,6 +30,12 @@ const examService = {
   },
   async analysis(id: any, examId: any) {
     const { data } = await apiClient.get(`${this.path}/${id}/exams/${examId}/analysis`)
+    return data
+  },
+  async examHistortyDetail(idClassroom: any, id: any, idHistory: any) {
+    const { data } = await apiClient.get(
+      `${this.path}/${idClassroom}/exams/${id}/history/${idHistory}`,
+    )
     return data
   },
 }

@@ -1,5 +1,5 @@
 import { Button, Input, Select } from '@/components/ui'
-import { CLASSROOM_KEY_LIST_OPTIONS } from '@/config/define'
+import { EXAM_STATUS_LIST_OPTIONS } from '@/config/define'
 import { ClassroomSearchFormProps } from '@/types/teacher'
 import { cx } from 'class-variance-authority'
 import { ChangeEvent } from 'react'
@@ -18,8 +18,8 @@ const SearchForm = (props: ClassroomSearchFormProps) => {
     <form className={cx('space-y-4', className)}>
       <div className="grid grid-cols-1 gap-5 text-sm sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <Input
-          label="Tên"
-          placeholder="Tên"
+          label="Tên cuộc thi"
+          placeholder="Tên cuộc thi"
           name="name"
           value={dataSearch?.name ?? ''}
           onChange={changeDataSearch}
@@ -29,7 +29,7 @@ const SearchForm = (props: ClassroomSearchFormProps) => {
           label="Trạng thái"
           name="status"
           zeroValueText="Tất cả trạng thái"
-          options={CLASSROOM_KEY_LIST_OPTIONS}
+          options={EXAM_STATUS_LIST_OPTIONS}
           value={dataSearch?.status ?? ''}
           onChange={changeDataSearch}
         />

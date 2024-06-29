@@ -28,6 +28,13 @@ const classroomService = {
     const { data } = await apiClient.get(`${this.path}/${id}/students`, { params })
     return data
   },
+  async exportStudents(id: any, params: ClassroomStudentSearchParams) {
+    const { data } = await apiClient.get(`${this.path}/${id}/students/export`, {
+      params,
+      responseType: 'blob',
+    })
+    return data
+  },
   async keys(id: any, params: any) {
     const { data } = await apiClient.get(`${this.path}/${id}/keys`, { params })
     return data

@@ -9,6 +9,8 @@ import useHandleError from '@/hooks/useHandleError'
 import { TExam } from '@/types/site/exam'
 import { Button } from '@/components/ui'
 import { ExamStatus } from '@/config/define'
+import { Modal as ModalAnt } from 'antd'
+import Analysis from './Analysis'
 
 function Exam() {
   const { setSidebarActive } = useSidebarActive()
@@ -18,6 +20,7 @@ function Exam() {
   const [exam, setExam] = useState<TExam>()
   const [examCurrent, setExamCurrent] = useState<any>()
   const [examCurrentExperiment, setExamCurrentExperiment] = useState<any>()
+  const [showModalRanking, setShowModalRanking] = useState(false)
   const navigate = useNavigate()
 
   const fetchExam = () => {
@@ -160,6 +163,11 @@ function Exam() {
   const handleDoExamExperiment = () => {
     fetchStartExamExpriment()
   }
+
+  const handleRanking = () => {
+    setShowModalRanking(true)
+  }
+
   useEffect(() => {
     setSidebarActive(ROUTES_SITE.HOME)
     fetchExam()
@@ -182,25 +190,6 @@ function Exam() {
             <h1 className="mt-3 text-xl font-medium">Điểm của bạn: {examCurrent?.total_score}</h1>
           </>
         )}
-        {/* {exam?.status === ExamStatus.Happening && (
-          <div className="mt-3 flex gap-5">
-            <Button>Thi thử</Button>
-            {examCurrent ? (
-              examCurrent.is_submit === false ? (
-                <Button onClick={handleDoingExam}>Tiếp tục làm bài</Button>
-              ) : examCurrent.show_result ? (
-                <>
-                  <Button onClick={handleShowResult} className="mr-3">
-                    Xem kết quả
-                  </Button>
-                  <Button onClick={handleShowResult}>Xem bảng xếp hạng</Button>
-                </>
-              ) : null
-            ) : (
-              <Button onClick={handleDoExam}>Làm bài</Button>
-            )}
-          </div>
-        )} */}
         <div className="mt-3 flex gap-5">
           {examCurrentExperiment && !examCurrentExperiment.is_submit ? (
             <Button onClick={handleDoingExamExpriment}>Tiếp tục thi thử</Button>
@@ -227,13 +216,22 @@ function Exam() {
               <Button onClick={handleShowResult} className="mr-3">
                 Xem kết quả
               </Button>
-              <Button onClick={handleShowResult}>Xem bảng xếp hạng</Button>
+              <Button onClick={handleRanking}>Xem bảng xếp hạng</Button>
             </>
           )}
         </div>
 
         {exam?.status == ExamStatus.Upcoming && <div>Cuộc thi này chưa bắt đầu</div>}
       </div>
+      <ModalAnt
+        title="Thống kê cuộc thi"
+        open={showModalRanking}
+        onCancel={() => setShowModalRanking(false)}
+        width={1000}
+        destroyOnClose={true}
+      >
+        <Analysis exam={exam} />
+      </ModalAnt>
     </section>
   )
 }
