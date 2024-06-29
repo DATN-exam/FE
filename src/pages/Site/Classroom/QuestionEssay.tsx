@@ -4,16 +4,20 @@ import examService from '@/services/site/examService'
 import { useEffect, useRef, useState } from 'react'
 
 function QuestionEssay(props: any) {
-  const { examAnswer, index, disabled, examHistoryId } = props
+  const { examAnswer, index, disabled, examHistoryId, setNumberQuestionNull } = props
   const { handleResponseError } = useHandleError()
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [value, setValue] = useState('')
+  const numberMinus = useRef(0)
 
   const fetchChangeAnswer = (answer: any) => {
     examService
       .changeAnswer(examHistoryId, examAnswer.id, { answer_text: answer })
-      .then(data => {
-        console.log(data)
+      .then(() => {
+        if (answer !== null && numberMinus.current === 0) {
+          numberMinus.current--
+          setNumberQuestionNull((prev: any) => --prev)
+        }
       })
       .catch(err => {
         handleResponseError(err)

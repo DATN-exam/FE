@@ -2,18 +2,22 @@ import useHandleError from '@/hooks/useHandleError'
 import examService from '@/services/site/examService'
 import type { RadioChangeEvent } from 'antd'
 import { Radio } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function QuestionMutiple(props: any) {
   const [value, setValue] = useState()
-  const { examAnswer, index, disabled, examHistoryId } = props
+  const { examAnswer, index, disabled, examHistoryId, setNumberQuestionNull } = props
   const { handleResponseError } = useHandleError()
+  const numberMinus = useRef(0)
 
   const fetchChangeAnswer = (idAnswer: any) => {
     examService
       .changeAnswer(examHistoryId, examAnswer.id, { answer_id: idAnswer })
       .then(() => {
-        // console.log(data)
+        if (examAnswer.answer_id === null && numberMinus.current === 0) {
+          numberMinus.current++
+          setNumberQuestionNull((prev: any) => --prev)
+        }
       })
       .catch(err => {
         handleResponseError(err)

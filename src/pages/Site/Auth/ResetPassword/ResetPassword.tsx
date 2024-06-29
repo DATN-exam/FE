@@ -6,6 +6,7 @@ import authService from '@/services/site/authService'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
+import { setErrorForInput } from '@/utils/handleErrors'
 
 const defaultValues = {
   token: '',
@@ -22,6 +23,7 @@ function ResetPassword() {
     control,
     handleSubmit,
     setValue,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: defaultValues,
@@ -42,6 +44,7 @@ function ResetPassword() {
       })
       .catch(err => {
         handleResponseError(err)
+        setErrorForInput(err, setError)
       })
       .finally(() => {
         hideLoading()

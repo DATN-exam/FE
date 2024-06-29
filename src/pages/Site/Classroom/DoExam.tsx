@@ -10,6 +10,7 @@ import QuestionEssay from './QuestionEssay'
 import examService from '@/services/site/examService'
 import useHandleError from '@/hooks/useHandleError'
 import { ExamHistoryType, QuestionType } from '@/config/define'
+import { Affix } from 'antd'
 
 function DoExam() {
   const { setSidebarActive } = useSidebarActive()
@@ -21,6 +22,7 @@ function DoExam() {
   const [time, setTime] = useState(60)
   const [examDetail, setExamDetail] = useState<any>()
   const navigate = useNavigate()
+  const [numberQuestionNull, setNumberQuestionNull] = useState(0)
   const onTimeOut = () => {
     fetchSubmit()
   }
@@ -33,7 +35,11 @@ function DoExam() {
         if (data.remaining_time === 0) {
           fetchSubmit()
         }
-        console.log(data)
+        setNumberQuestionNull(
+          data.exam_answers.filter(
+            (item: any) => item.answer_id === null && item.answer_text === null,
+          ).length,
+        )
         setTime(data.remaining_time)
       })
       .catch(err => {
@@ -44,7 +50,17 @@ function DoExam() {
       })
   }
 
-  const fetchSubmit = () => {
+  const fetchSubmit = async () => {
+    if (numberQuestionNull > 0) {
+      const confirm = await Alert.confirm(
+        `Bạn có ${numberQuestionNull} câu hỏi chưa trả lời có xác nhận nộp bài`,
+        `Nộp bài`,
+        'hủy',
+      )
+      if (!confirm) {
+        return
+      }
+    }
     showLoading()
     examService
       .submit(examHistory.id)
@@ -88,9 +104,15 @@ function DoExam() {
             </h2>
           </div>
           {examHistory.is_submit == false && (
-            <div>
-              <CountDownClock onComplete={onTimeOut} time={time} />
-            </div>
+            <Affix offsetTop={100}>
+              <div className="flex-col items-center justify-center">
+                <CountDownClock onComplete={onTimeOut} time={time} />
+                <p className="text-center">
+                  {examDetail?.exam_answers.length - numberQuestionNull}/
+                  {examDetail?.exam_answers.length}
+                </p>
+              </div>
+            </Affix>
           )}
         </div>
         {examDetail?.exam_answers.map((answer: any, index: number) => {
@@ -102,6 +124,8 @@ function DoExam() {
                   disabled={examHistory.is_submit}
                   examAnswer={answer}
                   index={index + 1}
+                  numberQuestionNull={numberQuestionNull}
+                  setNumberQuestionNull={setNumberQuestionNull}
                 />
               </div>
             )
@@ -113,6 +137,8 @@ function DoExam() {
                 disabled={examHistory.is_submit}
                 examAnswer={answer}
                 index={index + 1}
+                numberQuestionNull={numberQuestionNull}
+                setNumberQuestionNull={setNumberQuestionNull}
               />
             </div>
           )
