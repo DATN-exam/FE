@@ -48,6 +48,10 @@ const examService = {
     const { data } = await apiClient.post(`exams/${examHistoryId}/submit`)
     return data
   },
+  async getTop(id: any, examId: any) {
+    const { data } = await apiClient.get(`${this.path}/${id}/exams/${examId}/get-top`)
+    return data
+  },
 }
 
 export default examService

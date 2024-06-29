@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Alert, Badge, Button, Modal, Table } from '@/components/ui'
-import { DEFAULT_PAGINATION_OBJECT, EXAM_STATUS_LIST_OPTIONS, SORT_TYPE } from '@/config/define'
+import {
+  DEFAULT_PAGINATION_OBJECT,
+  EXAM_STATUS_LIST_OPTIONS,
+  ExamStatus,
+  SORT_TYPE,
+} from '@/config/define'
 import { ROUTES_TEACHER } from '@/config/routes'
 import { useLoading } from '@/contexts/loading'
 import { useSidebarActive } from '@/contexts/sidebarActive'
@@ -19,6 +24,7 @@ import UpdateForm from './UpdateForm'
 import Ranking from './Ranking'
 import Analysis from './Analysis'
 import { getValueFromObjectByKey } from '@/utils/helper'
+import SearchForm from './SearchForm'
 
 const defaultValueDataSearch: ClassroomSearchParams = {
   name: '',
@@ -86,9 +92,11 @@ function ClassroomExam() {
       field: 'end_date',
       valueGetter: row => (
         <div className="flex gap-3">
-          <Button onClick={() => handleUpdate(row)}>
-            <i className="fa-sharp fa-solid fa-pen-to-square"></i>
-          </Button>
+          {row.status !== ExamStatus.Happened && (
+            <Button onClick={() => handleUpdate(row)}>
+              <i className="fa-sharp fa-solid fa-pen-to-square"></i>
+            </Button>
+          )}
           <Button className="bg-red-600 hover:bg-red-700" onClick={() => handleDelete(row)}>
             <i className="fa-solid fa-trash-can-slash"></i>
           </Button>
@@ -126,6 +134,11 @@ function ClassroomExam() {
     setOpenFormUpdate(true)
   }
 
+  const resetDataSearch = () => {
+    setDataSearch(defaultValueDataSearch)
+    debouncedFetchExams()
+  }
+
   const handleDelete = async (exam: TExam) => {
     const confirm = await Alert.confirm(
       'Bạn có chắc chắn muốn xóa cuộc thi này không?',
@@ -152,10 +165,10 @@ function ClassroomExam() {
         hideLoading()
       })
   }
-  const fetchExams = () => {
+  const fetchExams = (params?: any) => {
     showLoading()
     examService
-      .getList(id)
+      .getList(id, params)
       .then(({ data, meta }) => {
         setExams(data)
         setPagination(setPaginationData(meta ?? DEFAULT_PAGINATION_OBJECT))
@@ -168,6 +181,10 @@ function ClassroomExam() {
       })
   }
   const debouncedFetchExams = useDebouncedCallback(fetchExams)
+
+  const search = () => {
+    debouncedFetchExams({ ...dataSearch, page: 1 })
+  }
 
   const handleChangePage = (selected: number) => {
     setPagination({ ...pagination, currentPage: selected })
@@ -188,7 +205,13 @@ function ClassroomExam() {
       <Header />
       <h1 className="text-3xl text-foreground">Danh sách cuộc thi</h1>
       <div className="space-y-6 rounded bg-card p-5 shadow">
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <SearchForm
+            dataSearch={dataSearch}
+            setDataSearch={setDataSearch}
+            onReset={resetDataSearch}
+            onSearch={search}
+          />
           <Button onClick={handleCreateExam}>Tạo cuộc thi</Button>
         </div>
         <Table

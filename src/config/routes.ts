@@ -39,6 +39,7 @@ export const ROUTES_TEACHER = {
     STUDENTS: '/teacher/classrooms/:id/students',
     KEYS: '/teacher/classrooms/:id/keys',
     EXAMS: '/teacher/classrooms/:id/exams',
+    SHOW_RESULT: '/teacher/classroom/:classroomId/exams/:idExam/show-result/:idHistory',
   },
   SET_QUESTION: {
     INDEX: '/teacher/set-question',

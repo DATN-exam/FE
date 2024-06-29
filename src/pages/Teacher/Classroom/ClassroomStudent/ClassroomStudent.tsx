@@ -184,6 +184,31 @@ function ClassroomStudent() {
     }
   }
 
+  const handleExport = () => {
+    showLoading()
+    classroomService
+      .exportStudents(id, dataSearch)
+      .then((blob: any) => {
+        const blobS = window.URL.createObjectURL(
+          new Blob([blob], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          }),
+        )
+        const link = document.createElement('a')
+        link.href = blobS
+        link.setAttribute('download', 'students.xlsx')
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      })
+      .catch(err => {
+        handleResponseError(err)
+      })
+      .finally(() => {
+        hideLoading()
+      })
+  }
+
   useEffect(() => {
     setSidebarActive(ROUTES_TEACHER.CLASSROOM.INDEX)
     debouncedFetchClassroomStudents()
@@ -194,6 +219,12 @@ function ClassroomStudent() {
       <Header />
       <h1 className="text-3xl text-foreground">Danh sách học sinh</h1>
       <div className="space-y-6 rounded bg-card p-5 shadow">
+        <div className="flex justify-end">
+          <Button onClick={handleExport}>
+            <i className="fa-sharp fa-solid fa-file-export"></i>
+            <span>Excel</span>
+          </Button>
+        </div>
         <SearchForm
           dataSearch={dataSearch}
           setDataSearch={setDataSearch}

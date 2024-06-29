@@ -101,6 +101,16 @@ export type HorizontalBarChartProps = {
   chartBorderColor?: string
 }
 
+export type LineChartProps = {
+  layoutClassName: string
+  title: string
+  dataLabel: string
+  dataset: number[] | string[]
+  labels: string[]
+  chartBackgroundColor?: string
+  chartBorderColor?: string
+}
+
 export type InfoCardProps = {
   layoutClassName?: string
   iconClassName: string
